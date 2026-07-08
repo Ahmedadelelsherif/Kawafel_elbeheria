@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>القوافل العلاجية بمحافظة البحيرة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pr:#1a4a6b;--pr2:#2a6496;--pr3:#0f2d45;
+  --ac:#c8860a;--ac2:#f0a832;
+  --ok:#1a7a4a;--no:#b83232;
+  --bg:#eef2f7;--card:#fff;--bdr:#cdd8e8;
+  --tx:#1a2535;--mu:#5a7080;
+  --rbg:#fff0f0;--gbg:#f0fff4;--ybg:#fffbe8;
+  --blood:#c8350a;--para:#1a7a4a;--xray:#1a4a9b;--screen:#7a1a7a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;}
+.hdr{background:linear-gradient(135deg,var(--pr3),var(--pr),var(--pr2));color:#fff;box-shadow:0 4px 20px rgba(26,74,107,.35);position:sticky;top:0;z-index:300;}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.12);gap:8px;flex-wrap:wrap;}
+.hdr-logo{display:flex;align-items:center;gap:10px;}
+.logo-box{width:44px;height:44px;background:rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.hdr-t h1{font-size:14px;font-weight:900;}
+.hdr-t p{font-size:10px;opacity:.75;margin-top:1px;}
+.hdr-right{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.ubadge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:5px 11px;border-radius:20px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:5px;}
+.dbadge{padding:5px 11px;border-radius:20px;font-size:12px;font-weight:700;color:#fff;}
+.dbadge.blood{background:var(--blood);}
+.dbadge.para{background:var(--para);}
+.dbadge.xray{background:var(--xray);}
+.dbadge.screen{background:var(--screen);}
+.hdr-nav{display:flex;overflow-x:auto;}
+.nb{padding:9px 13px;background:transparent;border:none;color:rgba(255,255,255,.65);cursor:pointer;font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:4px;transition:all .2s;}
+.nb:hover{color:#fff;background:rgba(255,255,255,.08);}
+.nb.active{color:#fff;border-bottom-color:var(--ac2);background:rgba(255,255,255,.1);}
+.nb[disabled]{opacity:.3;cursor:not-allowed;pointer-events:none;}
+.sc{display:none;padding:14px;max-width:1500px;margin:0 auto;}
+.sc.active{display:block;}
+.card{background:var(--card);border-radius:13px;border:1px solid var(--bdr);box-shadow:0 2px 8px rgba(26,74,107,.05);overflow:hidden;margin-bottom:12px;}
+.ch{padding:9px 14px;font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px;}
+.ch.pr{background:linear-gradient(90deg,var(--pr),var(--pr2));}
+.ch.blood{background:linear-gradient(90deg,var(--blood),#e05030);}
+.ch.para{background:linear-gradient(90deg,#145a38,var(--para));}
+.ch.xray{background:linear-gradient(90deg,#0f2d8a,var(--xray));}
+.ch.screen{background:linear-gradient(90deg,#5a1060,var(--screen));}
+.cb{padding:12px;}
+.fg{display:grid;gap:8px;}
+.fg.c2{grid-template-columns:1fr 1fr;}
+.fg.c3{grid-template-columns:1fr 1fr 1fr;}
+.fg.c4{grid-template-columns:1fr 1fr 1fr 1fr;}
+.fg.c5{grid-template-columns:1fr 1fr 1fr 1fr 1fr;}
+.fw{display:flex;flex-direction:column;gap:3px;}
+.fw label{font-size:10px;font-weight:700;color:var(--mu);}
+.fw label .req{color:var(--no);}
+.fw label .hint{color:var(--ac);font-weight:600;font-size:9px;}
+.fw input,.fw select{padding:7px 9px;border:1.5px solid var(--bdr);border-radius:7px;font-family:'Cairo',sans-serif;font-size:12px;color:var(--tx);background:#fafcff;direction:rtl;transition:border-color .2s;width:100%;}
+.fw input:focus,.fw select:focus{outline:none;border-color:var(--pr);background:#fff;}
+.s2{grid-column:span 2;}
+.s3{grid-column:span 3;}
+.s4{grid-column:span 4;}
+.s5{grid-column:span 5;}
+.res-pos{background:var(--rbg)!important;border-color:#e0a0a0!important;color:var(--no)!important;font-weight:700;}
+.res-neg{background:var(--gbg)!important;border-color:#a0d0b0!important;color:var(--ok)!important;font-weight:700;}
+.btn{border:none;padding:8px 18px;border-radius:8px;font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:opacity .2s;display:inline-flex;align-items:center;gap:5px;}
+.btn:hover{opacity:.88;}
+.btn.pr{background:linear-gradient(135deg,var(--pr),var(--pr2));color:#fff;}
+.btn.ac{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;}
+.btn.ok{background:var(--ok);color:#fff;}
+.btn.no{background:var(--no);color:#fff;}
+.btn.out{background:#fff;color:var(--pr);border:1.5px solid var(--pr);}
+.btn.out:hover{background:var(--pr);color:#fff;}
+.btn.full{width:100%;justify-content:center;margin-top:5px;}
+.btn.sm{padding:4px 9px;font-size:11px;border-radius:6px;}
+.btn.sm.edit{background:var(--ybg);color:var(--ac);border:1px solid #e0c080;}
+.btn.sm.edit:hover{background:var(--ac);color:#fff;}
+.btn.sm.del{background:var(--rbg);color:var(--no);border:1px solid #f5c6c6;}
+.btn.sm.del:hover{background:var(--no);color:#fff;}
+.sess-ban{background:linear-gradient(135deg,#eaf4ff,#d4eaff);border:1px solid #b0d4f0;border-radius:11px;padding:11px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.sinfo{display:flex;gap:16px;flex-wrap:wrap;}
+.sf{display:flex;flex-direction:column;}
+.sf .sl{font-size:10px;color:var(--mu);font-weight:600;}
+.sf .sv{font-size:12px;color:var(--pr);font-weight:700;}
+.edit-ban{background:linear-gradient(135deg,#fff8e8,#ffefc8);border:2px solid var(--ac);border-radius:11px;padding:9px 14px;margin-bottom:10px;display:none;align-items:center;justify-content:space-between;gap:8px;}
+.edit-ban.show{display:flex;}
+.dsel{display:flex;gap:7px;margin-bottom:11px;}
+.db{flex:1;padding:8px;border:2px solid var(--bdr);border-radius:8px;background:#fff;font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;color:var(--mu);transition:all .2s;text-align:center;}
+.db.active{border-color:var(--pr);background:var(--pr);color:#fff;}
+.esec{background:#fff;border-radius:11px;border:1px solid var(--bdr);margin-bottom:10px;overflow:hidden;}
+.esec-h{padding:8px 13px;font-size:11px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px;}
+.esec-h.basic{background:linear-gradient(90deg,#3a5a7b,#4a7aab);}
+.esec-h.blood{background:linear-gradient(90deg,var(--blood),#e05030);}
+.esec-h.para{background:linear-gradient(90deg,#145a38,var(--para));}
+.esec-h.xray{background:linear-gradient(90deg,#0f2d8a,var(--xray));}
+.esec-h.screen{background:linear-gradient(90deg,#5a1060,var(--screen));}
+.esec-b{padding:11px;}
+.eacts{display:flex;gap:7px;justify-content:flex-end;padding:10px 12px;border-top:1px solid var(--bdr);background:#f8fafc;flex-wrap:wrap;}
+.tbl-wrap{overflow-x:auto;border-radius:9px;border:1px solid var(--bdr);}
+table{width:100%;border-collapse:collapse;font-size:11px;min-width:700px;}
+thead th{color:#fff;padding:8px 6px;text-align:center;font-weight:700;white-space:nowrap;border-left:1px solid rgba(255,255,255,.1);}
+thead.blood-h{background:linear-gradient(90deg,var(--blood),#e05030);}
+thead.para-h{background:linear-gradient(90deg,#145a38,var(--para));}
+thead.xray-h{background:linear-gradient(90deg,#0f2d8a,var(--xray));}
+thead.screen-h{background:linear-gradient(90deg,#5a1060,var(--screen));}
+tbody tr{border-bottom:1px solid var(--bdr);transition:background .15s;}
+tbody tr:hover{background:#f0f6ff;}
+tbody tr:nth-child(even){background:#f8fafc;}
+tbody tr:nth-child(even):hover{background:#e8f2ff;}
+td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid var(--bdr);}
+.bp{background:var(--rbg);color:var(--no);padding:1px 6px;border-radius:8px;font-weight:700;font-size:10px;border:1px solid #f5c6c6;}
+.bn{background:var(--gbg);color:var(--ok);padding:1px 6px;border-radius:8px;font-weight:700;font-size:10px;border:1px solid #b0d8b8;}
+.bv{background:#f0f4ff;color:var(--pr2);padding:1px 5px;border-radius:6px;font-size:10px;}
+.tacts{display:flex;gap:3px;justify-content:center;}
+.sbar{display:flex;gap:7px;margin-bottom:10px;flex-wrap:wrap;}
+.sbar input,.sbar select{padding:7px 10px;border:1.5px solid var(--bdr);border-radius:8px;font-family:'Cairo',sans-serif;font-size:12px;direction:rtl;background:#fff;}
+.sbar input{flex:1;min-width:150px;}
+.rh{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;flex-wrap:wrap;gap:7px;}
+.rh h3{font-size:13px;font-weight:900;color:var(--pr);}
+.rcnt{background:var(--pr);color:#fff;padding:2px 9px;border-radius:18px;font-size:11px;font-weight:700;margin-right:5px;}
+.stgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:9px;margin-bottom:14px;}
+.stc{background:#fff;border:1px solid var(--bdr);border-radius:11px;padding:12px;text-align:center;}
+.stc .n{font-size:24px;font-weight:900;color:var(--pr);}
+.stc .l{font-size:10px;color:var(--mu);font-weight:600;margin-top:2px;}
+.stc.ac .n{color:var(--ac);}
+.stc.no .n{color:var(--no);}
+.stc.ok .n{color:var(--ok);}
+.rpt-tbl{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:14px;}
+.rpt-tbl th{background:var(--pr);color:#fff;padding:7px;text-align:center;border:1px solid #999;}
+.rpt-tbl td{padding:6px;text-align:center;border:1px solid #ddd;}
+.rpt-tbl tr:nth-child(even) td{background:#f5f8ff;}
+.rpt-tbl .tr td{background:#e8f0ff;font-weight:700;}
+.login-ov{position:fixed;inset:0;background:linear-gradient(135deg,var(--pr3),var(--pr));z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;}
+.login-box{background:#fff;border-radius:18px;padding:32px 28px;max-width:440px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,.25);}
+.lerr{background:var(--rbg);border:1px solid #f5c6c6;border-radius:7px;padding:8px 12px;font-size:12px;color:var(--no);margin-bottom:12px;display:none;}
+.mov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:center;justify-content:center;}
+.mov.show{display:flex;}
+.mbox{background:#fff;border-radius:15px;padding:24px;max-width:440px;width:92%;box-shadow:0 8px 40px rgba(0,0,0,.2);}
+.mbox h3{color:var(--pr);font-size:15px;font-weight:900;margin-bottom:7px;}
+.mbox p{color:var(--mu);font-size:12px;margin-bottom:16px;line-height:1.6;}
+.macts{display:flex;gap:7px;justify-content:flex-end;}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ok);color:#fff;padding:10px 20px;border-radius:26px;font-size:12px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.2);opacity:0;transition:opacity .3s;z-index:9998;display:flex;align-items:center;gap:6px;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;}
+.dept-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:650px;margin:0 auto;}
+.dc{background:#fff;border:2px solid var(--bdr);border-radius:13px;padding:20px 14px;text-align:center;cursor:pointer;transition:all .22s;}
+.dc:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1);}
+.dc.blood:hover,.dc.blood.sel{border-color:var(--blood);background:#fff5f3;}
+.dc.para:hover,.dc.para.sel{border-color:var(--para);background:#f0fff6;}
+.dc.xray:hover,.dc.xray.sel{border-color:var(--xray);background:#f0f4ff;}
+.dc.screen:hover,.dc.screen.sel{border-color:var(--screen);background:#fdf0ff;}
+.dc .ico{font-size:36px;margin-bottom:8px;}
+.dc h3{font-size:13px;font-weight:900;}
+.dc.blood h3{color:var(--blood);}
+.dc.para h3{color:var(--para);}
+.dc.xray h3{color:var(--xray);}
+.dc.screen h3{color:var(--screen);}
+.dc p{font-size:10px;color:var(--mu);}
+.staff-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--bdr);margin-bottom:6px;background:#fafcff;}
+.staff-dep{font-size:11px;padding:2px 8px;border-radius:10px;color:#fff;font-weight:700;}
+.staff-dep.blood{background:var(--blood);}
+.staff-dep.para{background:var(--para);}
+.staff-dep.xray{background:var(--xray);}
+.staff-dep.screen{background:var(--screen);}
+.ac-wrap{position:relative;}
+.ac-list{position:absolute;top:100%;right:0;left:0;background:#fff;border:1.5px solid var(--pr);border-radius:7px;max-height:180px;overflow-y:auto;z-index:200;box-shadow:0 4px 12px rgba(0,0,0,.12);display:none;}
+.ac-item{padding:7px 10px;font-size:12px;cursor:pointer;border-bottom:1px solid var(--bdr);}
+.ac-item:hover{background:#eaf4ff;}
+.prnt-hdr{display:none;}
+@media print{.hdr,.no-print,.edit-ban,.sess-ban{display:none!important;}.sc{display:block!important;padding:0;}body{background:#fff;}.prnt-hdr{display:block!important;text-align:center;padding:8px 0 12px;border-bottom:2px solid #333;margin-bottom:10px;}}
+@media(max-width:640px){.fg.c3,.fg.c4,.fg.c5{grid-template-columns:1fr 1fr;}.dept-grid{grid-template-columns:1fr 1fr;}.stgrid{grid-template-columns:1fr 1fr;}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+<!-- LOGIN -->
+<div class="login-ov" id="loginOv">
+  <div class="login-box">
+    <div style="text-align:center;font-size:48px;margin-bottom:10px">🏥</div>
+    <h2 style="font-size:18px;font-weight:900;color:var(--pr);text-align:center;margin-bottom:4px">القوافل العلاجية بمحافظة البحيرة</h2>
+    <p style="font-size:12px;color:var(--mu);text-align:center;margin-bottom:20px">وزارة الصحة والسكان — أدخل بيانات الدخول</p>
+    <div id="lockStatusLogin"></div>
+    <div class="lerr" id="lerr"></div>
+    <div class="fw" style="margin-bottom:10px"><label>اسم المستخدم <span class="req">*</span></label>
+      <select id="l-user-sel" onchange="onLoginUserSel()"><option value="">-- اختر اسمك من القائمة --</option><option value="admin">⚙️ المدير / المنسق</option></select>
+    </div>
+    <div class="fw" style="margin-bottom:12px"><label>كلمة السر <span class="req">*</span></label><input id="l-pass" type="password" placeholder="كلمة السر"></div>
+    <div id="daySelLogin" style="display:none;margin-bottom:14px">
+      <label style="font-size:11px;font-weight:700;color:var(--mu);display:block;margin-bottom:6px">يوم العمل <span class="req">*</span></label>
+      <div style="display:flex;gap:8px">
+        <button type="button" id="ldb1" onclick="setLoginDay(1)" style="flex:1;padding:8px;border:2px solid var(--pr);border-radius:8px;background:var(--pr);color:#fff;font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;cursor:pointer">📅 اليوم الأول</button>
+        <button type="button" id="ldb2" onclick="setLoginDay(2)" style="flex:1;padding:8px;border:2px solid var(--bdr);border-radius:8px;background:#fff;color:var(--mu);font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;cursor:pointer">📅 اليوم الثاني</button>
+      </div>
+      <div id="loginDayDate" style="font-size:10px;color:var(--mu);text-align:center;margin-top:4px"></div>
+    </div>
+    <button class="btn pr full" onclick="doLogin()">🚀 دخول</button>
+    <p style="font-size:10px;color:var(--mu);text-align:center;margin-top:10px">المدير الافتراضي: admin / 1234</p>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-top">
+    <div class="hdr-logo">
+      <div class="logo-box">🏥</div>
+      <div class="hdr-t"><h1>القوافل العلاجية بمحافظة البحيرة</h1><p>وزارة الصحة والسكان | مركز معلومات القوافل العلاجية</p></div>
+    </div>
+    <div class="hdr-right">
+      <div id="ubadge" class="ubadge" style="display:none">👤 <span id="uname">—</span></div>
+      <div id="dbadge" class="dbadge" style="display:none"></div>
+      <button class="btn sm" id="logoutBtn" style="display:none;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)" onclick="logout()">🚪 خروج</button>
+    </div>
+  </div>
+  <div class="hdr-nav">
+    <button class="nb active" onclick="if(curUser?.role==='admin')gotoSc('setup');else showToast('⚠️ إعداد القافلة للمدير فقط',false)" id="nav-setup">⚙️ إعداد القافلة</button>
+    <button class="nb" onclick="gotoSc('entry')" id="nav-entry" disabled>➕ تسجيل مريض</button>
+    <button class="nb" onclick="gotoSc('records')" id="nav-records" disabled>📋 السجلات</button>
+    <button class="nb" onclick="gotoSc('stats')" id="nav-stats" disabled>📊 التقرير العددي</button>
+    <button class="nb no-print" onclick="printRpt()" id="nav-print" disabled>🖨️ طباعة</button>
+    <button class="nb no-print" onclick="exportExcel()" id="nav-export" disabled>📊 تصدير Excel</button>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="mov" id="cfMov">
+  <div class="mbox">
+    <h3 id="cfTitle">تأكيد</h3><p id="cfMsg" style="white-space:pre-line"></p>
+    <div class="macts"><button class="btn out" onclick="cfCancel()">إلغاء</button><button class="btn no" id="cfOk">تأكيد</button></div>
+  </div>
+</div>
+
+<!-- PHONE WARNING MODAL -->
+<div class="mov" id="phoneMov">
+  <div class="mbox">
+    <h3 style="color:var(--no)">📞 نتيجة غير طبيعية</h3>
+    <p style="font-size:12px;color:var(--mu);margin-bottom:12px;line-height:1.7">تم رصد نتيجة <b>غير طبيعية</b> في هذا الملف.<br>برجاء تسجيل رقم التليفون إن أمكن للمتابعة مع المريض.</p>
+    <div style="margin-bottom:12px">
+      <label style="font-size:11px;font-weight:700;color:var(--mu);display:block;margin-bottom:4px">رقم التليفون</label>
+      <input type="tel" id="phoneModalInput" placeholder="01x..." style="width:100%;padding:8px 10px;border:1.5px solid var(--bdr);border-radius:7px;font-family:'Cairo',sans-serif;font-size:13px">
+    </div>
+    <div class="macts">
+      <button class="btn out" onclick="phoneModalDone(false)">تخطي وحفظ</button>
+      <button class="btn ok" onclick="phoneModalDone(true)">💾 حفظ مع الرقم</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+<div class="prnt-hdr" id="prntHdr"><h2>وزارة الصحة والسكان — القوافل العلاجية بمحافظة البحيرة</h2><h3 id="ph-t"></h3><p id="ph-i"></p></div>
+<!-- SETUP -->
+<div class="sc active" id="sc-setup">
+  <div style="max-width:740px;margin:0 auto">
+
+    <!-- كارت للموظف فقط: معلومات القافلة الحالية -->
+    <div id="empSetupCard" style="display:none">
+      <div class="card"><div class="ch pr">🏥 بيانات القافلة الحالية</div><div class="cb">
+        <div style="background:#eaf4ff;border-radius:9px;padding:14px;text-align:center">
+          <div id="empVillage" style="font-size:20px;font-weight:900;color:var(--pr);margin-bottom:4px"></div>
+          <div id="empCenter" style="font-size:13px;color:var(--mu);margin-bottom:10px"></div>
+          <div id="empDates" style="font-size:12px;color:var(--tx)"></div>
+        </div>
+        <p style="font-size:11px;color:var(--mu);text-align:center;margin-top:10px">للبدء في التسجيل اضغط <b>تسجيل مريض</b> من القائمة أعلاه</p>
+      </div></div>
+    </div>
+
+    <!-- كارت الإعداد: للمدير فقط -->
+    <div id="adminSetupCard">
+      <div class="card"><div class="ch pr">🏥 الإعدادات الأساسية للقافلة</div><div class="cb">
+      <div class="fg c2" style="margin-bottom:10px">
+        <div class="fw"><label>المحافظة</label><input value="البحيرة" readonly style="background:#f0f4f8"></div>
+        <div class="fw"><label>المركز / المنطقة <span class="req">*</span></label><input id="s-center" type="text" placeholder="مثال: مركز دمنهور"></div>
+      </div>
+      <div class="fg c2" style="margin-bottom:10px">
+        <div class="fw"><label>اسم القافلة / القرية <span class="req">*</span></label><input id="s-village" type="text" placeholder="مثال: قرية الحاجنية"></div>
+        <div class="fw"><label>المسئول عن القافلة</label><input id="s-leader" type="text" placeholder="اسم المسئول"></div>
+      </div>
+      <div class="fg c2" style="margin-bottom:10px">
+        <div class="fw"><label>تاريخ اليوم الأول <span class="req">*</span></label><input id="s-d1" type="date"></div>
+        <div class="fw"><label>تاريخ اليوم الثاني</label><input id="s-d2" type="date"></div>
+      </div>
+      <button class="btn pr full" onclick="saveSetup()">💾 حفظ بيانات القافلة / بدء قافلة جديدة</button>
+    </div></div>
+    </div><!-- /adminSetupCard -->
+
+    <div class="card" id="staffCard" style="display:none"><div class="ch pr">👥 إدارة القوى البشرية</div><div class="cb">
+      <div class="fg c4" style="margin-bottom:10px">
+        <div class="fw s2"><label>اسم الموظف <span class="req">*</span></label><input id="ns-name" type="text" placeholder="الاسم الكامل"></div>
+        <div class="fw"><label>القسم <span class="req">*</span></label>
+          <select id="ns-dept"><option value="">-- اختر --</option><option value="blood">معمل الدم 🩸</option><option value="para">معمل الطفيليات 🔬</option><option value="xray">الأشعة 📡</option><option value="screen">افحص واطمن 💊</option></select>
+        </div>
+        <div class="fw"><label>كلمة السر <span class="req">*</span></label><input id="ns-pass" type="text" placeholder="كلمة السر"></div>
+      </div>
+      <button class="btn ok sm" onclick="addStaff()" style="margin-bottom:12px">➕ إضافة موظف</button>
+      <div id="staffList"></div>
+    </div></div>
+
+    <div class="card" id="adminCard" style="display:none"><div class="ch pr">⚙️ إدارة البيانات</div><div class="cb">
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="btn sm del" onclick="cfClearAll()">⚠️ مسح كل البيانات</button>
+        <button class="btn sm edit" onclick="exportExcel()">📊 تصدير Excel</button>
+      </div>
+      <div id="lockBannerWrap" style="margin-top:10px"></div>
+      <div style="margin-top:10px;border-top:1px solid var(--bdr);padding-top:10px">
+        <div id="lockBtn" onclick="lockCaravan()" class="btn sm" style="background:#7a1a1a;color:#fff;border:none;cursor:pointer;width:100%;text-align:center;font-size:12px;padding:8px">
+          🔒 إغلاق القافلة وتجميد صلاحيات الموظفين
+        </div>
+        <div id="unlockBtn" onclick="unlockCaravan()" class="btn sm" style="display:none;background:#1a4a6b;color:#fff;border:none;cursor:pointer;width:100%;text-align:center;font-size:12px;padding:8px">
+          🔓 إعادة فتح القافلة للموظفين
+        </div>
+        <p style="font-size:10px;color:var(--mu);margin-top:5px;text-align:center">عند الإغلاق: الموظفون لا يستطيعون الدخول أو رؤية البيانات — المدير فقط</p>
+      </div>
+      <div style="margin-top:12px">
+        <label style="font-size:11px;font-weight:700;color:var(--pr);display:block;margin-bottom:5px">تغيير كلمة سر المدير</label>
+        <div style="display:flex;gap:7px">
+          <input id="newAdminPass" type="password" placeholder="كلمة السر الجديدة" style="flex:1;padding:7px 9px;border:1.5px solid var(--bdr);border-radius:7px;font-family:'Cairo',sans-serif;font-size:12px">
+          <button class="btn pr sm" onclick="changeAdminPass()">تغيير</button>
+        </div>
+      </div>
+    </div></div>
+
+    <div class="card" id="gsCard" style="display:none">
+      <div class="ch pr">☁️ مزامنة Google Sheets</div>
+      <div class="cb">
+        <div style="background:#eaf4ff;border:1px solid #b0d4f0;border-radius:9px;padding:10px 12px;margin-bottom:12px;font-size:11px;color:#1a4a6b;line-height:1.8">
+          📌 <b>طريقة الإعداد:</b><br>
+          ١. افتح <b>Google Sheets</b> وأنشئ جدول بيانات جديد<br>
+          ٢. من القائمة اختر: <b>ملحقات ← Apps Script</b><br>
+          ٣. الصق كود الـ Script المرفق واضغط <b>نشر ← نشر تطبيق ويب</b><br>
+          ٤. اختر: تنفيذ كـ "أنا" — الوصول لـ "أي شخص"<br>
+          ٥. انسخ الرابط الناتج والصقه هنا
+        </div>
+        <div style="margin-bottom:10px">
+          <label style="font-size:11px;font-weight:700;color:var(--mu);display:block;margin-bottom:4px">رابط Google Apps Script</label>
+          <div style="display:flex;gap:7px">
+            <input type="text" id="gs-url" placeholder="https://script.google.com/macros/s/.../exec"
+              style="flex:1;padding:7px 9px;border:1.5px solid var(--bdr);border-radius:7px;font-family:'Cairo',sans-serif;font-size:11px;direction:ltr">
+            <button class="btn pr sm" onclick="setGsUrl()">💾 حفظ</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+          <button class="btn ok sm" onclick="pullFromSheets()">⬇️ تحميل من Sheets</button>
+          <button class="btn out sm" onclick="pushAllToSheets()">⬆️ رفع الكل لـ Sheets</button>
+          <button class="btn sm" style="background:#f5f5f5;color:#555;border:1px solid #ddd" onclick="testGsConnection()">🔌 اختبار الاتصال</button>
+        </div>
+        <div id="gs-status" style="font-size:11px;color:var(--mu);min-height:18px"></div>
+        <p style="font-size:10px;color:#999;margin-top:6px">✅ البيانات تُرسل تلقائياً لـ Sheets عند حفظ كل مريض</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ENTRY -->
+<div class="sc" id="sc-entry">
+  <div class="sess-ban" id="sessBan" style="display:none">
+    <div class="sinfo">
+      <div class="sf"><span class="sl">الموظف</span><span class="sv" id="sb-emp">—</span></div>
+      <div class="sf"><span class="sl">القافلة</span><span class="sv" id="sb-vil">—</span></div>
+      <div class="sf"><span class="sl">المركز</span><span class="sv" id="sb-cen">—</span></div>
+      <div class="sf"><span class="sl">اليوم</span><span class="sv" id="sb-day">—</span></div>
+    </div>
+  </div>
+  <div class="edit-ban" id="editBan"><span>✏️ تعديل المريض: <span id="editPtN">—</span></span><button class="btn sm del" onclick="cancelEdit()">✕ إلغاء</button></div>
+  <div class="dsel no-print" id="daySel" style="display:none">
+    <button class="db active" onclick="selDay(1)" id="db1">📅 اليوم الأول</button>
+    <button class="db" onclick="selDay(2)" id="db2">📅 اليوم الثاني</button>
+  </div>
+  <div id="deptChooser" style="display:none;margin-bottom:12px">
+    <div class="card"><div class="ch pr">🏥 اختر القسم</div><div class="cb">
+      <div class="dept-grid">
+        <div class="dc blood" onclick="swDept('blood')"><div class="ico">🩸</div><h3>معمل الدم</h3><p>تحاليل الدم الشاملة</p></div>
+        <div class="dc para" onclick="swDept('para')"><div class="ico">🔬</div><h3>معمل الطفيليات</h3><p>تحاليل البول والبراز</p></div>
+        <div class="dc xray" onclick="swDept('xray')"><div class="ico">📡</div><h3>الأشعة</h3><p>فحوص الأشعة</p></div>
+        <div class="dc screen" onclick="swDept('screen')"><div class="ico">💊</div><h3>افحص واطمن</h3><p>الكشف المبكر عن الضغط والسكر</p></div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- BLOOD FORM -->
+  <div id="fBlood" style="display:none">
+    <div class="esec"><div class="esec-h basic">👤 البيانات الأساسية — معمل الدم</div><div class="esec-b">
+      <div class="fg c4">
+        <div class="fw"><label>رقم التذكرة <span class="req">*</span></label><input id="bl-ticket" type="text" placeholder="رقم التذكرة" onblur="checkTicket('blood','bl-ticket')"></div>
+        <div class="fw s2"><label>اسم المريض <span class="req">*</span></label><input id="bl-name" type="text" placeholder="الاسم الرباعي"></div>
+        <div class="fw"><label>السن <span class="req">*</span></label><input id="bl-age" type="number" min="0" max="120"></div>
+        <div class="fw"><label>الجنس <span class="req">*</span></label><select id="bl-gender"><option value="">--</option><option>ذكر</option><option>أنثى</option></select></div>
+        <div class="fw s2"><label>الرقم القومي</label><input id="bl-nid" type="text" placeholder="14 رقم" maxlength="14" inputmode="numeric"></div>
+        <div class="fw"><label>رقم التليفون</label><input id="bl-phone" type="tel" placeholder="01x..."></div>
+      </div>
+      <div class="fg c2" style="margin-top:6px">
+        <div class="fw s2"><label>العيادة المحول منها <span class="req">*</span></label>
+          <select id="bl-clinic"><option value="">-- اختر --</option><option>عيادة الباطنة</option><option>عيادة القلب</option><option>عيادة العظام</option><option>عيادة العيون</option><option>عيادة النساء والتوليد</option><option>عيادة الجراحة العامة</option><option>عيادة الأطفال</option><option>عيادة الأسنان</option><option>عيادة الجلدية</option><option>عيادة الأنف والأذن والحنجرة</option><option>عيادة المسالك البولية</option></select>
+        </div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h blood">🩸 صورة دم كاملة CBC</div><div class="esec-b">
+      <div class="fg c5">
+        <div class="fw"><label>HP <span class="hint">(0.5-1.5)</span></label><input type="number" step="0.1" id="bl-hp"><select id="bl-hp-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>RBC ×10⁶ <span class="hint">(4.2-5.9)</span></label><input type="number" step="0.01" id="bl-rbc"><select id="bl-rbc-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>HCT % <span class="hint">(37-52)</span></label><input type="number" step="0.1" id="bl-hct"><select id="bl-hct-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>WBC ×10³ <span class="hint">(4-11)</span></label><input type="number" step="0.1" id="bl-wbc"><select id="bl-wbc-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>Platelets ×10³ <span class="hint">(150-450)</span></label><input type="number" id="bl-plt"><select id="bl-plt-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h blood">🔬 تحاليل الهيموجلوبين والسكر</div><div class="esec-b">
+      <div class="fg c3">
+        <div class="fw"><label>هيموجلوبين Hb g/dL <span class="hint">(12-16)</span></label><input type="number" step="0.1" id="bl-hb"><select id="bl-hb-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>سكر عشوائي mg/dL <span class="hint">(70-140)</span></label><input type="number" id="bl-rbs" oninput="autoRbsResult('bl')"><select id="bl-rbs-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>سكر تراكمي HbA1c % <span class="hint">(أقل من 5.7)</span></label><input type="number" step="0.1" id="bl-hba1c"><select id="bl-hba1c-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>فصيلة الدم ABO</label><select id="bl-blood"><option value="">--</option><option>A</option><option>B</option><option>AB</option><option>O</option></select></div>
+        <div class="fw"><label>عامل الريسوس Rh</label><select id="bl-rh"><option value="">--</option><option>موجب (+)</option><option>سالب (-)</option></select></div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h blood">🫘 وظائف الكلى</div><div class="esec-b">
+      <div class="fg c3">
+        <div class="fw"><label>يوريك أسيد mg/dL <span class="hint">(3.5-7.2)</span></label><input type="number" step="0.1" id="bl-uric"><select id="bl-uric-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>بولينا Urea mg/dL <span class="hint">(15-45)</span></label><input type="number" id="bl-urea"><select id="bl-urea-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>كرياتنين mg/dL <span class="hint">(0.6-1.3)</span></label><input type="number" step="0.01" id="bl-creat"><select id="bl-creat-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h blood">🫀 وظائف الكبد</div><div class="esec-b">
+      <div class="fg c5">
+        <div class="fw"><label>بروتين كلي TP g/dL <span class="hint">(6.4-8.3)</span></label><input type="number" step="0.1" id="bl-tp"><select id="bl-tp-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>ألبيومين g/dL <span class="hint">(3.5-5)</span></label><input type="number" step="0.1" id="bl-alb"><select id="bl-alb-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>بيليروبين mg/dL <span class="hint">(0.1-1.2)</span></label><input type="number" step="0.01" id="bl-bili"><select id="bl-bili-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>SGOT AST U/L <span class="hint">(5-40)</span></label><input type="number" id="bl-sgot"><select id="bl-sgot-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>SGPT ALT U/L <span class="hint">(7-56)</span></label><input type="number" id="bl-sgpt"><select id="bl-sgpt-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h blood">💧 الدهون Lipid Profile</div><div class="esec-b">
+      <div class="fg c4">
+        <div class="fw"><label>LDL mg/dL <span class="hint">(أقل من 130)</span></label><input type="number" id="bl-ldl"><select id="bl-ldl-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>HDL mg/dL <span class="hint">(أكبر من 40)</span></label><input type="number" id="bl-hdl"><select id="bl-hdl-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>دهون ثلاثية TG mg/dL <span class="hint">(أقل من 150)</span></label><input type="number" id="bl-tg"><select id="bl-tg-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>كوليسترول كلي mg/dL <span class="hint">(أقل من 200)</span></label><input type="number" id="bl-chol"><select id="bl-chol-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h blood">🦠 الفيروسات والاختبارات المصلية</div><div class="esec-b">
+      <div class="fg c4">
+        <div class="fw"><label>H.PYLORI</label><select id="bl-hpylori" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">✅ سلبي</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>حمل بالدم</label><select id="bl-preg" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">✅ سلبي</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>ASOT</label><select id="bl-asot" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ مرتفع</option></select></div>
+        <div class="fw"><label>Rheumatoid RF</label><select id="bl-rf" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">✅ سلبي</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>CRP</label><select id="bl-crp" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">✅ سلبي</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>HCV فيروس C</label><select id="bl-hcv" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">✅ سلبي</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>HBsAg فيروس B</label><select id="bl-hbsag" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">✅ سلبي</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>HAV IgG فيروس A</label><select id="bl-hav" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">✅ سلبي</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h blood">⏱️ اختبارات النزف والتجلط</div><div class="esec-b">
+      <div class="fg c3">
+        <div class="fw"><label>سرعة النزف BT <span class="hint">(1-6 دقيقة)</span></label><input type="number" step="0.5" id="bl-bt"><select id="bl-bt-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>سرعة التجلط CT <span class="hint">(5-15 دقيقة)</span></label><input type="number" step="0.5" id="bl-ct"><select id="bl-ct-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+        <div class="fw"><label>سرعة الترسيب ESR <span class="hint">(0-20 mm/hr)</span></label><input type="number" id="bl-esr"><select id="bl-esr-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select></div>
+      </div>
+    </div></div>
+    <div class="eacts no-print"><button class="btn sm del" onclick="cancelEdit()">🗑️ مسح</button><button class="btn ac" onclick="saveRec('blood')">💾 حفظ المريض</button></div>
+  </div>
+  <!-- PARA FORM -->
+  <div id="fPara" style="display:none">
+    <div class="esec"><div class="esec-h basic">👤 البيانات الأساسية — معمل الطفيليات</div><div class="esec-b">
+      <div class="fg c4">
+        <div class="fw"><label>رقم التذكرة <span class="req">*</span></label><input type="text" id="pa-ticket" placeholder="رقم التذكرة" onblur="checkTicket('para','pa-ticket')"></div>
+        <div class="fw s2"><label>اسم المريض <span class="req">*</span></label><input type="text" id="pa-name"></div>
+        <div class="fw"><label>السن <span class="req">*</span></label><input type="number" id="pa-age" min="0" max="120"></div>
+        <div class="fw"><label>الجنس <span class="req">*</span></label><select id="pa-gender"><option value="">--</option><option>ذكر</option><option>أنثى</option></select></div>
+        <div class="fw s2"><label>الرقم القومي</label><input type="text" id="pa-nid" placeholder="14 رقم" maxlength="14" inputmode="numeric"></div>
+        <div class="fw"><label>رقم التليفون</label><input type="tel" id="pa-phone" placeholder="01x..."></div>
+      </div>
+      <div class="fg c2" style="margin-top:6px">
+        <div class="fw s2"><label>العيادة المحول منها <span class="req">*</span></label>
+          <select id="pa-clinic"><option value="">-- اختر --</option><option>عيادة الباطنة</option><option>عيادة القلب</option><option>عيادة العظام</option><option>عيادة النساء والتوليد</option><option>عيادة الجراحة العامة</option><option>عيادة الأطفال</option><option>عيادة الجلدية</option></select>
+        </div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h para">🧪 تحاليل البول — اختر الموجود فقط</div><div class="esec-b">
+      <p style="font-size:11px;color:var(--mu);margin-bottom:8px">✳️ اختيار أي خيار = إيجابي تلقائياً — اترك الفراغ لو لم يُفحص</p>
+      <div class="fg c4">
+        <div class="fw"><label>Urates</label><select id="pa-urates" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>Phosphate</label><select id="pa-phosphate" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>Oxalates</label><select id="pa-oxalates" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>حمل (بول)</label><select id="pa-preg" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>سكر (بول)</label><select id="pa-sugar" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>ألبيومين (بول)</label><select id="pa-alb" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>بيليروبين (بول)</label><select id="pa-bili" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>أسيتون (بول)</label><select id="pa-acetone" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h para">🔬 تحليل البراز — اختر الموجود فقط</div><div class="esec-b">
+      <div class="fg c4">
+        <div class="fw"><label>H.PYLORI (براز)</label><select id="pa-hpylori" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>بلهارسيا</label><select id="pa-bilharzia" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>تريكومونس</label><select id="pa-trichomonas" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>أميبا</label><select id="pa-ameba" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>جيارديا</label><select id="pa-giardia" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>H. nana</label><select id="pa-hnana" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>أكسيورس</label><select id="pa-oxyuris" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>أسكارس</label><select id="pa-ascaris" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>أنكلوستمات</label><select id="pa-ankylostoma" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+        <div class="fw"><label>ديمونيوتا</label><select id="pa-demonuta" class="rsel" onchange="sR(this)"><option value="">لم يُفحص</option><option value="غير طبيعي">❌ إيجابي</option></select></div>
+      </div>
+    </div></div>
+    <div class="eacts no-print"><button class="btn sm del" onclick="cancelEdit()">🗑️ مسح</button><button class="btn ac" onclick="saveRec('para')">💾 حفظ المريض</button></div>
+  </div>
+
+  <!-- XRAY FORM -->
+  <div id="fXray" style="display:none">
+    <div class="esec"><div class="esec-h basic">👤 البيانات الأساسية — الأشعة</div><div class="esec-b">
+      <div class="fg c4">
+        <div class="fw"><label>رقم التذكرة <span class="req">*</span></label><input type="text" id="xr-ticket" placeholder="رقم التذكرة" onblur="checkTicket('xray','xr-ticket')"></div>
+        <div class="fw s2"><label>اسم المريض <span class="req">*</span></label><input type="text" id="xr-name"></div>
+        <div class="fw"><label>السن <span class="req">*</span></label><input type="number" id="xr-age" min="0" max="120"></div>
+        <div class="fw"><label>الجنس <span class="req">*</span></label><select id="xr-gender"><option value="">--</option><option>ذكر</option><option>أنثى</option></select></div>
+        <div class="fw s2"><label>الرقم القومي</label><input type="text" id="xr-nid" placeholder="14 رقم" maxlength="14" inputmode="numeric"></div>
+        <div class="fw"><label>رقم التليفون</label><input type="tel" id="xr-phone"></div>
+      </div>
+      <div class="fg c2" style="margin-top:6px">
+        <div class="fw s2"><label>العيادة المحول منها <span class="req">*</span></label>
+          <select id="xr-clinic"><option value="">-- اختر --</option><option>عيادة الباطنة</option><option>عيادة القلب</option><option>عيادة العظام</option><option>عيادة العيون</option><option>عيادة النساء والتوليد</option><option>عيادة الجراحة العامة</option><option>عيادة الأطفال</option><option>عيادة الجلدية</option><option>عيادة الأنف والأذن والحنجرة</option><option>عيادة المسالك البولية</option></select>
+        </div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h xray">📡 بيانات الفحص الإشعاعي</div><div class="esec-b">
+      <div class="fg c3">
+        <div class="fw ac-wrap">
+          <label>كود الفحص</label>
+          <input type="text" id="xr-code" placeholder="اكتب الكود أو اسم الفحص..." oninput="acSearch('xr-code','xr-ename')" autocomplete="off">
+          <div class="ac-list" id="ac-xr"></div>
+        </div>
+        <div class="fw s2"><label>اسم الفحص</label><input type="text" id="xr-ename" placeholder="يظهر تلقائياً عند اختيار الكود" readonly style="background:#f0f4f8"></div>
+        <div class="fw"><label>نتيجة الفحص</label>
+          <select id="xr-result" class="rsel" onchange="sR(this)"><option value="">-- اختر --</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ غير طبيعي</option></select>
+        </div>
+        <div class="fw s2"><label>ملاحظات / سبب الإعادة</label><input type="text" id="xr-remark" placeholder="اختياري"></div>
+      </div>
+    </div></div>
+    <div class="eacts no-print"><button class="btn sm del" onclick="cancelEdit()">🗑️ مسح</button><button class="btn ac" onclick="saveRec('xray')">💾 حفظ المريض</button></div>
+  </div>
+
+  <!-- SCREEN FORM -->
+  <div id="fScreen" style="display:none">
+    <div class="esec"><div class="esec-h basic">👤 البيانات الأساسية — افحص واطمن</div><div class="esec-b">
+      <div class="fg c3">
+        <div class="fw"><label>رقم التذكرة <span class="req">*</span></label><input type="text" id="sc-ticket" placeholder="رقم التذكرة" onblur="checkTicket('screen','sc-ticket')"></div>
+        <div class="fw s2"><label>اسم المريض <span class="req">*</span></label><input type="text" id="sc-name"></div>
+        <div class="fw"><label>السن <span class="req">*</span></label><input type="number" id="sc-age" min="0" max="120"></div>
+        <div class="fw"><label>الجنس <span class="req">*</span></label><select id="sc-gender"><option value="">--</option><option>ذكر</option><option>أنثى</option></select></div>
+        <div class="fw"><label>رقم التليفون</label><input type="tel" id="sc-phone" placeholder="01x..."></div>
+        <div class="fw s2"><label>الرقم القومي</label><input type="text" id="sc-nid" placeholder="14 رقم" maxlength="14" inputmode="numeric"></div>
+        <div class="fw"><label>تدخين</label><select id="sc-smoke"><option value="">--</option><option>مدخن</option><option>غير مدخن</option></select></div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h screen">📋 التاريخ المرضي</div><div class="esec-b">
+      <div class="fg c2">
+        <div class="fw"><label>تاريخ مرضي — سكر</label><select id="sc-hx-sugar" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">✅ لا يوجد</option><option value="غير طبيعي">❌ يوجد</option></select></div>
+        <div class="fw"><label>تاريخ مرضي — ضغط</label><select id="sc-hx-bp" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">✅ لا يوجد</option><option value="غير طبيعي">❌ يوجد</option></select></div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h screen">📊 القياسات والنتائج</div><div class="esec-b">
+      <div class="fg c3">
+        <div class="fw">
+          <label>ضغط الدم mmHg <span class="hint">(طبيعي: أقل من 120/80)</span></label>
+          <div style="display:flex;gap:6px;align-items:center;margin-bottom:3px">
+            <div style="flex:1">
+              <div style="font-size:10px;color:var(--mu);margin-bottom:2px;text-align:center">انقباضي (Systolic)</div>
+              <input type="number" id="sc-bp-sys" placeholder="مثال: 120" min="60" max="250" oninput="autoBpResult()" style="width:100%;padding:6px 8px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:13px;text-align:center">
+            </div>
+            <div style="font-size:20px;font-weight:900;color:var(--mu);padding-top:14px">/</div>
+            <div style="flex:1">
+              <div style="font-size:10px;color:var(--mu);margin-bottom:2px;text-align:center">انبساطي (Diastolic)</div>
+              <input type="number" id="sc-bp-dia" placeholder="مثال: 80" min="40" max="150" oninput="autoBpResult()" style="width:100%;padding:6px 8px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:13px;text-align:center">
+            </div>
+          </div>
+          <select id="sc-bp-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ مرتفع</option></select>
+        </div>
+        <div class="fw"><label>سكر عشوائي mg/dL <span class="hint">(70-140)</span></label><input type="number" id="sc-rbs" oninput="autoRbsResult('sc')"><select id="sc-rbs-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ مرتفع</option></select></div>
+        <div class="fw"><label>سكر تراكمي HbA1c % <span class="hint">(أقل من 5.7)</span></label><input type="number" step="0.1" id="sc-hba1c"><select id="sc-hba1c-r" class="rsel" onchange="sR(this)" style="margin-top:3px;width:100%;padding:5px;border:1.5px solid var(--bdr);border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px"><option value="">--</option><option value="طبيعي">✅ طبيعي</option><option value="غير طبيعي">❌ مرتفع</option></select></div>
+      </div>
+    </div></div>
+    <div class="esec"><div class="esec-h screen">🔄 الإجراء المتخذ</div><div class="esec-b">
+      <div class="fg c2">
+        <div class="fw"><label>الإجراء</label><select id="sc-action"><option value="">--</option><option>علاج</option><option>تحويل داخلي لعيادة</option><option>تحويل خارجي لمستشفى</option></select></div>
+        <div class="fw"><label>تحويل لعيادة</label><select id="sc-refer"><option value="">-- لا يوجد --</option><option>عيادة الباطنة</option><option>عيادة القلب</option><option>عيادة الغدد الصماء</option><option>عيادة الأطفال</option></select></div>
+      </div>
+    </div></div>
+    <div class="eacts no-print"><button class="btn sm del" onclick="cancelEdit()">🗑️ مسح</button><button class="btn ac" onclick="saveRec('screen')">💾 حفظ المريض</button></div>
+  </div>
+</div><!-- /sc-entry -->
+
+<!-- RECORDS -->
+<div class="sc" id="sc-records">
+  <div class="rh">
+    <div style="display:flex;align-items:center;gap:7px"><h3 id="recTitle">📋 السجلات</h3><span class="rcnt" id="recCnt">0</span></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap" class="no-print">
+      <button class="btn ac sm" onclick="exportExcel()">📊 Excel</button>
+      <button class="btn out sm" onclick="exportJSON()">📥 JSON</button>
+    </div>
+  </div>
+  <div class="sbar no-print">
+    <input type="text" id="srch" placeholder="🔍 بحث بالاسم أو رقم التذكرة..." oninput="renderRec()">
+    <select id="fDay" onchange="renderRec()"><option value="all">كل الأيام</option><option value="1">اليوم الأول</option><option value="2">اليوم الثاني</option></select>
+  </div>
+  <div id="recWrap" class="tbl-wrap"></div>
+</div>
+
+<!-- STATS -->
+<div class="sc" id="sc-stats"><div id="statsWrap"></div></div>
+<script>
+const PROC={1:"عد دم كامل CBC",2:"عد دم أبيض كلي ونوعي",3:"عد دم أبيض",4:"عد دم أحمر",5:"صفائح دموية",6:"هيماتوكريت",7:"فصائل الدم",8:"معامل ريساس",9:"نسبة هيموجلوبين",10:"سرعة نزف BT",11:"سرعة تجلط CT",12:"سرعة ترسيب ESR",13:"بروثرومبين",14:"سكر في الدم",15:"بولينا",16:"كرياتينين",17:"حمض بوليك",18:"بيليروبين",19:"SGOT",20:"SGPT",21:"رسم بياني للسكر HbA1c",22:"كوليستيرول",23:"دهون ثلاثية TG",24:"LDL-C",25:"HDL-C",26:"مزرعة وحساسية",27:"اختبار فيدال",28:"فحص براز",29:"فحص بول كامل",30:"بول أسيتون",31:"بول سكر وزلال",32:"بول بيليروبين",33:"سائل منوي",34:"حمل بول",35:"حمل دم",36:"روماتويد RF",37:"CRP",38:"ASOT",39:"RPR",40:"أشعة عادية — يد",41:"أشعة عادية — رسغ",42:"أشعة عادية — ساعد",43:"أشعة عادية — كوع",44:"أشعة عادية — عضد",45:"أشعة عادية — كتف",46:"أشعة عادية — قدم",47:"أشعة عادية — كاحل",48:"أشعة عادية — كعب",49:"أشعة عادية — ساق",50:"أشعة عادية — ركبة",51:"أشعة عادية — فخذ",52:"أشعة عادية — حوض",53:"أشعة عادية — مفصل فخذ",54:"أشعة صدر وضع واحد",55:"أشعة صدر وضعين",56:"أشعة فقرات عنقية",57:"أشعة فقرات صدرية",58:"أشعة فقرات قطنية",59:"أشعة جمجمة",60:"أشعة جيوب أنفية",61:"أشعة عظام أنف",62:"أشعة بلعوم أنفي",63:"أشعة نتوء حلمي",64:"أشعة بطن",65:"أشعة مرارة",66:"أشعة مسالك بولية",67:"أشعة أسنان",68:"أشعة مرارة بصبغة",69:"باريوم مريء ومعدة",70:"باريوم مريء",71:"باريوم معدة",72:"باريوم قولون",73:"صبغة رحم",74:"صبغة مسالك بولية",75:"سونار بطن",76:"سونار متابعة حمل",77:"سونار تبويض",78:"رسم قلب",79:"فحص بصاق",80:"ألبيومين",81:"بروتين كلي",82:"HBsAg",83:"HCV Ab",84:"سونار قلب"};
+const DNAMES={blood:'معمل الدم',para:'معمل الطفيليات',xray:'الأشعة',screen:'افحص واطمن'};
+const DICONS={blood:'🩸',para:'🔬',xray:'📡',screen:'💊'};
+const RLBL={blood:'فني معمل الدم',para:'فني معمل الطفيليات',xray:'فني الأشعة',screen:'ممرضة افحص واطمن',admin:'مدير / منسق'};
+
+let session=JSON.parse(localStorage.getItem('qs_sess')||'null');
+let records=JSON.parse(localStorage.getItem('qs_recs')||'[]');
+let staff=JSON.parse(localStorage.getItem('qs_staff')||'[]');
+let adminPass=localStorage.getItem('qs_apass')||'1234';
+let gsUrl=localStorage.getItem('qs_gsurl')||'';
+let caravanLocked=localStorage.getItem('qs_locked')==='1';
+let curUser=null,curDept=null,curDay=1,editId=null,cfCb=null,cfCancelCb=null;
+
+const persist=()=>localStorage.setItem('qs_recs',JSON.stringify(records));
+const pStaff=()=>localStorage.setItem('qs_staff',JSON.stringify(staff));
+const gv=id=>(document.getElementById(id)?.value||'').trim();
+const fmtD=d=>{if(!d)return'—';const p=d.split('-');return`${p[2]}/${p[1]}/${p[0]}`;};
+
+// LOGIN
+function populateLoginUsers(){
+  const sel=document.getElementById('l-user-sel');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">-- اختر اسمك من القائمة --</option><option value="admin">⚙️ المدير / المنسق</option>'+
+    staff.map(s=>`<option value="${s.name}">${DICONS[s.dept]||''} ${s.name} — ${DNAMES[s.dept]||s.dept}</option>`).join('');
+  if(cur)sel.value=cur;
+}
+let loginDay=1;
+function setLoginDay(d){
+  loginDay=d;
+  const btn1=document.getElementById('ldb1'),btn2=document.getElementById('ldb2');
+  const pr='var(--pr)',bd='var(--bdr)';
+  btn1.style.cssText=`flex:1;padding:8px;border:2px solid ${d===1?pr:bd};border-radius:8px;background:${d===1?pr:'#fff'};color:${d===1?'#fff':'var(--mu)'};font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;cursor:pointer`;
+  btn2.style.cssText=`flex:1;padding:8px;border:2px solid ${d===2?pr:bd};border-radius:8px;background:${d===2?pr:'#fff'};color:${d===2?'#fff':'var(--mu)'};font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;cursor:pointer`;
+  const dateEl=document.getElementById('loginDayDate');
+  if(session){dateEl.textContent=d===1?(session.day1?'📅 '+fmtD(session.day1):''):(session.day2?'📅 '+fmtD(session.day2):'');}
+}
+function onLoginUserSel(){
+  const u=document.getElementById('l-user-sel').value;
+  const dayDiv=document.getElementById('daySelLogin');
+  if(u&&session){dayDiv.style.display='block';setLoginDay(1);}
+  else{dayDiv.style.display='none';}
+  document.getElementById('lerr').style.display='none';
+  document.getElementById('l-pass').value='';
+  document.getElementById('l-pass').focus();
+}
+function doLogin(){
+  const u=gv('l-user-sel'),p=gv('l-pass');
+  if(!u||!p){showLErr('اختر اسمك وأدخل كلمة السر');return;}
+  // التحقق من اختيار اليوم لو في قافلة نشطة
+  if(session&&!loginDay){showLErr('⚠️ يرجى اختيار يوم العمل');return;}
+  if(u==='admin'&&p===adminPass){curUser={name:'المدير',role:'admin'};curDept=null;}
+  else{
+    if(caravanLocked){showLErr('🔒 القافلة مغلقة — الدخول للمدير فقط');return;}
+    const emp=staff.find(s=>s.name===u&&s.pass===p);
+    if(!emp){showLErr('كلمة السر غير صحيحة');return;}
+    curUser={name:emp.name,role:emp.dept};curDept=emp.dept;
+  }
+  curDay=loginDay||1;
+  document.getElementById('loginOv').style.display='none';
+  applyUser();
+}
+document.getElementById('l-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+function showLErr(m){const e=document.getElementById('lerr');e.textContent=m;e.style.display='block';}
+
+function applyUser(){
+  const isAdmin=curUser.role==='admin';
+  document.getElementById('ubadge').style.display='flex';
+  document.getElementById('uname').textContent=curUser.name;
+  document.getElementById('logoutBtn').style.display='flex';
+
+  // إعداد القافلة = المدير فقط
+  const navSetup=document.getElementById('nav-setup');
+  navSetup.style.display=isAdmin?'':'none';
+
+  ['entry','records','stats','print','export'].forEach(id=>{
+    const b=document.getElementById('nav-'+id);if(b)b.removeAttribute('disabled');
+  });
+
+  if(isAdmin){
+    document.getElementById('staffCard').style.display='block';
+    document.getElementById('adminCard').style.display='block';
+    document.getElementById('gsCard').style.display='block';
+    if(gsUrl)document.getElementById('gs-url').value=gsUrl;
+    renderStaffList();updateLockUI();
+  }
+
+  if(curDept){
+    const db=document.getElementById('dbadge');
+    db.className='dbadge '+curDept;
+    db.textContent=DICONS[curDept]+' '+DNAMES[curDept];
+    db.style.display='flex';
+  }
+
+  if(session){
+    // ملأ حقول الإعداد (للمدير)
+    if(isAdmin){
+      document.getElementById('s-center').value=session.center||'';
+      document.getElementById('s-village').value=session.village||'';
+      document.getElementById('s-d1').value=session.day1||'';
+      document.getElementById('s-d2').value=session.day2||'';
+      document.getElementById('adminSetupCard').style.display='block';
+      document.getElementById('empSetupCard').style.display='none';
+    }else{
+      // موظف: أظهر كارت معلومات القافلة
+      document.getElementById('adminSetupCard').style.display='none';
+      document.getElementById('empSetupCard').style.display='block';
+      document.getElementById('empVillage').textContent='🏘️ '+session.village;
+      document.getElementById('empCenter').textContent=session.center;
+      document.getElementById('empDates').textContent=(session.day1?'📅 '+fmtD(session.day1):'')+
+        (session.day2?' — '+fmtD(session.day2):'');
+    }
+    applySessUI();
+    gotoSc('entry');
+  }else{
+    document.getElementById('adminSetupCard').style.display=isAdmin?'block':'none';
+    document.getElementById('empSetupCard').style.display='none';
+    if(isAdmin){
+      gotoSc('setup');showToast('⚙️ يرجى إعداد بيانات القافلة أولاً');
+    }else{
+      gotoSc('entry');
+      document.getElementById('sessBan').style.display='none';
+      showToast('⚠️ لا توجد قافلة نشطة — انتظر المدير',false);
+    }
+  }
+  showToast('✅ مرحبًا '+curUser.name);
+}
+
+function logout(){
+  curUser=null;curDept=null;editId=null;
+  ['ubadge','dbadge','logoutBtn','staffCard','adminCard','gsCard'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  ['entry','records','stats','print','export'].forEach(id=>{const b=document.getElementById('nav-'+id);if(b)b.setAttribute('disabled','');});
+  document.getElementById('nav-setup').style.display='';
+  populateLoginUsers();
+  document.getElementById('l-user-sel').value='';document.getElementById('l-pass').value='';
+  document.getElementById('lerr').style.display='none';
+  document.getElementById('loginOv').style.display='flex';
+  gotoSc('setup');
+}
+
+// STAFF
+function addStaff(){
+  const name=gv('ns-name'),dept=gv('ns-dept'),pass=gv('ns-pass');
+  if(!name||!dept||!pass){showToast('⚠️ أدخل جميع بيانات الموظف',false);return;}
+  if(staff.find(s=>s.name===name)){showToast('⚠️ هذا الاسم موجود بالفعل',false);return;}
+  staff.push({name,dept,pass});pStaff();
+  document.getElementById('ns-name').value='';document.getElementById('ns-dept').value='';document.getElementById('ns-pass').value='';
+  renderStaffList();populateLoginUsers();showToast('✅ تم إضافة: '+name);
+}
+function removeStaff(i){if(!confirm('حذف الموظف؟'))return;staff.splice(i,1);pStaff();renderStaffList();populateLoginUsers();}
+function renderStaffList(){
+  const c=document.getElementById('staffList');
+  if(!staff.length){c.innerHTML='<p style="font-size:12px;color:var(--mu)">لا يوجد موظفون مضافون بعد</p>';return;}
+  c.innerHTML=staff.map((s,i)=>`<div class="staff-row"><span style="flex:1;font-size:13px;font-weight:700">👤 ${s.name}</span><span class="staff-dep ${s.dept}">${DNAMES[s.dept]||s.dept}</span><span style="font-size:11px;color:var(--mu);font-family:monospace">${'●'.repeat(Math.min(s.pass.length,8))}</span><button class="btn sm del" onclick="removeStaff(${i})">🗑️</button></div>`).join('');
+}
+function changeAdminPass(){const p=document.getElementById('newAdminPass').value.trim();if(p.length<3){showToast('⚠️ كلمة السر قصيرة جداً',false);return;}adminPass=p;localStorage.setItem('qs_apass',p);document.getElementById('newAdminPass').value='';showToast('✅ تم تغيير كلمة سر المدير');}
+
+// SETUP — المدير فقط
+function saveSetup(){
+  if(curUser?.role!=='admin'){showToast('⚠️ إعداد القافلة للمدير فقط',false);return;}
+  const center=gv('s-center'),village=gv('s-village'),day1=gv('s-d1');
+  if(!center||!village||!day1){showToast('⚠️ يرجى ملء الحقول المطلوبة',false);return;}
+
+  const doSave=()=>{
+    session={id:Date.now(),center,village,day1,day2:gv('s-d2'),leader:gv('s-leader')};
+    localStorage.setItem('qs_sess',JSON.stringify(session));
+    // فتح القافلة تلقائياً عند بدء جديدة
+    caravanLocked=false;localStorage.setItem('qs_locked','0');
+    updateLockUI();showLockStatusOnLogin();
+    applySessUI();gotoSc('entry');showToast('✅ تم حفظ بيانات القافلة الجديدة — جاهز للتسجيل');
+  };
+
+  // لو فيه بيانات من قافلة سابقة → اسأل عن المسح
+  if(records.length>0){
+    showCf(
+      '🔄 بدء قافلة جديدة',
+      `يوجد ${records.length} سجل من القافلة السابقة.\n\nالبيانات محفوظة على Google Sheets.\nهل تريد مسح البيانات المحلية وبدء قافلة جديدة فارغة؟`,
+      ()=>{records=[];persist();doSave();}
+    );
+  }else{doSave();}
+}
+function applySessUI(){
+  if(!session||!curUser)return;
+  document.getElementById('sessBan').style.display='flex';
+  document.getElementById('sb-emp').textContent=curUser.name;
+  document.getElementById('sb-vil').textContent=session.village;
+  document.getElementById('sb-cen').textContent=session.center;
+  document.getElementById('daySel').style.display='flex';
+  selDay(curDay||1);
+  document.getElementById('deptChooser').style.display=curUser.role==='admin'?'block':'none';
+  if(curDept)swDept(curDept);
+}
+function selDay(d){
+  curDay=d;
+  document.getElementById('db1').classList.toggle('active',d===1);
+  document.getElementById('db2').classList.toggle('active',d===2);
+  const lbl=d===1?(session?.day1?fmtD(session.day1)+' — اليوم الأول':'اليوم الأول'):(session?.day2?fmtD(session.day2)+' — اليوم الثاني':'اليوم الثاني');
+  document.getElementById('sb-day').textContent=lbl;
+}
+
+// DEPT
+function swDept(dept){
+  if(curUser?.role!=='admin'&&curUser?.role!==dept){showToast('⚠️ هذا القسم غير مخصص لك',false);return;}
+  curDept=dept;
+  ['Blood','Para','Xray','Screen'].forEach(d=>document.getElementById('f'+d).style.display=(d.toLowerCase()===dept)?'block':'none');
+  const db=document.getElementById('dbadge');
+  db.className='dbadge '+dept;db.textContent=DICONS[dept]+' '+DNAMES[dept];db.style.display='flex';
+  cancelEdit();
+}
+
+// FORM
+function autoBpResult(){
+  const sys=parseInt(document.getElementById('sc-bp-sys')?.value)||0;
+  const dia=parseInt(document.getElementById('sc-bp-dia')?.value)||0;
+  if(!sys&&!dia)return;
+  const sel=document.getElementById('sc-bp-r');
+  if(sys>=140||dia>=90){sel.value='غير طبيعي';}
+  else if(sys>0||dia>0){sel.value='طبيعي';}
+  sR(sel);
+}
+function autoRbsResult(px){
+  const val=parseFloat(document.getElementById(px+'-rbs')?.value)||0;
+  if(!val)return;
+  const sel=document.getElementById(px+'-rbs-r');if(!sel)return;
+  sel.value=val>200?'غير طبيعي':val>=70?'طبيعي':'غير طبيعي';
+  sR(sel);
+}
+function sR(sel){
+  if(!sel||!sel.classList)return;
+  sel.classList.remove('res-pos','res-neg');
+  if(sel.value==='غير طبيعي')sel.classList.add('res-pos');
+  else if(sel.value==='طبيعي')sel.classList.add('res-neg');
+}
+function sv(id,v){const el=document.getElementById(id);if(el){el.value=v||'';sR(el);}}
+function cancelEdit(){
+  editId=null;
+  document.getElementById('editBan').classList.remove('show');
+  document.getElementById('editPtN').textContent='—';
+  document.querySelectorAll('#sc-entry input,#sc-entry select').forEach(el=>{el.value='';el.classList.remove('res-pos','res-neg');});
+}
+
+// CHECK TICKET — recall existing patient or warn duplicate
+function checkTicket(dept,ticketId){
+  const ticket=gv(ticketId);
+  if(!ticket)return;
+  const existing=records.find(r=>r.ticket===ticket&&r.dept===dept);
+  if(!existing)return; // no duplicate, fine
+  if(editId===existing.id)return; // currently editing this same record, fine
+  const msg=`رقم التذكرة "${ticket}" مسجل بالفعل لمريض باسم "${existing.name}" بتاريخ ${existing.savedAt?.substring(0,10)||''}.\n\nهل تريد فتح بياناته للتعديل؟`;
+  if(confirm(msg)){
+    editRec(existing.id);
+  }else{
+    document.getElementById(ticketId).value='';
+    document.getElementById(ticketId).focus();
+    showToast('⚠️ يرجى إدخال رقم تذكرة مختلف',false);
+  }
+}
+
+// SAVE
+function hasAbnormalResults(r){
+  const keys=Object.keys(r).filter(k=>k.endsWith('R')||k==='result');
+  return keys.some(k=>r[k]==='غير طبيعي');
+}
+
+function doSaveRec(r,dept){
+  if(editId){
+    const idx=records.findIndex(x=>String(x.id)===String(editId));
+    if(idx>=0){records[idx]=r;showToast('✅ تم تعديل: '+r.name);}
+    else{records.push(r);showToast('✅ تم حفظ: '+r.name);}
+  }else{records.push(r);showToast('✅ تم حفظ: '+r.name);}
+  persist();cancelEdit();syncRecToSheet(r);
+}
+
+function saveRec(dept){
+  if(!session){showToast('⚠️ يرجى إعداد القافلة أولاً',false);return;}
+  const px={blood:'bl',para:'pa',xray:'xr',screen:'sc'}[dept];
+  const name=gv(px+'-name'),age=gv(px+'-age'),gender=gv(px+'-gender'),ticket=gv(px+'-ticket');
+  const clinic=dept!=='screen'?gv(px+'-clinic'):'';
+  const errs=[];
+  if(!ticket)errs.push('رقم التذكرة');
+  if(!name)errs.push('الاسم');if(!age)errs.push('السن');if(!gender)errs.push('الجنس');
+  if(!clinic&&dept!=='screen')errs.push('العيادة المحولة منها');
+  if(errs.length){showToast('⚠️ مطلوب: '+errs.join('، '),false);return;}
+  // Duplicate ticket check
+  const dup=records.find(r=>r.ticket===ticket&&r.dept===dept&&r.id!==editId);
+  if(dup){showToast('⚠️ رقم التذكرة '+ticket+' مسجل بالفعل للمريض: '+dup.name,false);return;}
+
+  const phone=gv(px+'-phone');
+  const nid=gv(px+'-nid')||'';
+  let r={id:editId||Date.now(),sessionId:session?.id||0,dept,day:curDay,
+    emp:curUser?.name,empRole:RLBL[curUser?.role]||'',savedAt:new Date().toISOString(),
+    name,age,gender,ticket,phone,nid};
+
+  if(dept==='blood'){Object.assign(r,{clinic,
+    hp:gv('bl-hp'),hpR:gv('bl-hp-r'),rbc:gv('bl-rbc'),rbcR:gv('bl-rbc-r'),hct:gv('bl-hct'),hctR:gv('bl-hct-r'),wbc:gv('bl-wbc'),wbcR:gv('bl-wbc-r'),plt:gv('bl-plt'),pltR:gv('bl-plt-r'),
+    hb:gv('bl-hb'),hbR:gv('bl-hb-r'),rbs:gv('bl-rbs'),rbsR:gv('bl-rbs-r'),hba1c:gv('bl-hba1c'),hba1cR:gv('bl-hba1c-r'),blood:gv('bl-blood'),rh:gv('bl-rh'),
+    uric:gv('bl-uric'),uricR:gv('bl-uric-r'),urea:gv('bl-urea'),ureaR:gv('bl-urea-r'),creat:gv('bl-creat'),creatR:gv('bl-creat-r'),
+    tp:gv('bl-tp'),tpR:gv('bl-tp-r'),alb:gv('bl-alb'),albR:gv('bl-alb-r'),bili:gv('bl-bili'),biliR:gv('bl-bili-r'),sgot:gv('bl-sgot'),sgotR:gv('bl-sgot-r'),sgpt:gv('bl-sgpt'),sgptR:gv('bl-sgpt-r'),
+    ldl:gv('bl-ldl'),ldlR:gv('bl-ldl-r'),hdl:gv('bl-hdl'),hdlR:gv('bl-hdl-r'),tg:gv('bl-tg'),tgR:gv('bl-tg-r'),chol:gv('bl-chol'),cholR:gv('bl-chol-r'),
+    hpylori:gv('bl-hpylori'),preg:gv('bl-preg'),asot:gv('bl-asot'),rf:gv('bl-rf'),crp:gv('bl-crp'),hcv:gv('bl-hcv'),hbsag:gv('bl-hbsag'),hav:gv('bl-hav'),
+    bt:gv('bl-bt'),btR:gv('bl-bt-r'),ct:gv('bl-ct'),ctR:gv('bl-ct-r'),esr:gv('bl-esr'),esrR:gv('bl-esr-r')
+  });}
+  else if(dept==='para'){Object.assign(r,{clinic,
+    urates:gv('pa-urates'),phosphate:gv('pa-phosphate'),oxalates:gv('pa-oxalates'),preg:gv('pa-preg'),
+    sugar:gv('pa-sugar'),palb:gv('pa-alb'),pbili:gv('pa-bili'),acetone:gv('pa-acetone'),
+    hpylori:gv('pa-hpylori'),bilharzia:gv('pa-bilharzia'),trichomonas:gv('pa-trichomonas'),
+    ameba:gv('pa-ameba'),giardia:gv('pa-giardia'),hnana:gv('pa-hnana'),oxyuris:gv('pa-oxyuris'),
+    ascaris:gv('pa-ascaris'),ankylostoma:gv('pa-ankylostoma'),demonuta:gv('pa-demonuta')
+  });}
+  else if(dept==='xray'){Object.assign(r,{clinic,code:gv('xr-code'),examname:gv('xr-ename'),result:gv('xr-result'),remark:gv('xr-remark')});}
+  else if(dept==='screen'){
+    const bpSys=gv('sc-bp-sys'),bpDia=gv('sc-bp-dia');
+    Object.assign(r,{
+      smoke:gv('sc-smoke'),hxSugar:gv('sc-hx-sugar'),hxBp:gv('sc-hx-bp'),
+      bpSys,bpDia,bp:bpSys&&bpDia?bpSys+'/'+bpDia:'',
+      bpR:gv('sc-bp-r'),rbs:gv('sc-rbs'),rbsR:gv('sc-rbs-r'),
+      hba1c:gv('sc-hba1c'),hba1cR:gv('sc-hba1c-r'),action:gv('sc-action'),refer:gv('sc-refer')
+    });
+  }
+
+  // ⚠️ تحذير: نتائج غير طبيعية بدون رقم تليفون
+  if(hasAbnormalResults(r)&&!phone){
+    showPhoneModal(r,dept,px+'-phone');
+    return;
+  }
+  doSaveRec(r,dept);
+}
+
+// EDIT
+function editRec(id){
+  const r=records.find(x=>String(x.id)===String(id));if(!r)return;
+  if(curUser?.role!=='admin'&&curUser?.role!==r.dept){showToast('⚠️ لا تملك صلاحية التعديل',false);return;}
+  const p={blood:'bl',para:'pa',xray:'xr',screen:'sc'}[r.dept];
+  swDept(r.dept);   // ← بتستدعي cancelEdit → editId=null
+  gotoSc('entry');  // ← بتستدعي applySessUI → swDept → cancelEdit → editId=null تاني
+  selDay(r.day||1);
+  // ملأ الحقول
+  sv(p+'-ticket',r.ticket);sv(p+'-name',r.name);sv(p+'-age',r.age);sv(p+'-gender',r.gender);
+  sv(p+'-phone',r.phone);sv(p+'-nid',r.nid||'');
+  if(r.dept!=='screen')sv(p+'-clinic',r.clinic);
+  if(r.dept==='blood'){
+    ['hp','rbc','hct','wbc','plt','hb','rbs','hba1c','blood','rh','uric','urea','creat','tp','alb','bili','sgot','sgpt','ldl','hdl','tg','chol','hpylori','preg','asot','rf','crp','hcv','hbsag','hav','bt','ct','esr'].forEach(f=>sv('bl-'+f,r[f]));
+    ['hp','rbc','hct','wbc','plt','hb','rbs','hba1c','uric','urea','creat','tp','alb','bili','sgot','sgpt','ldl','hdl','tg','chol','bt','ct','esr'].forEach(f=>sv('bl-'+f+'-r',r[f+'R']));
+  }else if(r.dept==='para'){
+    sv('pa-urates',r.urates);sv('pa-phosphate',r.phosphate);sv('pa-oxalates',r.oxalates);sv('pa-preg',r.preg);
+    sv('pa-sugar',r.sugar);sv('pa-alb',r.palb);sv('pa-bili',r.pbili);sv('pa-acetone',r.acetone);
+    ['hpylori','bilharzia','trichomonas','ameba','giardia','hnana','oxyuris','ascaris','ankylostoma','demonuta'].forEach(f=>sv('pa-'+f,r[f]));
+  }else if(r.dept==='xray'){sv('xr-code',r.code);sv('xr-ename',r.examname);sv('xr-result',r.result);sv('xr-remark',r.remark);}
+  else if(r.dept==='screen'){
+    sv('sc-smoke',r.smoke);sv('sc-hx-sugar',r.hxSugar);sv('sc-hx-bp',r.hxBp);
+    sv('sc-bp-sys',r.bpSys||(r.bp?r.bp.split('/')[0]:''));
+    sv('sc-bp-dia',r.bpDia||(r.bp?r.bp.split('/')[1]:''));
+    sv('sc-bp-r',r.bpR);sv('sc-rbs',r.rbs);sv('sc-rbs-r',r.rbsR);
+    sv('sc-hba1c',r.hba1c);sv('sc-hba1c-r',r.hba1cR);sv('sc-action',r.action);sv('sc-refer',r.refer);
+  }
+  document.getElementById('editBan').classList.add('show');
+  document.getElementById('editPtN').textContent=r.name;
+  window.scrollTo({top:0,behavior:'smooth'});
+  // ✅ editId يُعيَّن في الآخر بعد كل استدعاءات cancelEdit
+  editId=id;
+}
+
+function delRec(id){
+  const r=records.find(x=>String(x.id)===String(id));if(!r)return;
+  if(curUser?.role!=='admin'&&curUser?.role!==r.dept){showToast('⚠️ لا تملك صلاحية الحذف',false);return;}
+  showCf('تأكيد الحذف',`حذف سجل "${r.name}"؟`,()=>{records=records.filter(x=>String(x.id)!==String(id));persist();renderRec();showToast('🗑️ تم الحذف');deleteFromSheet(id);});
+}
+
+// RENDER RECORDS
+function badge(v){
+  if(!v)return'<span style="color:#bbb;font-size:10px">—</span>';
+  if(v==='طبيعي')return'<span class="bn">✅</span>';
+  if(v==='غير طبيعي')return'<span class="bp">❌</span>';
+  return`<span class="bv">${v}</span>`;
+}
+function getFiltered(){
+  const dept=curUser?.role==='admin'?curDept:curUser?.role;
+  const srch=(document.getElementById('srch')?.value||'').toLowerCase();
+  const dayF=document.getElementById('fDay')?.value||'all';
+  return records.filter(r=>{
+    if(dept&&r.dept!==dept)return false;
+    if(srch&&!r.name?.toLowerCase().includes(srch)&&!r.ticket?.includes(srch))return false;
+    if(dayF!=='all'&&String(r.day)!==dayF)return false;
+    return true;
+  });
+}
+function renderRec(){
+  const filtered=getFiltered();
+  const dept=curDept||(curUser?.role==='admin'?null:curUser?.role);
+  const dpt=filtered.length?filtered[0].dept:(dept||'blood');
+  document.getElementById('recCnt').textContent=filtered.length;
+  document.getElementById('recTitle').textContent='📋 سجلات '+(DNAMES[dpt]||'المرضى');
+  const w=document.getElementById('recWrap');
+  if(!filtered.length){w.innerHTML='<div style="text-align:center;padding:30px;color:var(--mu)"><div style="font-size:36px">📋</div><p>لا توجد سجلات</p></div>';return;}
+  let th='',rows='';
+  if(dpt==='blood'){
+    th=`<thead class="blood-h"><tr><th>#</th><th>الاسم</th><th>السن</th><th>الجنس</th><th>التذكرة</th><th>اليوم</th><th>العيادة</th><th>Hb</th><th>R</th><th>سكر</th><th>R</th><th>HCV</th><th>HBsAg</th><th>فصيلة</th><th class="no-print">إجراءات</th></tr></thead>`;
+    rows=filtered.map((r,i)=>`<tr><td>${i+1}</td><td style="text-align:right;font-weight:700">${r.name}</td><td>${r.age}</td><td>${r.gender}</td><td>${r.ticket}</td><td>${r.day===1?'🟦أول':'🟩ثاني'}</td><td style="font-size:10px">${(r.clinic||'').replace('عيادة ','')}</td><td>${r.hb?`<span class="bv">${r.hb}</span>`:'—'}</td><td>${badge(r.hbR)}</td><td>${r.rbs?`<span class="bv">${r.rbs}</span>`:'—'}</td><td>${badge(r.rbsR)}</td><td>${badge(r.hcv)}</td><td>${badge(r.hbsag)}</td><td>${r.blood||'—'}</td><td class="no-print"><div class="tacts"><button class="btn sm edit" onclick="editRec(${r.id})">✏️</button><button class="btn sm del" onclick="delRec(${r.id})">🗑️</button></div></td></tr>`).join('');
+  }else if(dpt==='para'){
+    th=`<thead class="para-h"><tr><th>#</th><th>الاسم</th><th>السن</th><th>التذكرة</th><th>اليوم</th><th>بلهارسيا</th><th>أميبا</th><th>جيارديا</th><th>H.Pylori</th><th>سكر بول</th><th>حمل</th><th class="no-print">إجراءات</th></tr></thead>`;
+    rows=filtered.map((r,i)=>`<tr><td>${i+1}</td><td style="text-align:right;font-weight:700">${r.name}</td><td>${r.age}</td><td>${r.ticket}</td><td>${r.day===1?'🟦أول':'🟩ثاني'}</td><td>${badge(r.bilharzia)}</td><td>${badge(r.ameba)}</td><td>${badge(r.giardia)}</td><td>${badge(r.hpylori)}</td><td>${badge(r.sugar)}</td><td>${badge(r.preg)}</td><td class="no-print"><div class="tacts"><button class="btn sm edit" onclick="editRec(${r.id})">✏️</button><button class="btn sm del" onclick="delRec(${r.id})">🗑️</button></div></td></tr>`).join('');
+  }else if(dpt==='xray'){
+    th=`<thead class="xray-h"><tr><th>#</th><th>الاسم</th><th>السن</th><th>التذكرة</th><th>اليوم</th><th>العيادة</th><th>كود</th><th>اسم الفحص</th><th>النتيجة</th><th class="no-print">إجراءات</th></tr></thead>`;
+    rows=filtered.map((r,i)=>`<tr><td>${i+1}</td><td style="text-align:right;font-weight:700">${r.name}</td><td>${r.age}</td><td>${r.ticket}</td><td>${r.day===1?'🟦أول':'🟩ثاني'}</td><td style="font-size:10px">${(r.clinic||'').replace('عيادة ','')}</td><td>${r.code||'—'}</td><td style="text-align:right;font-size:10px">${r.examname||'—'}</td><td>${badge(r.result)}</td><td class="no-print"><div class="tacts"><button class="btn sm edit" onclick="editRec(${r.id})">✏️</button><button class="btn sm del" onclick="delRec(${r.id})">🗑️</button></div></td></tr>`).join('');
+  }else if(dpt==='screen'){
+    th=`<thead class="screen-h"><tr><th>#</th><th>الاسم</th><th>السن</th><th>الجنس</th><th>التذكرة</th><th>التليفون</th><th>اليوم</th><th>ضغط</th><th>R</th><th>سكر</th><th>R</th><th>HbA1c</th><th>الإجراء</th><th class="no-print">إجراءات</th></tr></thead>`;
+    rows=filtered.map((r,i)=>`<tr><td>${i+1}</td><td style="text-align:right;font-weight:700">${r.name}</td><td>${r.age}</td><td>${r.gender}</td><td>${r.ticket}</td><td>${r.phone||'—'}</td><td>${r.day===1?'🟦أول':'🟩ثاني'}</td><td>${r.bp?`<span class="bv">${r.bp}</span>`:'—'}</td><td>${badge(r.bpR)}</td><td>${r.rbs?`<span class="bv">${r.rbs}</span>`:'—'}</td><td>${badge(r.rbsR)}</td><td>${r.hba1c||'—'}</td><td style="font-size:10px">${r.action||'—'}</td><td class="no-print"><div class="tacts"><button class="btn sm edit" onclick="editRec(${r.id})">✏️</button><button class="btn sm del" onclick="delRec(${r.id})">🗑️</button></div></td></tr>`).join('');
+  }
+  w.innerHTML=`<table>${th}<tbody>${rows}</tbody></table>`;
+}
+// STATS
+function buildStats(){
+  const isAdmin=curUser?.role==='admin';
+  const myDept=isAdmin?null:curUser?.role;
+  const bR=records.filter(r=>r.dept==='blood');
+  const pR=records.filter(r=>r.dept==='para');
+  const xR=records.filter(r=>r.dept==='xray');
+  const sR=records.filter(r=>r.dept==='screen');
+  let html='';
+
+  if(isAdmin){
+    html+=`<div class="stgrid">
+      <div class="stc"><div class="n">${records.length}</div><div class="l">إجمالي الكل</div></div>
+      <div class="stc" style="border-top:3px solid var(--blood)"><div class="n" style="color:var(--blood)">${bR.length}</div><div class="l">معمل الدم</div></div>
+      <div class="stc" style="border-top:3px solid var(--para)"><div class="n" style="color:var(--para)">${pR.length}</div><div class="l">معمل الطفيليات</div></div>
+      <div class="stc" style="border-top:3px solid var(--xray)"><div class="n" style="color:var(--xray)">${xR.length}</div><div class="l">الأشعة</div></div>
+      <div class="stc" style="border-top:3px solid var(--screen)"><div class="n" style="color:var(--screen)">${sR.length}</div><div class="l">افحص واطمن</div></div>
+    </div>`;
+  }
+
+  if(isAdmin||myDept==='blood') html+=buildBloodRpt(bR);
+  if(isAdmin||myDept==='para')  html+=buildParaRpt(pR);
+  if(isAdmin||myDept==='xray')  html+=buildXrayRpt(xR);
+  if(isAdmin||myDept==='screen') html+=buildScreenRpt(sR);
+
+  document.getElementById('statsWrap').innerHTML=html||'<div style="text-align:center;padding:40px;color:var(--mu)"><div style="font-size:40px">📊</div><p>لا توجد بيانات بعد</p></div>';
+}
+
+function rptThead(cols,day1Color,day2Color,totColor){
+  return`<thead><tr>
+    <th rowspan="2" style="min-width:140px;background:var(--pr)">التحليل</th>
+    <th colspan="3" style="background:${day1Color}">اليوم الأول</th>
+    <th colspan="3" style="background:${day2Color}">اليوم الثاني</th>
+    <th colspan="3" style="background:${totColor}">الإجمالي</th>
+  </tr><tr>
+    <th style="background:${day1Color};color:#b0ffb0">طبيعي</th><th style="background:${day1Color};color:#ffb0b0">غير طبيعي</th><th style="background:${day1Color}">مجموع</th>
+    <th style="background:${day2Color};color:#b0ffb0">طبيعي</th><th style="background:${day2Color};color:#ffb0b0">غير طبيعي</th><th style="background:${day2Color}">مجموع</th>
+    <th style="background:${totColor};color:#b0ffb0">طبيعي</th><th style="background:${totColor};color:#ffb0b0">غير طبيعي</th><th style="background:${totColor}">مجموع</th>
+  </tr></thead>`;
+}
+
+function buildBloodRpt(arr){
+  if(!arr.length)return`<div class="card"><div class="ch blood">🩸 التقرير العددي — معمل الدم</div><div class="cb"><p style="color:var(--mu)">لا توجد بيانات</p></div></div>`;
+  const d1=arr.filter(r=>r.day===1),d2=arr.filter(r=>r.day===2);
+  const fields=[
+    {l:'هيموجلوبين Hb',v:'hb',r:'hbR'},{l:'سكر عشوائي RBS',v:'rbs',r:'rbsR'},{l:'سكر تراكمي HbA1c',v:'hba1c',r:'hba1cR'},
+    {l:'HP (CBC)',v:'hp',r:'hpR'},{l:'RBC',v:'rbc',r:'rbcR'},{l:'HCT',v:'hct',r:'hctR'},{l:'WBC',v:'wbc',r:'wbcR'},{l:'Platelets PLT',v:'plt',r:'pltR'},
+    {l:'يوريك أسيد',v:'uric',r:'uricR'},{l:'بولينا Urea',v:'urea',r:'ureaR'},{l:'كرياتنين',v:'creat',r:'creatR'},
+    {l:'بروتين كلي TP',v:'tp',r:'tpR'},{l:'ألبيومين',v:'alb',r:'albR'},{l:'بيليروبين',v:'bili',r:'biliR'},{l:'SGOT AST',v:'sgot',r:'sgotR'},{l:'SGPT ALT',v:'sgpt',r:'sgptR'},
+    {l:'LDL',v:'ldl',r:'ldlR'},{l:'HDL',v:'hdl',r:'hdlR'},{l:'دهون ثلاثية TG',v:'tg',r:'tgR'},{l:'كوليسترول',v:'chol',r:'cholR'},
+    {l:'H.PYLORI',v:'hpylori',r:'hpylori',direct:true},{l:'حمل بالدم',v:'preg',r:'preg',direct:true},
+    {l:'ASOT',v:'asot',r:'asot',direct:true},{l:'Rheumatoid RF',v:'rf',r:'rf',direct:true},{l:'CRP',v:'crp',r:'crp',direct:true},
+    {l:'HCV فيروس C',v:'hcv',r:'hcv',direct:true},{l:'HBsAg فيروس B',v:'hbsag',r:'hbsag',direct:true},{l:'HAV IgG فيروس A',v:'hav',r:'hav',direct:true},
+    {l:'سرعة النزف BT',v:'bt',r:'btR'},{l:'سرعة التجلط CT',v:'ct',r:'ctR'},{l:'سرعة الترسيب ESR',v:'esr',r:'esrR'}
+  ];
+  let rows='';let tn1=0,tp1=0,tn2=0,tp2=0;
+  fields.forEach((f,i)=>{
+    const getR=r=>f.direct?r[f.r]:r[f.r];
+    const done=r=>f.direct?(r[f.v]!==undefined&&r[f.v]!==''):(r[f.v]!==''&&r[f.v]!==undefined)||r[f.r];
+    const n1=d1.filter(r=>done(r)&&getR(r)==='طبيعي').length;
+    const p1=d1.filter(r=>done(r)&&getR(r)==='غير طبيعي').length;
+    const n2=d2.filter(r=>done(r)&&getR(r)==='طبيعي').length;
+    const p2=d2.filter(r=>done(r)&&getR(r)==='غير طبيعي').length;
+    if(!n1&&!p1&&!n2&&!p2)return;
+    const n=n1+n2,p=p1+p2;
+    tn1+=n1;tp1+=p1;tn2+=n2;tp2+=p2;
+    rows+=`<tr style="${i%2?'background:#f8fafc':''}"><td style="text-align:right;font-weight:700">${f.l}</td>
+      <td style="color:var(--ok);font-weight:700">${n1||'—'}</td><td style="color:var(--no);font-weight:700">${p1||'—'}</td><td><b>${n1+p1||'—'}</b></td>
+      <td style="color:var(--ok);font-weight:700">${n2||'—'}</td><td style="color:var(--no);font-weight:700">${p2||'—'}</td><td><b>${n2+p2||'—'}</b></td>
+      <td style="color:var(--ok);font-weight:700">${n||'—'}</td><td style="color:var(--no);font-weight:700">${p||'—'}</td><td><b>${n+p||'—'}</b></td></tr>`;
+  });
+  return`<div class="card" style="margin-bottom:14px">
+    <div class="ch blood">🩸 التقرير العددي — معمل الدم | إجمالي: ${arr.length} (يوم أول: ${d1.length} | يوم ثاني: ${d2.length})</div>
+    <div class="cb" style="overflow-x:auto"><table class="rpt-tbl">
+      ${rptThead(10,'#8a2a10','#145a38','#4a1a7a')}
+      <tbody>${rows}</tbody>
+      <tfoot><tr class="tr"><td style="text-align:right;font-weight:900">الإجمالي</td>
+        <td style="color:var(--ok);font-weight:900">${tn1}</td><td style="color:var(--no);font-weight:900">${tp1}</td><td><b>${tn1+tp1}</b></td>
+        <td style="color:var(--ok);font-weight:900">${tn2}</td><td style="color:var(--no);font-weight:900">${tp2}</td><td><b>${tn2+tp2}</b></td>
+        <td style="color:var(--ok);font-weight:900">${tn1+tn2}</td><td style="color:var(--no);font-weight:900">${tp1+tp2}</td><td><b>${tn1+tn2+tp1+tp2}</b></td>
+      </tr></tfoot>
+    </table></div></div>`;
+}
+
+function buildParaRpt(arr){
+  if(!arr.length)return`<div class="card"><div class="ch para">🔬 التقرير العددي — معمل الطفيليات</div><div class="cb"><p style="color:var(--mu)">لا توجد بيانات</p></div></div>`;
+  const d1=arr.filter(r=>r.day===1),d2=arr.filter(r=>r.day===2);
+  const fields=[
+    {k:'urates',l:'Urates (بول)'},{k:'phosphate',l:'Phosphate (بول)'},{k:'oxalates',l:'Oxalates (بول)'},
+    {k:'preg',l:'حمل (بول)'},{k:'sugar',l:'سكر (بول)'},{k:'palb',l:'ألبيومين (بول)'},{k:'pbili',l:'بيليروبين (بول)'},{k:'acetone',l:'أسيتون (بول)'},
+    {k:'hpylori',l:'H.PYLORI (براز)'},{k:'bilharzia',l:'بلهارسيا'},{k:'trichomonas',l:'تريكومونس'},
+    {k:'ameba',l:'أميبا'},{k:'giardia',l:'جيارديا'},{k:'hnana',l:'H. nana'},
+    {k:'oxyuris',l:'أكسيورس'},{k:'ascaris',l:'أسكارس'},{k:'ankylostoma',l:'أنكلوستمات'},{k:'demonuta',l:'ديمونيوتا'}
+  ];
+  let rows='';
+  fields.forEach((f,i)=>{
+    const done1=d1.filter(r=>r[f.k]&&r[f.k]!=='');
+    const done2=d2.filter(r=>r[f.k]&&r[f.k]!=='');
+    if(!done1.length&&!done2.length)return;
+    const p1=done1.filter(r=>r[f.k]==='غير طبيعي').length;
+    const p2=done2.filter(r=>r[f.k]==='غير طبيعي').length;
+    rows+=`<tr style="${i%2?'background:#f8fafc':''}"><td style="text-align:right;font-weight:700">${f.l}</td>
+      <td>${done1.length}</td><td style="color:var(--no);font-weight:700">${p1||'—'}</td>
+      <td>${done2.length}</td><td style="color:var(--no);font-weight:700">${p2||'—'}</td>
+      <td>${done1.length+done2.length}</td><td style="color:var(--no);font-weight:700">${(p1+p2)||'—'}</td></tr>`;
+  });
+  return`<div class="card" style="margin-bottom:14px">
+    <div class="ch para">🔬 التقرير العددي — معمل الطفيليات | إجمالي: ${arr.length}</div>
+    <div class="cb" style="overflow-x:auto"><table class="rpt-tbl">
+      <thead><tr><th style="min-width:140px;background:var(--pr)">الفحص</th>
+        <th colspan="2" style="background:#145a38">اليوم الأول</th>
+        <th colspan="2" style="background:#1a7a48">اليوم الثاني</th>
+        <th colspan="2" style="background:#4a1a7a">الإجمالي</th>
+      </tr><tr>
+        <th style="background:var(--pr)"></th>
+        <th style="background:#145a38">عدد الفحوص</th><th style="background:#145a38;color:#ffb0b0">إيجابي</th>
+        <th style="background:#1a7a48">عدد الفحوص</th><th style="background:#1a7a48;color:#ffb0b0">إيجابي</th>
+        <th style="background:#4a1a7a">عدد الفحوص</th><th style="background:#4a1a7a;color:#ffb0b0">إيجابي</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div></div>`;
+}
+
+function buildXrayRpt(arr){
+  if(!arr.length)return`<div class="card"><div class="ch xray">📡 التقرير العددي — الأشعة</div><div class="cb"><p style="color:var(--mu)">لا توجد بيانات</p></div></div>`;
+  const d1=arr.filter(r=>r.day===1),d2=arr.filter(r=>r.day===2);
+  const exams={};
+  arr.forEach(r=>{const k=r.examname||r.code||'غير محدد';if(!exams[k])exams[k]={d1n:0,d1p:0,d2n:0,d2p:0};const day=r.day===1?'d1':'d2';if(r.result==='طبيعي')exams[k][day+'n']++;else if(r.result==='غير طبيعي')exams[k][day+'p']++;});
+  const rows=Object.entries(exams).map(([name,v],i)=>{
+    const n=v.d1n+v.d2n,p=v.d1p+v.d2p;
+    return`<tr style="${i%2?'background:#f8fafc':''}"><td style="text-align:right;font-weight:700">${name}</td>
+      <td style="color:var(--ok)">${v.d1n||'—'}</td><td style="color:var(--no)">${v.d1p||'—'}</td><td><b>${v.d1n+v.d1p||'—'}</b></td>
+      <td style="color:var(--ok)">${v.d2n||'—'}</td><td style="color:var(--no)">${v.d2p||'—'}</td><td><b>${v.d2n+v.d2p||'—'}</b></td>
+      <td style="color:var(--ok)">${n||'—'}</td><td style="color:var(--no)">${p||'—'}</td><td><b>${n+p||'—'}</b></td></tr>`;
+  }).join('');
+  return`<div class="card" style="margin-bottom:14px">
+    <div class="ch xray">📡 التقرير العددي — الأشعة | إجمالي: ${arr.length}</div>
+    <div class="cb" style="overflow-x:auto"><table class="rpt-tbl">
+      ${rptThead(10,'#0f2d8a','#1a3a9a','#4a1a7a')}
+      <tbody>${rows}</tbody>
+    </table></div></div>`;
+}
+
+function buildScreenRpt(arr){
+  if(!arr.length)return`<div class="card"><div class="ch screen">💊 التقرير — افحص واطمن</div><div class="cb"><p style="color:var(--mu)">لا توجد بيانات</p></div></div>`;
+  const d1=arr.filter(r=>r.day===1),d2=arr.filter(r=>r.day===2);
+  function bpCat(bp){if(!bp)return null;const p=bp.split('/');if(p.length<2)return null;const s=parseInt(p[0]),d=parseInt(p[1]);if(s<120&&d<80)return'أقل من 120/80 طبيعي';if(s<=140&&d<=90)return'120/80 — 140/90';if(s<=160&&d<=100)return'140/90 — 160/100';return'أكبر من 160/100';}
+  function rbsCat(v){if(!v)return null;const n=parseInt(v);if(n<140)return'أقل من 140';if(n<=200)return'140 — 200';return'أكبر من 200';}
+  function tblRows(arr2,catFn,cats){return cats.map(cat=>{
+    const m1=d1.filter(r=>catFn(r)===cat&&r.gender==='ذكر').length;
+    const f1=d1.filter(r=>catFn(r)===cat&&r.gender==='أنثى').length;
+    const m2=d2.filter(r=>catFn(r)===cat&&r.gender==='ذكر').length;
+    const f2=d2.filter(r=>catFn(r)===cat&&r.gender==='أنثى').length;
+    return`<tr><td style="text-align:right;font-weight:700">${cat}</td><td>${m1||'—'}</td><td>${f1||'—'}</td><td><b>${m1+f1}</b></td><td>${m2||'—'}</td><td>${f2||'—'}</td><td><b>${m2+f2}</b></td><td>${m1+m2||'—'}</td><td>${f1+f2||'—'}</td><td><b>${m1+f1+m2+f2}</b></td></tr>`;
+  }).join('');}
+  const scTh=`<thead><tr><th rowspan="2" style="min-width:150px;background:var(--pr)">الفئة</th><th colspan="3" style="background:#5a1060">اليوم الأول</th><th colspan="3" style="background:#7a1a80">اليوم الثاني</th><th colspan="3" style="background:#4a1a7a">الإجمالي</th></tr><tr><th style="background:#5a1060">ذكور</th><th style="background:#5a1060">إناث</th><th style="background:#5a1060">مجموع</th><th style="background:#7a1a80">ذكور</th><th style="background:#7a1a80">إناث</th><th style="background:#7a1a80">مجموع</th><th style="background:#4a1a7a">ذكور</th><th style="background:#4a1a7a">إناث</th><th style="background:#4a1a7a">مجموع</th></tr></thead>`;
+  const abnormal=arr.filter(r=>r.bpR==='غير طبيعي'||r.rbsR==='غير طبيعي');
+  const abnRows=abnormal.map((r,i)=>`<tr><td>${i+1}</td><td style="text-align:right;font-weight:700">${r.name}</td><td>${r.age}</td><td>${r.gender}</td><td>${r.ticket}</td><td style="color:var(--no);font-weight:700">${r.phone||'⚠️ غير مسجل'}</td><td>${r.day===1?'أول':'ثاني'}</td><td>${r.hxBp==='غير طبيعي'?'✅يوجد':'لا'}</td><td>${r.hxSugar==='غير طبيعي'?'✅يوجد':'لا'}</td><td>${r.bp||'—'}</td><td>${r.bpR==='غير طبيعي'?'<span class="bp">❌</span>':'<span class="bn">✅</span>'}</td><td>${r.rbs||'—'}</td><td>${r.rbsR==='غير طبيعي'?'<span class="bp">❌</span>':'<span class="bn">✅</span>'}</td><td>${r.hba1c||'—'}</td><td style="font-size:10px">${r.action||'—'}</td></tr>`).join('');
+  return`<div class="card" style="margin-bottom:14px">
+    <div class="ch screen">💊 تحليل بيانات الكشف المبكر عن الضغط والسكر | إجمالي: ${arr.length} (يوم أول: ${d1.length} | يوم ثاني: ${d2.length})</div>
+    <div class="cb">
+      <h4 style="font-size:13px;font-weight:900;color:var(--screen);margin-bottom:8px">📊 توزيع السكر العشوائي حسب الجنس واليوم</h4>
+      <div style="overflow-x:auto;margin-bottom:16px"><table class="rpt-tbl">${scTh}<tbody>${tblRows(arr,r=>rbsCat(r.rbs),['أكبر من 200','140 — 200','أقل من 140'])}</tbody></table></div>
+      <h4 style="font-size:13px;font-weight:900;color:var(--screen);margin-bottom:8px">📊 توزيع ضغط الدم حسب الجنس واليوم</h4>
+      <div style="overflow-x:auto;margin-bottom:16px"><table class="rpt-tbl">${scTh}<tbody>${tblRows(arr,r=>bpCat(r.bp),['أقل من 120/80 طبيعي','120/80 — 140/90','140/90 — 160/100','أكبر من 160/100'])}</tbody></table></div>
+      ${abnormal.length?`<h4 style="font-size:13px;font-weight:900;color:var(--no);margin-bottom:8px">⚠️ بيان أسماء الحالات غير الطبيعية (${abnormal.length} حالة)</h4>
+      <div style="overflow-x:auto"><table class="rpt-tbl">
+        <thead class="screen-h"><tr><th>#</th><th>الاسم</th><th>السن</th><th>الجنس</th><th>التذكرة</th><th>التليفون</th><th>اليوم</th><th>تاريخ ضغط</th><th>تاريخ سكر</th><th>الضغط</th><th>R</th><th>السكر</th><th>R</th><th>HbA1c</th><th>الإجراء</th></tr></thead>
+        <tbody>${abnRows}</tbody></table></div>`:''}
+    </div></div>`;
+}
+
+// AUTOCOMPLETE
+function acSearch(codeId,nameId){
+  const val=document.getElementById(codeId).value.trim().toLowerCase();
+  const lst=document.getElementById('ac-xr');
+  if(!val){lst.style.display='none';return;}
+  const matches=Object.entries(PROC).filter(([k,v])=>k.startsWith(val)||v.includes(val)).slice(0,8);
+  if(!matches.length){lst.style.display='none';return;}
+  lst.innerHTML=matches.map(([k,v])=>`<div class="ac-item" onclick="pickAc('${codeId}','${nameId}','${k}',\`${v}\`)"><strong>${k}</strong> — ${v}</div>`).join('');
+  lst.style.display='block';
+}
+function pickAc(ci,ni,code,name){document.getElementById(ci).value=code;document.getElementById(ni).value=name;document.getElementById('ac-xr').style.display='none';}
+document.addEventListener('click',e=>{if(!e.target.closest('.ac-wrap'))document.querySelectorAll('.ac-list').forEach(l=>l.style.display='none');});
+
+// EXPORT
+function exportJSON(){
+  const dept=curUser?.role==='admin'?null:curUser?.role;
+  const exp=dept?records.filter(r=>r.dept===dept):records;
+  if(!exp.length){showToast('⚠️ لا توجد بيانات',false);return;}
+  dl(new Blob([JSON.stringify({session,records:exp,exportedAt:new Date().toISOString()},null,2)],{type:'application/json'}),`قافلة_${session?.village||'البحيرة'}.json`);
+  showToast('📥 تم التصدير JSON');
+}
+function exportExcel(){
+  if(typeof XLSX==='undefined'){showToast('⚠️ مكتبة Excel غير محملة — تأكد من الاتصال بالإنترنت',false);return;}
+  const isAdmin=curUser?.role==='admin';
+  const myDept=isAdmin?null:curUser?.role;
+  const exp=myDept?records.filter(r=>r.dept===myDept):records;
+  if(!exp.length){showToast('⚠️ لا توجد بيانات',false);return;}
+
+  const wb=XLSX.utils.book_new();
+  const vil=session?.village||'القافلة';
+  const baseHdr=['#','الاسم','السن','الجنس','الرقم القومي','رقم التذكرة','رقم التليفون','اليوم','تاريخ التسجيل','العيادة المحولة','الموظف'];
+  const baseRow=(r,i)=>[i+1,r.name,r.age,r.gender,r.nid||'',r.ticket,r.phone||'',
+    r.day===1?'اليوم الأول':'اليوم الثاني',r.savedAt?.substring(0,10)||'',r.clinic||'',r.emp||''];
+
+  const sheets=[
+    {dept:'blood',name:'معمل الدم',
+     hdr:[...baseHdr,'Hb','ن Hb','سكر RBS','نتيجة','HbA1c','نتيجة','فصيلة','Rh',
+       'HP','ن','RBC','ن','HCT','ن','WBC','ن','PLT','ن',
+       'يوريك','ن','بولينا','ن','كرياتنين','ن','TP','ن','ألبيومين','ن','بيليروبين','ن','SGOT','ن','SGPT','ن',
+       'LDL','ن','HDL','ن','TG','ن','كوليسترول','ن',
+       'H.Pylori','حمل دم','ASOT','RF','CRP','HCV','HBsAg','HAV',
+       'BT','ن BT','CT','ن CT','ESR','ن ESR'],
+     row:r=>[r.hb,r.hbR,r.rbs,r.rbsR,r.hba1c,r.hba1cR,r.blood,r.rh,
+       r.hp,r.hpR,r.rbc,r.rbcR,r.hct,r.hctR,r.wbc,r.wbcR,r.plt,r.pltR,
+       r.uric,r.uricR,r.urea,r.ureaR,r.creat,r.creatR,
+       r.tp,r.tpR,r.alb,r.albR,r.bili,r.biliR,r.sgot,r.sgotR,r.sgpt,r.sgptR,
+       r.ldl,r.ldlR,r.hdl,r.hdlR,r.tg,r.tgR,r.chol,r.cholR,
+       r.hpylori,r.preg,r.asot,r.rf,r.crp,r.hcv,r.hbsag,r.hav,
+       r.bt,r.btR,r.ct,r.ctR,r.esr,r.esrR]},
+    {dept:'para',name:'الطفيليات',
+     hdr:[...baseHdr,'Urates','Phosphate','Oxalates','حمل بول','سكر بول','ألبيومين بول','بيليروبين بول','أسيتون',
+       'H.Pylori','بلهارسيا','تريكومونس','أميبا','جيارديا','H.nana','أكسيورس','أسكارس','أنكلوستمات','ديمونيوتا'],
+     row:r=>[r.urates,r.phosphate,r.oxalates,r.preg,r.sugar,r.palb,r.pbili,r.acetone,
+       r.hpylori,r.bilharzia,r.trichomonas,r.ameba,r.giardia,r.hnana,r.oxyuris,r.ascaris,r.ankylostoma,r.demonuta]},
+    {dept:'xray',name:'الأشعة',
+     hdr:[...baseHdr,'كود الفحص','اسم الفحص','النتيجة','ملاحظات'],
+     row:r=>[r.code,r.examname,r.result,r.remark]},
+    {dept:'screen',name:'افحص واطمن',
+     hdr:[...baseHdr,'تدخين','تاريخ سكر','تاريخ ضغط','ضغط انقباضي','ضغط انبساطي','نتيجة الضغط','سكر عشوائي','نتيجة السكر','HbA1c','نتيجة HbA1c','الإجراء','تحويل لعيادة'],
+     row:r=>[r.smoke,r.hxSugar,r.hxBp,
+       r.bpSys||(r.bp?r.bp.split('/')[0]:''),
+       r.bpDia||(r.bp?r.bp.split('/')[1]:''),
+       r.bpR,r.rbs,r.rbsR,r.hba1c,r.hba1cR,r.action,r.refer]}
+  ];
+
+  const depts=myDept?[myDept]:['blood','para','xray','screen'];
+  let sheetCount=0;
+  depts.forEach(d=>{
+    const sh=sheets.find(s=>s.dept===d);if(!sh)return;
+    const recs=exp.filter(r=>r.dept===d);if(!recs.length)return;
+    const data=[sh.hdr,...recs.map((r,i)=>[...baseRow(r,i),...sh.row(r)])];
+    const ws=XLSX.utils.aoa_to_sheet(data);
+    // تنسيق: عرض الأعمدة
+    ws['!cols']=sh.hdr.map((_,i)=>({wch:i<11?14:10}));
+    // تمييز الصف الأول (headers)
+    const range=XLSX.utils.decode_range(ws['!ref']);
+    for(let c=range.s.c;c<=range.e.c;c++){
+      const cell=ws[XLSX.utils.encode_cell({r:0,c})];
+      if(cell)cell.s={font:{bold:true},fill:{fgColor:{rgb:'1a4a6b'}},alignment:{horizontal:'center'}};
+    }
+    XLSX.utils.book_append_sheet(wb,ws,sh.name);
+    sheetCount++;
+  });
+
+  if(!sheetCount){showToast('⚠️ لا توجد بيانات',false);return;}
+  XLSX.writeFile(wb,`${vil}_${new Date().toLocaleDateString('ar-EG').replace(/\//g,'-')}.xlsx`);
+  showToast(`📊 تم تصدير Excel — ${sheetCount} شيت`);
+}
+function dl(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
+
+// CLEAR
+function cfClearAll(){showCf('مسح كل البيانات','سيتم حذف كل السجلات نهائياً. متأكد؟',()=>{records=[];persist();showToast('⚠️ تم مسح كل البيانات');});}
+
+// MODAL
+function showCf(t,m,cb,cancelCb=null){
+  document.getElementById('cfTitle').textContent=t;
+  document.getElementById('cfMsg').textContent=m;
+  cfCb=cb;cfCancelCb=cancelCb;
+  document.getElementById('cfMov').classList.add('show');
+}
+document.getElementById('cfOk').onclick=()=>{closeMov('cfMov');const c=cfCb;cfCb=null;cfCancelCb=null;c&&c();};
+document.getElementById('cfCancel')&&(document.getElementById('cfCancel').onclick=()=>{closeMov('cfMov');const c=cfCancelCb;cfCb=null;cfCancelCb=null;c&&c();});
+function closeMov(id){document.getElementById(id).classList.remove('show');}
+document.querySelectorAll('.mov').forEach(m=>m.addEventListener('click',e=>{if(e.target===m){const c=cfCancelCb;cfCb=null;cfCancelCb=null;closeMov(m.id);c&&c();}}));
+
+// NAV + PRINT
+function gotoSc(id){
+  document.querySelectorAll('.sc').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sc-'+id).classList.add('active');
+  document.getElementById('nav-'+id)?.classList.add('active');
+  if(id==='records')renderRec();
+  if(id==='stats')buildStats();
+  if(id==='entry'&&session&&curUser)applySessUI();
+}
+function printRpt(){
+  const dept=curDept||(curUser?.role==='admin'?null:curUser?.role);
+  const ph=document.getElementById('prntHdr');ph.style.display='block';
+  document.getElementById('ph-t').textContent=`سجل ${DNAMES[dept]||'المرضى'} — ${session?.village||''} — ${session?.center||''}`;
+  document.getElementById('ph-i').textContent=`الموظف: ${curUser?.name||''} | اليوم الأول: ${fmtD(session?.day1)} | اليوم الثاني: ${fmtD(session?.day2)} | إجمالي: ${getFiltered().length} مريض`;
+  gotoSc('records');renderRec();setTimeout(()=>{window.print();ph.style.display='none';},300);
+}
+function showToast(msg,ok=true){
+  const t=document.getElementById('toast');
+  t.style.background=ok?'var(--ok)':'var(--no)';
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);
+}
+// ═══════════════════════════════════════════
+// LOCK / UNLOCK CARAVAN
+// ═══════════════════════════════════════════
+function lockCaravan(){
+  showCf(
+    '🔒 إغلاق القافلة',
+    `بعد الإغلاق:\n• الموظفون لا يستطيعون الدخول أو رؤية أي بيانات\n• المدير فقط يقدر يراجع التقارير\n• البيانات محفوظة على Google Sheets\n\nهل أنت متأكد؟`,
+    ()=>{
+      caravanLocked=true;
+      localStorage.setItem('qs_locked','1');
+      updateLockUI();showLockStatusOnLogin();
+      showToast('🔒 تم إغلاق القافلة — البيانات في Google Sheets محفوظة لك');
+    }
+  );
+}
+
+function unlockCaravan(){
+  showCf(
+    '🔓 إعادة فتح القافلة',
+    'سيتمكن الموظفون من الدخول وتسجيل البيانات مرة أخرى.\n\nهل أنت متأكد؟',
+    ()=>{
+      caravanLocked=false;
+      localStorage.setItem('qs_locked','0');
+      updateLockUI();
+      showToast('🔓 تم فتح القافلة — الموظفون يقدروا يدخلوا');
+    }
+  );
+}
+
+function updateLockUI(){
+  const lockBtn=document.getElementById('lockBtn');
+  const unlockBtn=document.getElementById('unlockBtn');
+  const banner=document.getElementById('lockBannerWrap');
+  if(!lockBtn)return;
+  if(caravanLocked){
+    lockBtn.style.display='none';
+    unlockBtn.style.display='block';
+    banner.innerHTML='<div style="background:#fff0f0;border:1.5px solid #e0aaaa;border-radius:9px;padding:8px 12px;font-size:11px;color:#7a1a1a;font-weight:700;text-align:center">🔒 القافلة مغلقة حالياً — الموظفون ممنوعون من الدخول</div>';
+  }else{
+    lockBtn.style.display='block';
+    unlockBtn.style.display='none';
+    banner.innerHTML='<div style="background:#f0fff4;border:1.5px solid #aadabb;border-radius:9px;padding:8px 12px;font-size:11px;color:#1a5a2a;font-weight:700;text-align:center">✅ القافلة مفتوحة — الموظفون يقدروا يدخلوا</div>';
+  }
+}
+
+// ── أظهر حالة القفل في شاشة الدخول ──
+function showLockStatusOnLogin(){
+  const el=document.getElementById('lockStatusLogin');
+  if(!el)return;
+  if(caravanLocked){
+    el.innerHTML='<div style="background:#fff0f0;border:1px solid #e0aaaa;border-radius:8px;padding:7px 12px;font-size:11px;color:#7a1a1a;font-weight:700;text-align:center;margin-bottom:10px">🔒 القافلة مغلقة — الدخول للمدير فقط</div>';
+  }else{
+    el.innerHTML='';
+  }
+}
+
+// ═══════════════════════════════════════════
+// GOOGLE SHEETS SYNC
+// ═══════════════════════════════════════════
+function setGsUrl(){
+  const url=document.getElementById('gs-url').value.trim();
+  if(!url||!url.includes('script.google.com')){showToast('⚠️ الرابط غير صحيح',false);return;}
+  gsUrl=url;localStorage.setItem('qs_gsurl',url);
+  showToast('✅ تم حفظ رابط Google Sheets');
+  gsStatus('✅ تم حفظ الرابط','#1a7a4a');
+}
+
+function gsStatus(msg,color='#5a7080'){
+  const el=document.getElementById('gs-status');
+  if(el){el.textContent=msg;el.style.color=color;}
+}
+
+// إرسال سجل واحد (fire-and-forget)
+function syncRecToSheet(record){
+  if(!gsUrl)return;
+  const payload={action:'save',record,session};
+  fetch(gsUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})
+    .catch(()=>{});
+}
+
+// حذف سجل من Sheets
+function deleteFromSheet(id){
+  if(!gsUrl)return;
+  fetch(gsUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'delete',id})})
+    .catch(()=>{});
+}
+
+// تحميل البيانات من Sheets (JSONP يتجاوز CORS)
+function jsonpFetch(url){
+  return new Promise((resolve,reject)=>{
+    const cb='_gs'+Date.now();
+    window[cb]=(data)=>{delete window[cb];const s=document.getElementById('_jscript');if(s)s.remove();resolve(data);};
+    const s=document.createElement('script');s.id='_jscript';
+    s.src=url+(url.includes('?')?'&':'?')+'callback='+cb;
+    s.onerror=()=>{delete window[cb];reject(new Error('فشل الاتصال بـ Google Sheets'));};
+    document.head.appendChild(s);
+    setTimeout(()=>{if(window[cb]){delete window[cb];reject(new Error('انتهت مهلة الاتصال'));}},15000);
+  });
+}
+
+async function pullFromSheets(){
+  if(!gsUrl){showToast('⚠️ أدخل رابط الـ Script أولاً',false);return;}
+  gsStatus('⏳ جاري التحميل من Google Sheets...');
+  showToast('⏳ جاري تحميل البيانات...',true);
+  try{
+    const data=await jsonpFetch(gsUrl);
+    if(data.ok&&data.records&&data.records.length){
+      let added=0,updated=0;
+      data.records.forEach(r=>{
+        // تحويل id لرقم لو كان نصاً
+        if(r.id)r.id=Number(r.id)||r.id;
+        const idx=records.findIndex(x=>String(x.id)===String(r.id));
+        if(idx>=0){records[idx]=r;updated++;}
+        else{records.push(r);added++;}
+      });
+      persist();renderRec&&renderRec();
+      const msg=`✅ تم التحميل: ${added} جديد، ${updated} محدّث (الإجمالي: ${data.records.length})`;
+      showToast(msg,true);gsStatus(msg,'#1a7a4a');
+    }else if(data.ok&&(!data.records||!data.records.length)){
+      showToast('ℹ️ الـ Sheet فارغ حالياً',true);
+      gsStatus('ℹ️ لا توجد بيانات في الـ Sheet بعد');
+    }else{
+      showToast('❌ خطأ في البيانات المستلمة',false);
+      gsStatus('❌ بيانات غير صحيحة من الـ Script','#b83232');
+    }
+  }catch(e){
+    showToast('❌ '+e.message,false);
+    gsStatus('❌ '+e.message,'#b83232');
+  }
+}
+
+async function pushAllToSheets(){
+  if(!gsUrl){showToast('⚠️ أدخل رابط الـ Script أولاً',false);return;}
+  if(!records.length){showToast('⚠️ لا توجد بيانات للرفع',false);return;}
+  showToast('⏳ جاري رفع '+records.length+' سجل...',true);
+  gsStatus('⏳ جاري الرفع...');
+  let sent=0;
+  for(const r of records){
+    try{
+      await fetch(gsUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'save',record:r,session})});
+      sent++;
+    }catch(e){}
+    // تأخير بسيط لتجنب الضغط على الـ API
+    await new Promise(res=>setTimeout(res,120));
+  }
+  const msg=`✅ تم رفع ${sent} من ${records.length} سجل`;
+  showToast(msg,true);gsStatus(msg,'#1a7a4a');
+}
+
+async function pullFromSheets(){
+  if(!gsUrl){showToast('⚠️ أدخل رابط الـ Script أولاً',false);return;}
+  gsStatus('⏳ جاري التحميل من Google Sheets...');
+  showToast('⏳ جاري تحميل البيانات...',true);
+
+  let data=null;
+  // محاولة 1: fetch عادي (يعمل لو Apps Script يدعم CORS)
+  try{
+    const resp=await fetch(gsUrl,{redirect:'follow'});
+    data=await resp.json();
+  }catch(e1){
+    // محاولة 2: JSONP كبديل
+    try{data=await jsonpFetch(gsUrl);}
+    catch(e2){showToast('❌ فشل الاتصال: '+e2.message,false);gsStatus('❌ فشل الاتصال — تأكد من الرابط وإعدادات النشر','#b83232');return;}
+  }
+
+  if(!data){showToast('❌ لم يتم استلام بيانات',false);return;}
+  if(data.ok===false){showToast('❌ خطأ من الـ Script: '+(data.error||'غير معروف'),false);gsStatus('❌ '+(data.error||'خطأ من الـ Script'),'#b83232');return;}
+
+  const recs=data.records||[];
+  if(!recs.length){showToast('ℹ️ الـ Sheet لا يحتوي على بيانات بعد',true);gsStatus('ℹ️ لا توجد سجلات في الـ Sheet');return;}
+
+  let added=0,updated=0;
+  recs.forEach(r=>{
+    if(r.id)r.id=Number(r.id)||r.id;
+    const idx=records.findIndex(x=>String(x.id)===String(r.id));
+    if(idx>=0){records[idx]=r;updated++;}
+    else{records.push(r);added++;}
+  });
+  persist();renderRec&&renderRec();
+  const msg=`✅ تم التحميل: ${added} جديد، ${updated} محدّث (الإجمالي: ${recs.length})`;
+  showToast(msg,true);gsStatus(msg,'#1a7a4a');
+}
+
+async function testGsConnection(){
+  if(!gsUrl){showToast('⚠️ أدخل الرابط أولاً',false);return;}
+  gsStatus('⏳ جاري اختبار الاتصال...');
+  let data=null;
+  try{const r=await fetch(gsUrl,{redirect:'follow'});data=await r.json();}
+  catch(e1){try{data=await jsonpFetch(gsUrl);}catch(e2){}}
+  if(data&&data.ok!==false){
+    showToast('✅ الاتصال يعمل — الـ Script جاهز',true);
+    gsStatus(`✅ الاتصال يعمل — يوجد ${data.total||0} سجل في الـ Sheet`,'#1a7a4a');
+  }else{
+    showToast('❌ فشل الاتصال — تحقق من الرابط وإعدادات النشر',false);
+    gsStatus('❌ فشل الاتصال أو الـ Script يرجع خطأ','#b83232');
+  }
+}
+
+populateLoginUsers();
+showLockStatusOnLogin();
+
+// ── دالة حوار رقم التليفون ──────────────────────────────
+let _pendingPhoneSave=null;
+function showPhoneModal(r,dept,phoneFieldId){
+  _pendingPhoneSave={r,dept,phoneFieldId};
+  document.getElementById('phoneModalInput').value='';
+  document.getElementById('phoneMov').style.display='flex';
+  setTimeout(()=>document.getElementById('phoneModalInput').focus(),150);
+}
+function phoneModalSave(withPhone){
+  document.getElementById('phoneMov').style.display='none';
+  if(!_pendingPhoneSave)return;
+  const ps=_pendingPhoneSave;
+  _pendingPhoneSave=null;
+  if(withPhone){
+    const phone=document.getElementById('phoneModalInput').value.trim();
+    ps.r.phone=phone;
+    const el=document.getElementById(ps.phoneFieldId);
+    if(el)el.value=phone;
+  }
+  doSaveRec(ps.r,ps.dept);
+}
+// ربط الأزرار بعد تحميل الصفحة
+document.addEventListener('DOMContentLoaded',function(){
+  const btnSave=document.getElementById('pmBtnSave');
+  const btnSkip=document.getElementById('pmBtnSkip');
+  if(btnSave)btnSave.addEventListener('click',function(e){e.stopPropagation();phoneModalSave(true);});
+  if(btnSkip)btnSkip.addEventListener('click',function(e){e.stopPropagation();phoneModalSave(false);});
+});
+</script>
+
+<!-- Phone Warning Dialog -->
+<div id="phoneMov" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:99999;align-items:center;justify-content:center;touch-action:none">
+  <div style="background:#fff;border-radius:16px;padding:24px 20px;max-width:340px;width:92%;font-family:'Cairo',sans-serif;direction:rtl;box-shadow:0 12px 40px rgba(0,0,0,.3);position:relative;z-index:100000">
+    <div style="font-size:36px;text-align:center;margin-bottom:8px">📞</div>
+    <div style="font-size:16px;font-weight:900;color:#c0392b;text-align:center;margin-bottom:6px">نتيجة غير طبيعية</div>
+    <p style="font-size:12px;color:#555;text-align:center;margin-bottom:4px;line-height:1.8">
+      تم رصد نتيجة <b>غير طبيعية</b> في هذا الملف.<br>
+      برجاء تسجيل رقم التليفون إن أمكن للمتابعة مع المريض.
+    </p>
+    <label style="font-size:12px;font-weight:700;color:#333;display:block;margin-bottom:6px;text-align:right">رقم التليفون</label>
+    <input id="phoneModalInput" type="tel" inputmode="numeric" placeholder="01x xxxxxxxx"
+      style="width:100%;padding:12px;border:2px solid #2980b9;border-radius:10px;font-family:'Cairo',sans-serif;font-size:16px;text-align:center;box-sizing:border-box;margin-bottom:16px;outline:none">
+    <div style="display:flex;gap:10px">
+      <button id="pmBtnSave" type="button"
+        style="flex:2;padding:13px 8px;background:#27ae60;color:#fff;border:none;border-radius:10px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:900;cursor:pointer;touch-action:manipulation">
+        💾 حفظ مع الرقم
+      </button>
+      <button id="pmBtnSkip" type="button"
+        style="flex:1;padding:13px 8px;background:#2c3e50;color:#fff;border:none;border-radius:10px;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;touch-action:manipulation">
+        تخطي وحفظ
+      </button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
