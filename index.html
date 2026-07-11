@@ -858,25 +858,51 @@ document.querySelectorAll('.mov').forEach(m=>m.addEventListener('click',e=>{if(e
 // =============== تهيئة الصفحة ===============
 populateLoginUsers();
 showLockStatusOnLogin();
-  // ===== التحميل التلقائي للموظفين بمجرد فتح الصفحة =====
-(function autoLoadStaff() {
-  var url = localStorage.getItem('qs_gsurl') || '';
-  if (url && staff.length === 0) {
-    setTimeout(function() {
-      fetch(url)
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          if (data.staff && data.staff.length > 0) {
-            staff = data.staff;
-            localStorage.setItem('qs_staff', JSON.stringify(staff));
-            populateLoginUsers();
-            showToast('✅ تم تحميل ' + staff.length + ' موظف تلقائياً', true);
-          }
-        })
-        .catch(function() {});
-    }, 800);
+function populateLoginUsers(){
+  var sel = document.getElementById('l-user-sel');
+  var cur = sel.value || '';
+  
+  // 1. نضيف أولاً الـ Admin (ثابت)
+  var html = '<option value="">-- اختر --</option><option value="admin">⚙️ المدير</option>';
+  
+  // 2. نضيف الموظفين اللي عندنا في الذاكرة (لو موجودين)
+  if(staff && staff.length > 0) {
+    staff.forEach(function(s){
+      html += '<option value="' + s.name + '">' + (DICONS[s.dept]||'') + ' ' + s.name + '</option>';
+    });
   }
-})();
+  
+  // 3. نحط الـ HTML الجديد في القائمة
+  sel.innerHTML = html;
+  
+  // 4. نرجع القيمة القديمة لو كانت موجودة
+  if(cur) sel.value = cur;
+  
+  // ===== التحميل التلقائي من Sheets (مرة واحدة فقط) =====
+  // لو مفيش موظفين في الذاكرة، ولسه محملناش منهم قبل كده
+  if(staff.length === 0 && gsUrl) {
+    fetch(gsUrl)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if(data.staff && data.staff.length > 0) {
+          // نحفظ في الذاكرة
+          staff = data.staff;
+          localStorage.setItem('qs_staff', JSON.stringify(staff));
+          
+          // نعيد بناء القائمة مرة تانية عشان تظهر الأسماء
+          var newHtml = '<option value="">-- اختر --</option><option value="admin">⚙️ المدير</option>';
+          staff.forEach(function(s){
+            newHtml += '<option value="' + s.name + '">' + (DICONS[s.dept]||'') + ' ' + s.name + '</option>';
+          });
+          sel.innerHTML = newHtml;
+          if(cur) sel.value = cur;
+          
+          showToast('✅ تم تحميل ' + staff.length + ' موظف تلقائياً', true);
+        }
+      })
+      .catch(function() {});
+  }
+}
 </script>
 </body>
 </html>
