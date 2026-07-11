@@ -48,7 +48,7 @@ body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .fw{display:flex;flex-direction:column;gap:3px;}
 .fw label{font-size:10px;font-weight:700;color:var(--mu);}
 .fw label .req{color:var(--no);}
-.fw label .hint{color:var(--ac);font-weight:600;font-size:9px;}
+.fw label .hint{color:var(--ac);font-weight:600;font-size:9px;background:#fff8e0;padding:1px 4px;border-radius:4px;display:inline-block;margin-right:4px;}
 .fw input,.fw select{padding:7px 9px;border:1.5px solid var(--bdr);border-radius:7px;font-family:'Cairo',sans-serif;font-size:12px;color:var(--tx);background:#fafcff;direction:rtl;transition:border-color .2s;width:100%;}
 .fw input:focus,.fw select:focus{outline:none;border-color:var(--pr);background:#fff;}
 .s2{grid-column:span 2;}
@@ -215,7 +215,7 @@ td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid
 <div class="mov" id="cfMov"><div class="mbox"><h3 id="cfTitle">تأكيد</h3><p id="cfMsg"></p><div class="macts"><button class="btn out" onclick="closeMov('cfMov')">إلغاء</button><button class="btn no" id="cfOk">تأكيد</button></div></div></div>
 
 <!-- PHONE MODAL -->
-<div class="mov" id="phoneMov"><div class="mbox"><h3 style="color:var(--no)">📞 نتيجة غير طبيعية</h3><p>برجاء تسجيل رقم التليفون</p><input type="tel" id="phoneModalInput" placeholder="01x..." style="width:100%;padding:8px;border:1.5px solid var(--bdr);border-radius:7px;margin-bottom:12px"><div class="macts"><button class="btn out" onclick="pmSkip()">تخطي</button><button class="btn ok" onclick="pmSave()">حفظ مع الرقم</button></div></div></div>
+<div class="mov" id="phoneMov"><div class="mbox"><h3 style="color:var(--no)">📞 نتيجة غير طبيعية</h3><p>برجاء تسجيل رقم التليفون للتواصل مع الحالة</p><input type="tel" id="phoneModalInput" placeholder="01x..." style="width:100%;padding:8px;border:1.5px solid var(--bdr);border-radius:7px;margin-bottom:12px"><div class="macts"><button class="btn out" onclick="pmSkipPhone()">تخطي وحفظ</button><button class="btn ok" onclick="pmSavePhone()">💾 حفظ مع الرقم</button></div></div></div>
 
 <div class="toast" id="toast"><span id="toastMsg"></span></div>
 
@@ -246,11 +246,10 @@ td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid
   </div>
 </div>
 
-<!-- ENTRY (WITH TABS + PERMISSIONS) -->
+<!-- ENTRY (مع كل الميزات) -->
 <div class="sc" id="sc-entry">
   <div class="sess-ban" id="sessBan" style="display:none"><div class="sinfo"><div class="sf"><span class="sl">الموظف</span><span class="sv" id="sb-emp">—</span></div><div class="sf"><span class="sl">القافلة</span><span class="sv" id="sb-vil">—</span></div></div></div>
   
-  <!-- TABS BAR -->
   <div class="tabs-container" id="tabsContainer">
     <button id="newTabBtn" onclick="openNewTab()">➕ تبويب جديد</button>
     <div id="tabsList" style="display:flex;flex-wrap:wrap;gap:6px;flex:1"></div>
@@ -260,7 +259,6 @@ td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid
   
   <div class="dsel"><button class="db active" onclick="setGlobalDay(1)" id="db1">اليوم الأول</button><button class="db" onclick="setGlobalDay(2)" id="db2">اليوم الثاني</button></div>
   
-  <!-- DEPT CHOOSER (visible only for Admin) -->
   <div id="deptChooser" style="margin-bottom:10px;display:none">
     <div class="card"><div class="cb"><div class="dept-grid">
       <div class="dc blood" onclick="openNewTab('blood')"><div class="ico">🩸</div><h3>دم جديد</h3></div>
@@ -269,60 +267,98 @@ td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid
       <div class="dc screen" onclick="openNewTab('screen')"><div class="ico">💊</div><h3>افحص جديد</h3></div>
     </div></div></div></div>
 
-  <!-- ===== FORMS (BLOOD - مختصر) ===== -->
-  <div id="fBlood" style="display:none"><div class="esec"><div class="esec-h basic">👤 البيانات الأساسية</div><div class="esec-b"><div class="fg c4"><div class="fw"><label>التذكرة <span class="req">*</span></label><input id="bl-ticket"></div><div class="fw s2"><label>الاسم <span class="req">*</span></label><input id="bl-name"></div><div class="fw"><label>السن <span class="req">*</span></label><input id="bl-age" type="number"></div><div class="fw"><label>الجنس <span class="req">*</span></label><select id="bl-gender"><option>ذكر</option><option>أنثى</option></select></div><div class="fw"><label>التليفون</label><input id="bl-phone"></div><div class="fw"><label>الرقم القومي</label><input id="bl-nid"></div><div class="fw s2"><label>العيادة المحولة</label><select id="bl-clinic"><option>باطنة</option><option>قلب</option><option>عظام</option><option>عيون</option><option>نساء</option><option>جراحة</option><option>أطفال</option><option>جلدية</option><option>أنف وأذن</option><option>مسالك</option></select></div></div></div></div>
-  <div class="esec"><div class="esec-h blood">🩸 CBC</div><div class="esec-b"><div class="fg c5"><div class="fw"><label>HP</label><input type="number" step="0.1" id="bl-hp"><select id="bl-hp-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>RBC</label><input type="number" step="0.01" id="bl-rbc"><select id="bl-rbc-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>HCT</label><input type="number" step="0.1" id="bl-hct"><select id="bl-hct-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>WBC</label><input type="number" step="0.1" id="bl-wbc"><select id="bl-wbc-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>PLT</label><input type="number" id="bl-plt"><select id="bl-plt-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div></div></div></div>
-  <div class="esec"><div class="esec-h blood">🔬 Hb & Sugar</div><div class="esec-b"><div class="fg c3"><div class="fw"><label>Hb</label><input type="number" step="0.1" id="bl-hb"><select id="bl-hb-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>سكر عشوائي</label><input type="number" id="bl-rbs" oninput="autoRbsResult('bl')"><select id="bl-rbs-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>HbA1c</label><input type="number" step="0.1" id="bl-hba1c"><select id="bl-hba1c-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>فصيلة</label><select id="bl-blood"><option>A</option><option>B</option><option>AB</option><option>O</option></select></div><div class="fw"><label>Rh</label><select id="bl-rh"><option>موجب</option><option>سالب</option></select></div></div></div></div>
-  <div class="esec"><div class="esec-h blood">🫘 كلى</div><div class="esec-b"><div class="fg c3"><div class="fw"><label>يوريك</label><input type="number" step="0.1" id="bl-uric"><select id="bl-uric-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>بولينا</label><input type="number" id="bl-urea"><select id="bl-urea-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>كرياتنين</label><input type="number" step="0.01" id="bl-creat"><select id="bl-creat-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div></div></div></div>
-  <div class="esec"><div class="esec-h blood">🫀 كبد</div><div class="esec-b"><div class="fg c5"><div class="fw"><label>TP</label><input type="number" step="0.1" id="bl-tp"><select id="bl-tp-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>ألبيومين</label><input type="number" step="0.1" id="bl-alb"><select id="bl-alb-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>بيليروبين</label><input type="number" step="0.01" id="bl-bili"><select id="bl-bili-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>SGOT</label><input type="number" id="bl-sgot"><select id="bl-sgot-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>SGPT</label><input type="number" id="bl-sgpt"><select id="bl-sgpt-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div></div></div></div>
-  <div class="esec"><div class="esec-h blood">💧 دهون</div><div class="esec-b"><div class="fg c4"><div class="fw"><label>LDL</label><input type="number" id="bl-ldl"><select id="bl-ldl-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>HDL</label><input type="number" id="bl-hdl"><select id="bl-hdl-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>TG</label><input type="number" id="bl-tg"><select id="bl-tg-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>كوليسترول</label><input type="number" id="bl-chol"><select id="bl-chol-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div></div></div></div>
-  <div class="esec"><div class="esec-h blood">🦠 فيروسات</div><div class="esec-b"><div class="fg c4"><div class="fw"><label>H.Pylori</label><select id="bl-hpylori" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">سلبي</option><option value="غير طبيعي">إيجابي</option></select></div>
+  <!-- ===== BLOOD FORM ===== -->
+  <div id="fBlood" style="display:none"><div class="esec"><div class="esec-h basic">👤 البيانات الأساسية</div><div class="esec-b"><div class="fg c4"><div class="fw"><label>التذكرة <span class="req">*</span></label><input id="bl-ticket" onblur="checkTicket('blood','bl-ticket')"></div><div class="fw s2"><label>الاسم <span class="req">*</span></label><input id="bl-name"></div><div class="fw"><label>السن <span class="req">*</span></label><input id="bl-age" type="number"></div><div class="fw"><label>الجنس <span class="req">*</span></label><select id="bl-gender"><option>ذكر</option><option>أنثى</option></select></div><div class="fw"><label>التليفون</label><input id="bl-phone"></div><div class="fw"><label>الرقم القومي</label><input id="bl-nid"></div><div class="fw s2"><label>العيادة المحولة</label><select id="bl-clinic"><option>باطنة</option><option>قلب</option><option>عظام</option><option>عيون</option><option>نساء</option><option>جراحة</option><option>أطفال</option><option>جلدية</option><option>أنف وأذن</option><option>مسالك</option></select></div></div></div></div>
+  <div class="esec"><div class="esec-h blood">🩸 صورة دم كاملة CBC</div><div class="esec-b"><div class="fg c5">
+    <div class="fw"><label>HP <span class="hint">(0.5-1.5)</span></label><input type="number" step="0.1" id="bl-hp"><select id="bl-hp-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>RBC <span class="hint">(4.2-5.9)</span></label><input type="number" step="0.01" id="bl-rbc"><select id="bl-rbc-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>HCT <span class="hint">(37-52)</span></label><input type="number" step="0.1" id="bl-hct"><select id="bl-hct-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>WBC <span class="hint">(4-11)</span></label><input type="number" step="0.1" id="bl-wbc"><select id="bl-wbc-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>PLT <span class="hint">(150-450)</span></label><input type="number" id="bl-plt"><select id="bl-plt-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+  </div></div></div>
+  <div class="esec"><div class="esec-h blood">🔬 هيموجلوبين وسكر</div><div class="esec-b"><div class="fg c3">
+    <div class="fw"><label>Hb <span class="hint">(12-16)</span></label><input type="number" step="0.1" id="bl-hb"><select id="bl-hb-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>سكر عشوائي <span class="hint">(70-140)</span></label><input type="number" id="bl-rbs" oninput="autoRbsResult('bl')"><select id="bl-rbs-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>HbA1c <span class="hint">(أقل من 5.7)</span></label><input type="number" step="0.1" id="bl-hba1c"><select id="bl-hba1c-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>فصيلة</label><select id="bl-blood"><option>A</option><option>B</option><option>AB</option><option>O</option></select></div>
+    <div class="fw"><label>Rh</label><select id="bl-rh"><option>موجب</option><option>سالب</option></select></div>
+  </div></div></div>
+  <div class="esec"><div class="esec-h blood">🫘 وظائف الكلى</div><div class="esec-b"><div class="fg c3">
+    <div class="fw"><label>يوريك أسيد <span class="hint">(3.5-7.2)</span></label><input type="number" step="0.1" id="bl-uric"><select id="bl-uric-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>بولينا Urea <span class="hint">(15-45)</span></label><input type="number" id="bl-urea"><select id="bl-urea-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>كرياتنين <span class="hint">(0.6-1.3)</span></label><input type="number" step="0.01" id="bl-creat"><select id="bl-creat-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+  </div></div></div>
+  <div class="esec"><div class="esec-h blood">🫀 وظائف الكبد</div><div class="esec-b"><div class="fg c5">
+    <div class="fw"><label>TP <span class="hint">(6.4-8.3)</span></label><input type="number" step="0.1" id="bl-tp"><select id="bl-tp-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>ألبيومين <span class="hint">(3.5-5)</span></label><input type="number" step="0.1" id="bl-alb"><select id="bl-alb-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>بيليروبين <span class="hint">(0.1-1.2)</span></label><input type="number" step="0.01" id="bl-bili"><select id="bl-bili-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>SGOT <span class="hint">(5-40)</span></label><input type="number" id="bl-sgot"><select id="bl-sgot-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>SGPT <span class="hint">(7-56)</span></label><input type="number" id="bl-sgpt"><select id="bl-sgpt-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+  </div></div></div>
+  <div class="esec"><div class="esec-h blood">💧 دهون Lipid Profile</div><div class="esec-b"><div class="fg c4">
+    <div class="fw"><label>LDL <span class="hint">(أقل من 130)</span></label><input type="number" id="bl-ldl"><select id="bl-ldl-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>HDL <span class="hint">(أكبر من 40)</span></label><input type="number" id="bl-hdl"><select id="bl-hdl-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>TG <span class="hint">(أقل من 150)</span></label><input type="number" id="bl-tg"><select id="bl-tg-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>كوليسترول <span class="hint">(أقل من 200)</span></label><input type="number" id="bl-chol"><select id="bl-chol-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+  </div></div></div>
+  <div class="esec"><div class="esec-h blood">🦠 فيروسات ومصلية</div><div class="esec-b"><div class="fg c4">
+    <div class="fw"><label>H.Pylori</label><select id="bl-hpylori" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">سلبي</option><option value="غير طبيعي">إيجابي</option></select></div>
     <div class="fw"><label>حمل دم</label><select id="bl-preg" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">سلبي</option><option value="غير طبيعي">إيجابي</option></select></div>
     <div class="fw"><label>ASOT</label><select id="bl-asot" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">مرتفع</option></select></div>
     <div class="fw"><label>RF</label><select id="bl-rf" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">سلبي</option><option value="غير طبيعي">إيجابي</option></select></div>
     <div class="fw"><label>CRP</label><select id="bl-crp" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">سلبي</option><option value="غير طبيعي">إيجابي</option></select></div>
     <div class="fw"><label>HCV</label><select id="bl-hcv" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">سلبي</option><option value="غير طبيعي">إيجابي</option></select></div>
     <div class="fw"><label>HBsAg</label><select id="bl-hbsag" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">سلبي</option><option value="غير طبيعي">إيجابي</option></select></div>
-    <div class="fw"><label>HAV</label><select id="bl-hav" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">سلبي</option><option value="غير طبيعي">إيجابي</option></select></div></div></div></div>
-  <div class="esec"><div class="esec-h blood">⏱️ نزف</div><div class="esec-b"><div class="fg c3"><div class="fw"><label>BT</label><input type="number" step="0.5" id="bl-bt"><select id="bl-bt-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>CT</label><input type="number" step="0.5" id="bl-ct"><select id="bl-ct-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
-    <div class="fw"><label>ESR</label><input type="number" id="bl-esr"><select id="bl-esr-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div></div></div></div>
+    <div class="fw"><label>HAV</label><select id="bl-hav" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">سلبي</option><option value="غير طبيعي">إيجابي</option></select></div>
+  </div></div></div>
+  <div class="esec"><div class="esec-h blood">⏱️ نزف وتجلط</div><div class="esec-b"><div class="fg c3">
+    <div class="fw"><label>BT <span class="hint">(1-6 دق)</span></label><input type="number" step="0.5" id="bl-bt"><select id="bl-bt-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>CT <span class="hint">(5-15 دق)</span></label><input type="number" step="0.5" id="bl-ct"><select id="bl-ct-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+    <div class="fw"><label>ESR <span class="hint">(0-20)</span></label><input type="number" id="bl-esr"><select id="bl-esr-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
+  </div></div></div>
   <div class="eacts"><button class="btn sm del" onclick="closeCurrentTab()">❌ إغلاق التبويب</button><button class="btn ac" onclick="saveCurrentTab()">💾 حفظ المريض</button></div></div>
 
-  <!-- PARA FORM -->
-  <div id="fPara" style="display:none"><div class="esec"><div class="esec-h basic">👤 البيانات الأساسية</div><div class="esec-b"><div class="fg c4"><div class="fw"><label>التذكرة <span class="req">*</span></label><input id="pa-ticket"></div><div class="fw s2"><label>الاسم <span class="req">*</span></label><input id="pa-name"></div><div class="fw"><label>السن <span class="req">*</span></label><input id="pa-age" type="number"></div><div class="fw"><label>الجنس <span class="req">*</span></label><select id="pa-gender"><option>ذكر</option><option>أنثى</option></select></div><div class="fw"><label>التليفون</label><input id="pa-phone"></div><div class="fw"><label>الرقم القومي</label><input id="pa-nid"></div></div></div></div>
-  <div class="esec"><div class="esec-h para">🧪 بول</div><div class="esec-b"><div class="fg c4"><div class="fw"><label>Urates</label><select id="pa-urates" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>Phosphate</label><select id="pa-phosphate" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>Oxalates</label><select id="pa-oxalates" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>حمل بول</label><select id="pa-preg" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>سكر بول</label><select id="pa-sugar" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>ألبيومين</label><select id="pa-alb" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>بيليروبين</label><select id="pa-bili" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>أسيتون</label><select id="pa-acetone" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div></div></div></div>
-  <div class="esec"><div class="esec-h para">🔬 براز</div><div class="esec-b"><div class="fg c4"><div class="fw"><label>H.Pylori</label><select id="pa-hpylori" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>بلهارسيا</label><select id="pa-bilharzia" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>تريكومونس</label><select id="pa-trichomonas" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>أميبا</label><select id="pa-ameba" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>جيارديا</label><select id="pa-giardia" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>H.nana</label><select id="pa-hnana" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>أكسيورس</label><select id="pa-oxyuris" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div><div class="fw"><label>أسكارس</label><select id="pa-ascaris" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div></div></div></div>
+  <!-- ===== PARA FORM ===== -->
+  <div id="fPara" style="display:none"><div class="esec"><div class="esec-h basic">👤 البيانات الأساسية</div><div class="esec-b"><div class="fg c4"><div class="fw"><label>التذكرة <span class="req">*</span></label><input id="pa-ticket" onblur="checkTicket('para','pa-ticket')"></div><div class="fw s2"><label>الاسم <span class="req">*</span></label><input id="pa-name"></div><div class="fw"><label>السن <span class="req">*</span></label><input id="pa-age" type="number"></div><div class="fw"><label>الجنس <span class="req">*</span></label><select id="pa-gender"><option>ذكر</option><option>أنثى</option></select></div><div class="fw"><label>التليفون</label><input id="pa-phone"></div><div class="fw"><label>الرقم القومي</label><input id="pa-nid"></div></div></div></div>
+  <div class="esec"><div class="esec-h para">🧪 تحاليل البول</div><div class="esec-b"><div class="fg c4">
+    <div class="fw"><label>Urates</label><select id="pa-urates" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>Phosphate</label><select id="pa-phosphate" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>Oxalates</label><select id="pa-oxalates" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>حمل بول</label><select id="pa-preg" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>سكر بول</label><select id="pa-sugar" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>ألبيومين بول</label><select id="pa-alb" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>بيليروبين بول</label><select id="pa-bili" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>أسيتون بول</label><select id="pa-acetone" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+  </div></div></div>
+  <div class="esec"><div class="esec-h para">🔬 تحليل البراز</div><div class="esec-b"><div class="fg c4">
+    <div class="fw"><label>H.Pylori</label><select id="pa-hpylori" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>بلهارسيا</label><select id="pa-bilharzia" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>تريكومونس</label><select id="pa-trichomonas" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>أميبا</label><select id="pa-ameba" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>جيارديا</label><select id="pa-giardia" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>H.nana</label><select id="pa-hnana" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>أكسيورس</label><select id="pa-oxyuris" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+    <div class="fw"><label>أسكارس</label><select id="pa-ascaris" class="rsel" onchange="sR(this)"><option value="">لم يفحص</option><option value="غير طبيعي">إيجابي</option></select></div>
+  </div></div></div>
   <div class="eacts"><button class="btn sm del" onclick="closeCurrentTab()">❌ إغلاق التبويب</button><button class="btn ac" onclick="saveCurrentTab()">💾 حفظ المريض</button></div></div>
 
-  <!-- XRAY FORM -->
-  <div id="fXray" style="display:none"><div class="esec"><div class="esec-h basic">👤 البيانات الأساسية</div><div class="esec-b"><div class="fg c4"><div class="fw"><label>التذكرة <span class="req">*</span></label><input id="xr-ticket"></div><div class="fw s2"><label>الاسم <span class="req">*</span></label><input id="xr-name"></div><div class="fw"><label>السن <span class="req">*</span></label><input id="xr-age" type="number"></div><div class="fw"><label>الجنس <span class="req">*</span></label><select id="xr-gender"><option>ذكر</option><option>أنثى</option></select></div><div class="fw"><label>التليفون</label><input id="xr-phone"></div><div class="fw"><label>الرقم القومي</label><input id="xr-nid"></div><div class="fw s2"><label>العيادة</label><select id="xr-clinic"><option>باطنة</option><option>قلب</option><option>عظام</option></select></div></div></div></div>
-  <div class="esec"><div class="esec-h xray">📡 فحص</div><div class="esec-b"><div class="fg c3"><div class="fw"><label>الكود</label><input id="xr-code"></div><div class="fw s2"><label>اسم الفحص</label><input id="xr-ename"></div><div class="fw"><label>النتيجة</label><select id="xr-result" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div><div class="fw s2"><label>ملاحظات</label><input id="xr-remark"></div></div></div></div>
+  <!-- ===== XRAY FORM ===== -->
+  <div id="fXray" style="display:none"><div class="esec"><div class="esec-h basic">👤 البيانات الأساسية</div><div class="esec-b"><div class="fg c4"><div class="fw"><label>التذكرة <span class="req">*</span></label><input id="xr-ticket" onblur="checkTicket('xray','xr-ticket')"></div><div class="fw s2"><label>الاسم <span class="req">*</span></label><input id="xr-name"></div><div class="fw"><label>السن <span class="req">*</span></label><input id="xr-age" type="number"></div><div class="fw"><label>الجنس <span class="req">*</span></label><select id="xr-gender"><option>ذكر</option><option>أنثى</option></select></div><div class="fw"><label>التليفون</label><input id="xr-phone"></div><div class="fw"><label>الرقم القومي</label><input id="xr-nid"></div><div class="fw s2"><label>العيادة</label><select id="xr-clinic"><option>باطنة</option><option>قلب</option><option>عظام</option></select></div></div></div></div>
+  <div class="esec"><div class="esec-h xray">📡 بيانات الفحص</div><div class="esec-b"><div class="fg c3"><div class="fw"><label>كود الفحص</label><input id="xr-code"></div><div class="fw s2"><label>اسم الفحص</label><input id="xr-ename"></div><div class="fw"><label>النتيجة</label><select id="xr-result" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div><div class="fw s2"><label>ملاحظات</label><input id="xr-remark"></div></div></div></div>
   <div class="eacts"><button class="btn sm del" onclick="closeCurrentTab()">❌ إغلاق التبويب</button><button class="btn ac" onclick="saveCurrentTab()">💾 حفظ المريض</button></div></div>
 
-  <!-- SCREEN FORM -->
-  <div id="fScreen" style="display:none"><div class="esec"><div class="esec-h basic">👤 البيانات الأساسية</div><div class="esec-b"><div class="fg c3"><div class="fw"><label>التذكرة <span class="req">*</span></label><input id="sc-ticket"></div><div class="fw s2"><label>الاسم <span class="req">*</span></label><input id="sc-name"></div><div class="fw"><label>السن <span class="req">*</span></label><input id="sc-age" type="number"></div><div class="fw"><label>الجنس <span class="req">*</span></label><select id="sc-gender"><option>ذكر</option><option>أنثى</option></select></div><div class="fw"><label>التليفون</label><input id="sc-phone"></div><div class="fw"><label>الرقم القومي</label><input id="sc-nid"></div><div class="fw"><label>تدخين</label><select id="sc-smoke"><option value="">--</option><option>مدخن</option><option>غير مدخن</option></select></div></div></div></div>
-  <div class="esec"><div class="esec-h screen">📋 تاريخ مرضي</div><div class="esec-b"><div class="fg c2"><div class="fw"><label>سكر</label><select id="sc-hx-sugar" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">لا يوجد</option><option value="غير طبيعي">يوجد</option></select></div><div class="fw"><label>ضغط</label><select id="sc-hx-bp" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">لا يوجد</option><option value="غير طبيعي">يوجد</option></select></div></div></div></div>
-  <div class="esec"><div class="esec-h screen">📊 قياسات</div><div class="esec-b"><div class="fg c3"><div class="fw"><label>ضغط</label><div style="display:flex;gap:5px"><input type="number" id="sc-bp-sys" placeholder="انقباضي" oninput="autoBpResult()" style="width:50%"><input type="number" id="sc-bp-dia" placeholder="انبساطي" oninput="autoBpResult()" style="width:50%"></div><select id="sc-bp-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">مرتفع</option></select></div>
-    <div class="fw"><label>سكر عشوائي</label><input type="number" id="sc-rbs" oninput="autoRbsResult('sc')"><select id="sc-rbs-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">مرتفع</option></select></div>
-    <div class="fw"><label>HbA1c</label><input type="number" step="0.1" id="sc-hba1c"><select id="sc-hba1c-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">مرتفع</option></select></div></div></div></div>
-  <div class="esec"><div class="esec-h screen">🔄 إجراء</div><div class="esec-b"><div class="fg c2"><div class="fw"><label>الإجراء</label><select id="sc-action"><option value="">--</option><option>علاج</option><option>تحويل داخلي</option><option>تحويل خارجي</option></select></div><div class="fw"><label>تحويل لعيادة</label><select id="sc-refer"><option value="">--</option><option>باطنة</option><option>قلب</option><option>غدد</option><option>أطفال</option></select></div></div></div></div>
+  <!-- ===== SCREEN FORM ===== -->
+  <div id="fScreen" style="display:none"><div class="esec"><div class="esec-h basic">👤 البيانات الأساسية</div><div class="esec-b"><div class="fg c3"><div class="fw"><label>التذكرة <span class="req">*</span></label><input id="sc-ticket" onblur="checkTicket('screen','sc-ticket')"></div><div class="fw s2"><label>الاسم <span class="req">*</span></label><input id="sc-name"></div><div class="fw"><label>السن <span class="req">*</span></label><input id="sc-age" type="number"></div><div class="fw"><label>الجنس <span class="req">*</span></label><select id="sc-gender"><option>ذكر</option><option>أنثى</option></select></div><div class="fw"><label>التليفون</label><input id="sc-phone"></div><div class="fw"><label>الرقم القومي</label><input id="sc-nid"></div><div class="fw"><label>تدخين</label><select id="sc-smoke"><option value="">--</option><option>مدخن</option><option>غير مدخن</option></select></div></div></div></div>
+  <div class="esec"><div class="esec-h screen">📋 التاريخ المرضي</div><div class="esec-b"><div class="fg c2"><div class="fw"><label>تاريخ سكر</label><select id="sc-hx-sugar" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">لا يوجد</option><option value="غير طبيعي">يوجد</option></select></div><div class="fw"><label>تاريخ ضغط</label><select id="sc-hx-bp" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">لا يوجد</option><option value="غير طبيعي">يوجد</option></select></div></div></div></div>
+  <div class="esec"><div class="esec-h screen">📊 القياسات</div><div class="esec-b"><div class="fg c3">
+    <div class="fw"><label>ضغط الدم <span class="hint">(طبيعي أقل من 120/80)</span></label><div style="display:flex;gap:5px"><input type="number" id="sc-bp-sys" placeholder="انقباضي" oninput="autoBpResult()" style="width:50%"><input type="number" id="sc-bp-dia" placeholder="انبساطي" oninput="autoBpResult()" style="width:50%"></div><select id="sc-bp-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">مرتفع</option></select></div>
+    <div class="fw"><label>سكر عشوائي <span class="hint">(70-140)</span></label><input type="number" id="sc-rbs" oninput="autoRbsResult('sc')"><select id="sc-rbs-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">مرتفع</option></select></div>
+    <div class="fw"><label>HbA1c <span class="hint">(أقل من 5.7)</span></label><input type="number" step="0.1" id="sc-hba1c"><select id="sc-hba1c-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">مرتفع</option></select></div>
+  </div></div></div>
+  <div class="esec"><div class="esec-h screen">🔄 الإجراء المتخذ</div><div class="esec-b"><div class="fg c2">
+    <div class="fw"><label>الإجراء</label><select id="sc-action"><option value="">--</option><option>علاج</option><option>تحويل داخلي لعيادة</option><option>تحويل خارجي لمستشفى</option></select></div>
+    <div class="fw"><label>تحويل لعيادة</label><select id="sc-refer"><option value="">--</option><option>باطنة</option><option>قلب</option><option>غدد</option><option>أطفال</option></select></div>
+  </div></div></div>
   <div class="eacts"><button class="btn sm del" onclick="closeCurrentTab()">❌ إغلاق التبويب</button><button class="btn ac" onclick="saveCurrentTab()">💾 حفظ المريض</button></div></div>
 </div>
 
@@ -347,7 +383,7 @@ let curUser=null, curDept=null, curDay=1;
 let fbUrl = 'https://kawafel-default-rtdb.firebaseio.com';
 let dbRef=null, fbSyncInterval=null;
 
-// --- TAB SYSTEM ---
+// TAB SYSTEM
 let tabs = {};
 let activeTabId = null;
 let tabCounter = 0;
@@ -392,7 +428,25 @@ async function fbPushAll(){ try{ await fbSet('config',{staff,session,adminPass,l
 async function fbSync(){ try { const config=await fbGet('config'); if(!config) return; if(config.staff){ staff=config.staff; localStorage.setItem('staff',JSON.stringify(staff)); renderStaffList(); populateLoginUsers(); } if(config.session){ session=config.session; localStorage.setItem('sess',JSON.stringify(session)); applySessUI(); } if(config.locked!==undefined){ locked=config.locked; localStorage.setItem('locked',locked?'1':'0'); updateLockUI(); } if(config.adminPass){ adminPass=config.adminPass; localStorage.setItem('apass',adminPass); } }catch(e){} }
 function startFbSync(){ if(fbSyncInterval)clearInterval(fbSyncInterval); fbSyncInterval=setInterval(fbSync,5000); }
 
-// =============== TAB SYSTEM WITH PERMISSIONS ===============
+// =============== CHECK TICKET ===============
+function checkTicket(dept, ticketId) {
+    let ticket = document.getElementById(ticketId).value.trim();
+    if (!ticket) return;
+    let existing = records.find(r => r.ticket === ticket && r.dept === dept && r.id !== (tabs[activeTabId]?.editId || null));
+    if (existing) {
+        let msg = `⚠️ رقم التذكرة "${ticket}" مسجل من قبل للحالة: "${existing.name}"\n\nهل تريد فتح بياناتها للتعديل؟`;
+        if (confirm(msg)) {
+            if (activeTabId) closeTab(activeTabId);
+            openNewTab(dept, existing);
+        } else {
+            document.getElementById(ticketId).value = '';
+            document.getElementById(ticketId).focus();
+            showToast('⚠️ يرجى إدخال رقم تذكرة آخر', false);
+        }
+    }
+}
+
+// =============== TAB SYSTEM ===============
 function getFormIds(dept){
   let px={blood:'bl',para:'pa',xray:'xr',screen:'sc'}[dept];
   let ids = [px+'-ticket', px+'-name', px+'-age', px+'-gender', px+'-phone', px+'-nid'];
@@ -478,26 +532,17 @@ function renderTabs(){
 function openNewTab(dept=null, editRec=null){
   if(activeTabId) saveTabData(activeTabId);
   
-  // ---------- PERMISSION CHECK ----------
-  // If user is NOT admin, force dept to be their own dept
   if(curUser && curUser.role !== 'admin'){
     if(dept && dept !== curUser.role){
       showToast('⚠️ ليس لديك صلاحية لهذا القسم', false);
       return;
     }
-    dept = curUser.role; // Force their own dept
+    dept = curUser.role;
   }
-  
-  // If still no dept (admin or no dept specified), show error or use default
   if(!dept){
-    if(curUser && curUser.role !== 'admin'){
-      dept = curUser.role;
-    } else {
-      showToast('اختر القسم من الأزرار', true);
-      return;
-    }
+    if(curUser && curUser.role !== 'admin') dept = curUser.role;
+    else { showToast('اختر القسم من الأزرار', true); return; }
   }
-  // ---------- END PERMISSION CHECK ----------
   
   let id = 'tab_' + (++tabCounter);
   let day = curDay;
@@ -558,6 +603,49 @@ function closeCurrentTab(){
   else showToast('لا يوجد تبويب مفتوح', false);
 }
 
+// =============== دوال التليفون (للحالات غير الطبيعية في افحص واطمن) ===============
+function pmSavePhone() {
+    document.getElementById('phoneMov').style.display = 'none';
+    if (!pendingPhone) return;
+    let ps = pendingPhone;
+    let phone = document.getElementById('phoneModalInput').value.trim();
+    ps.r.phone = phone;
+    let el = document.getElementById(ps.phoneFieldId);
+    if (el) el.value = phone;
+    doFinalSave(ps.r, ps.dept);
+    pendingPhone = null;
+    showToast('✅ تم الحفظ مع الرقم: ' + phone, true);
+}
+
+function pmSkipPhone() {
+    document.getElementById('phoneMov').style.display = 'none';
+    if (!pendingPhone) return;
+    let ps = pendingPhone;
+    doFinalSave(ps.r, ps.dept);
+    pendingPhone = null;
+    showToast('✅ تم التخطي والحفظ', true);
+}
+
+// =============== دوال الحفظ الأساسية ===============
+function hasAbnormal(obj) {
+    return Object.keys(obj).some(k => k.endsWith('R') && obj[k] === 'غير طبيعي');
+}
+
+function doFinalSave(r, dept) {
+    if (r.id) {
+        let idx = records.findIndex(x => x.id === r.id);
+        if (idx >= 0) records[idx] = r;
+        else records.push(r);
+    } else {
+        records.push(r);
+    }
+    persist();
+    fbPushAll();
+    if (activeTabId) closeTab(activeTabId);
+    renderRec();
+    buildStats();
+}
+
 function saveCurrentTab(){
   if(!activeTabId){ showToast('افتح تبويب أولاً', false); return; }
   saveTabData(activeTabId);
@@ -580,6 +668,7 @@ function saveCurrentTab(){
   }
   
   let r = { id: editId || Date.now(), dept, day: curDay, emp: curUser?.name, savedAt: new Date().toISOString(), name, age, gender, ticket, phone, nid };
+  
   let ids = getFormIds(dept);
   ids.forEach(fid => {
     let key = fid.split('-')[1];
@@ -588,63 +677,16 @@ function saveCurrentTab(){
     r[key] = data[fid] || '';
   });
   
-  function hasAbnormal(obj){ return Object.keys(obj).some(k => k.endsWith('R') && obj[k] === 'غير طبيعي'); }
-  if(hasAbnormal(r) && !phone){
-    pendingPhone = {r, dept};
-    document.getElementById('phoneMov').style.display = 'flex';
-    return;
+  // إذا كانت النتيجة غير طبيعية في "افحص واطمن" و مفيش رقم تليفون
+  if (dept === 'screen' && hasAbnormal(r) && !phone) {
+      pendingPhone = { r: r, dept: dept, phoneFieldId: 'sc-phone' };
+      document.getElementById('phoneModalInput').value = '';
+      document.getElementById('phoneMov').style.display = 'flex';
+      setTimeout(() => document.getElementById('phoneModalInput').focus(), 200);
+      return;
   }
   
-  if(editId){
-    let idx = records.findIndex(x=>x.id === editId);
-    if(idx>=0) records[idx] = r;
-    else records.push(r);
-  } else {
-    records.push(r);
-  }
-  persist();
-  fbPushAll();
-  showToast('✅ تم حفظ: '+name);
-  closeTab(activeTabId);
-  renderRec();
-  buildStats();
-}
-
-function pmSave(){
-  let ph = document.getElementById('phoneModalInput').value.trim();
-  if(pendingPhone){
-    pendingPhone.r.phone = ph;
-    let r = pendingPhone.r;
-    let editId = r.id;
-    if(editId){
-      let idx = records.findIndex(x=>x.id === editId);
-      if(idx>=0) records[idx] = r;
-      else records.push(r);
-    } else records.push(r);
-    persist(); fbPushAll();
-    showToast('✅ تم حفظ: '+r.name);
-    if(activeTabId) closeTab(activeTabId);
-    renderRec(); buildStats();
-    pendingPhone = null;
-  }
-  document.getElementById('phoneMov').style.display = 'none';
-}
-function pmSkip(){
-  if(pendingPhone){
-    let r = pendingPhone.r;
-    let editId = r.id;
-    if(editId){
-      let idx = records.findIndex(x=>x.id === editId);
-      if(idx>=0) records[idx] = r;
-      else records.push(r);
-    } else records.push(r);
-    persist(); fbPushAll();
-    showToast('✅ تم التخطي والحفظ: '+r.name);
-    if(activeTabId) closeTab(activeTabId);
-    renderRec(); buildStats();
-    pendingPhone = null;
-  }
-  document.getElementById('phoneMov').style.display = 'none';
+  doFinalSave(r, dept);
 }
 
 // =============== UI HELPERS ===============
@@ -709,17 +751,15 @@ function applyUser(){
   document.getElementById('logoutBtn').style.display='flex';
   ['entry','records','stats'].forEach(id=>{ let b=document.getElementById('nav-'+id); if(b)b.removeAttribute('disabled'); });
   
-  // Admin vs Staff permissions
   if(isAdmin){
     document.getElementById('staffCard').style.display='block';
     document.getElementById('adminCard').style.display='block';
-    document.getElementById('deptChooser').style.display='block'; // Admin sees all depts
+    document.getElementById('deptChooser').style.display='block';
     renderStaffList(); updateLockUI();
   } else {
     document.getElementById('staffCard').style.display='none';
     document.getElementById('adminCard').style.display='none';
-    document.getElementById('deptChooser').style.display='none'; // Staff hides the dept chooser
-    // Show their own badge
+    document.getElementById('deptChooser').style.display='none';
     let db=document.getElementById('dbadge');
     db.className='dbadge '+curUser.role;
     db.textContent=DICONS[curUser.role]+' '+DNAMES[curUser.role];
@@ -767,11 +807,8 @@ function renderRec(){
   let w=document.getElementById('recWrap'), cnt=document.getElementById('recCnt');
   cnt.textContent=records.length;
   if(!records.length){ w.innerHTML='<div style="padding:30px;text-align:center">لا توجد سجلات</div>'; return; }
-  // Filter records for staff (only their dept) if not admin
   let filtered = records;
-  if(curUser && curUser.role !== 'admin'){
-    filtered = records.filter(r => r.dept === curUser.role);
-  }
+  if(curUser && curUser.role !== 'admin') filtered = records.filter(r => r.dept === curUser.role);
   let html='<table><thead class="blood-h"><tr><th>#</th><th>الاسم</th><th>القسم</th><th>التذكرة</th><th>اليوم</th><th>الموظف</th><th>إجراءات</th></tr></thead><tbody>';
   filtered.forEach((r,i)=>{ html+=`<tr><td>${i+1}</td><td>${r.name}</td><td>${DNAMES[r.dept]}</td><td>${r.ticket}</td><td>${r.day===1?'أول':'ثاني'}</td><td>${r.emp}</td><td><button class="btn sm edit" onclick="editRec('${r.id}')">✏️</button><button class="btn sm del" onclick="delRec('${r.id}')">🗑️</button></td></tr>`; });
   html+='</tbody></table>'; w.innerHTML=html;
@@ -779,21 +816,14 @@ function renderRec(){
 function editRec(id){
   let r=records.find(x=>String(x.id)===String(id));
   if(!r) return;
-  // Permission check: staff can only edit their own dept
-  if(curUser && curUser.role !== 'admin' && r.dept !== curUser.role){
-    showToast('⚠️ ليس لديك صلاحية لهذا السجل', false);
-    return;
-  }
+  if(curUser && curUser.role !== 'admin' && r.dept !== curUser.role){ showToast('⚠️ ليس لديك صلاحية', false); return; }
   if(activeTabId) saveTabData(activeTabId);
   openNewTab(r.dept, r);
 }
 function delRec(id){
   let r=records.find(x=>String(x.id)===String(id));
   if(!r) return;
-  if(curUser && curUser.role !== 'admin' && r.dept !== curUser.role){
-    showToast('⚠️ ليس لديك صلاحية للحذف', false);
-    return;
-  }
+  if(curUser && curUser.role !== 'admin' && r.dept !== curUser.role){ showToast('⚠️ ليس لديك صلاحية', false); return; }
   if(!confirm('حذف؟'))return;
   records=records.filter(x=>String(x.id)!==String(id));
   persist(); fbPushAll(); renderRec();
@@ -804,9 +834,7 @@ function buildStats(){
   html+='<button class="btn pr" onclick="sendExcelWhatsApp()" style="background:#1a7a4a;color:#fff;padding:10px 24px;border-radius:10px;font-weight:700;cursor:pointer">📊 إرسال Excel للواتساب</button>';
   html+='</div>';
   let filtered = records;
-  if(curUser && curUser.role !== 'admin'){
-    filtered = records.filter(r => r.dept === curUser.role);
-  }
+  if(curUser && curUser.role !== 'admin') filtered = records.filter(r => r.dept === curUser.role);
   let b=filtered.filter(r=>r.dept==='blood'), p=filtered.filter(r=>r.dept==='para'), x=filtered.filter(r=>r.dept==='xray'), s=filtered.filter(r=>r.dept==='screen');
   html+=`<div class="stgrid"><div class="stc"><div class="n">${filtered.length}</div><div class="l">الإجمالي</div></div>
     <div class="stc" style="border-top:3px solid var(--blood)"><div class="n" style="color:var(--blood)">${b.length}</div><div class="l">معمل الدم</div></div>
@@ -837,12 +865,12 @@ function sendExcelWhatsApp(){
     let data=[hdrs]; items.forEach((r,i)=>{ let base=[i+1,r.name,r.age,r.gender,r.ticket,r.phone||'',r.day===1?'أول':'ثاني',r.savedAt?.substring(0,10)||'',r.emp||'']; data.push(base.concat(fn(r))); });
     XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(data), name);
   }
-  addSheet('blood','الدم',['#','الاسم','السن','الجنس','التذكرة','التليفون','اليوم','التاريخ','الموظف','Hb','نتيجة','سكر','نتيجة'], r=>[r.hb||'',r.hbR||'',r.rbs||'',r.rbsR||'']);
-  addSheet('para','الطفيليات',['#','الاسم','السن','الجنس','التذكرة','التليفون','اليوم','التاريخ','الموظف','بلهارسيا','أميبا'], r=>[r.bilharzia||'',r.ameba||'']);
-  addSheet('xray','الأشعة',['#','الاسم','السن','الجنس','التذكرة','التليفون','اليوم','التاريخ','الموظف','الفحص','النتيجة'], r=>[r.examname||r.code||'',r.result||'']);
-  addSheet('screen','افحص',['#','الاسم','السن','الجنس','التذكرة','التليفون','اليوم','التاريخ','الموظف','الضغط','نتيجة','سكر','نتيجة'], r=>[r.bp||'',r.bpR||'',r.rbs||'',r.rbsR||'']);
+  addSheet('blood','الدم',['#','الاسم','السن','الجنس','التذكرة','التليفون','اليوم','التاريخ','الموظف','العيادة','Hb','نتيجة','سكر','نتيجة','فصيلة','HP','نتيجة','RBC','نتيجة','HCT','نتيجة','WBC','نتيجة','PLT','نتيجة','يوريك','نتيجة','بولينا','نتيجة','كرياتنين','نتيجة','TP','نتيجة','ألبيومين','نتيجة','بيليروبين','نتيجة','SGOT','نتيجة','SGPT','نتيجة','LDL','نتيجة','HDL','نتيجة','TG','نتيجة','كوليسترول','نتيجة','H.Pylori','حمل','ASOT','RF','CRP','HCV','HBsAg','HAV','BT','نتيجة','CT','نتيجة','ESR','نتيجة'], r=>[r.clinic||'',r.hb||'',r.hbR||'',r.rbs||'',r.rbsR||'',r.blood||'',r.hp||'',r.hpR||'',r.rbc||'',r.rbcR||'',r.hct||'',r.hctR||'',r.wbc||'',r.wbcR||'',r.plt||'',r.pltR||'',r.uric||'',r.uricR||'',r.urea||'',r.ureaR||'',r.creat||'',r.creatR||'',r.tp||'',r.tpR||'',r.alb||'',r.albR||'',r.bili||'',r.biliR||'',r.sgot||'',r.sgotR||'',r.sgpt||'',r.sgptR||'',r.ldl||'',r.ldlR||'',r.hdl||'',r.hdlR||'',r.tg||'',r.tgR||'',r.chol||'',r.cholR||'',r.hpylori||'',r.preg||'',r.asot||'',r.rf||'',r.crp||'',r.hcv||'',r.hbsag||'',r.hav||'',r.bt||'',r.btR||'',r.ct||'',r.ctR||'',r.esr||'',r.esrR||'']);
+  addSheet('para','الطفيليات',['#','الاسم','السن','الجنس','التذكرة','التليفون','اليوم','التاريخ','الموظف','Urates','Phosphate','Oxalates','حمل بول','سكر بول','ألبيومين بول','بيليروبين بول','أسيتون','H.Pylori','بلهارسيا','تريكومونس','أميبا','جيارديا','H.nana','أكسيورس','أسكارس'], r=>[r.urates||'',r.phosphate||'',r.oxalates||'',r.preg||'',r.sugar||'',r.palb||'',r.pbili||'',r.acetone||'',r.hpylori||'',r.bilharzia||'',r.trichomonas||'',r.ameba||'',r.giardia||'',r.hnana||'',r.oxyuris||'',r.ascaris||'']);
+  addSheet('xray','الأشعة',['#','الاسم','السن','الجنس','التذكرة','التليفون','اليوم','التاريخ','الموظف','العيادة','كود','اسم الفحص','النتيجة','ملاحظات'], r=>[r.clinic||'',r.code||'',r.examname||'',r.result||'',r.remark||'']);
+  addSheet('screen','افحص_واطمن',['#','الاسم','السن','الجنس','التذكرة','التليفون','اليوم','التاريخ','الموظف','تدخين','تاريخ سكر','تاريخ ضغط','ضغط','نتيجة','سكر','نتيجة','HbA1c','نتيجة','الإجراء','تحويل لعيادة'], r=>[r.smoke||'',r.hxSugar||'',r.hxBp||'',r.bp||'',r.bpR||'',r.rbs||'',r.rbsR||'',r.hba1c||'',r.hba1cR||'',r.action||'',r.refer||'']);
   let out=XLSX.write(wb,{bookType:'xlsx',type:'array'}); let blob=new Blob([out],{type:'application/octet-stream'}); let fn='تقرير_القافلة_'+new Date().toISOString().slice(0,10)+'.xlsx';
-  if(navigator.share){ navigator.share({title:'تقرير القافلة',files:[new File([blob],fn,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})]}).catch(()=>downloadBlob(blob,fn)); }else{ window.open('https://wa.me/2012212021490?text='+encodeURIComponent('📊 تم تجهيز ملف Excel.'),'_blank'); downloadBlob(blob,fn); showToast('📥 تم تحميل الملف'); }
+  if(navigator.share){ navigator.share({title:'تقرير القافلة',files:[new File([blob],fn,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})]}).catch(()=>downloadBlob(blob,fn)); }else{ window.open('https://wa.me/2012212021490?text='+encodeURIComponent('📊 تم تجهيز ملف Excel مفصل.'),'_blank'); downloadBlob(blob,fn); showToast('📥 تم تحميل الملف'); }
 }
 
 // =============== TOAST & MODAL ===============
