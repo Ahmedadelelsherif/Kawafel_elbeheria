@@ -858,6 +858,25 @@ document.querySelectorAll('.mov').forEach(m=>m.addEventListener('click',e=>{if(e
 // =============== تهيئة الصفحة ===============
 populateLoginUsers();
 showLockStatusOnLogin();
+  // ===== التحميل التلقائي للموظفين بمجرد فتح الصفحة =====
+(function autoLoadStaff() {
+  var url = localStorage.getItem('qs_gsurl') || '';
+  if (url && staff.length === 0) {
+    setTimeout(function() {
+      fetch(url)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.staff && data.staff.length > 0) {
+            staff = data.staff;
+            localStorage.setItem('qs_staff', JSON.stringify(staff));
+            populateLoginUsers();
+            showToast('✅ تم تحميل ' + staff.length + ' موظف تلقائياً', true);
+          }
+        })
+        .catch(function() {});
+    }, 800);
+  }
+})();
 </script>
 </body>
 </html>
