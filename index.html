@@ -7,6 +7,86 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  /* ===== Splash Screen ===== */
+
+#splashScreen{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#f4f9ff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999999;
+  transition: opacity .5s ease;
+opacity:1;
+}
+
+.splash-box{
+    text-align:center;
+    animation:fadeIn .8s;
+    padding:20px;
+}
+
+.splash-logo{
+    width:110px;
+    height:auto;
+    margin-bottom:20px;
+}
+
+.splash-box h1{
+    color:#0F4C81;
+    margin:10px 0;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.splash-box h3{
+    color:#2E7D32;
+    margin-bottom:25px;
+}
+
+.loading-bar{
+    width:260px;
+    height:10px;
+    background:#ddd;
+    border-radius:30px;
+    margin:auto;
+    overflow:hidden;
+}
+
+.loading-fill{
+    width:0%;
+    height:100%;
+    background:#0F4C81;
+    animation:loading 2s forwards;
+}
+
+.developer-info{
+    margin-top:25px;
+    line-height:1.9;
+    color:#444;
+    font-size:16px;
+}
+
+@keyframes loading{
+    to{
+        width:100%;
+    }
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:scale(.95);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
 <style>
 :root{--pr:#1a4a6b;--pr2:#2a6496;--pr3:#0f2d45;--ac:#c8860a;--ac2:#f0a832;--ok:#1a7a4a;--no:#b83232;--bg:#eef2f7;--card:#fff;--bdr:#cdd8e8;--tx:#1a2535;--mu:#5a7080;--rbg:#fff0f0;--gbg:#f0fff4;--ybg:#fffbe8;--blood:#c8350a;--para:#1a7a4a;--xray:#1a4a9b;--screen:#7a1a7a;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -181,8 +261,44 @@ td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid
 @media(max-width:640px){.fg.c3,.fg.c4,.fg.c5,.fg.c6{grid-template-columns:1fr 1fr;}.dept-grid{grid-template-columns:1fr 1fr;}.stgrid{grid-template-columns:1fr 1fr;}.tab-item{max-width:120px;font-size:11px;padding:3px 7px;}}
 </style>
 </head>
-<body>
+  <script>
+window.addEventListener("load", function () {
 
+    setTimeout(function () {
+
+        document.getElementById("splashScreen").style.opacity = "0";
+
+        setTimeout(function () {
+            document.getElementById("splashScreen").style.display = "none";
+        }, 500);
+
+    }, 2200);
+
+});
+  </script>
+<body>
+<div id="splashScreen">
+    <div class="splash-box">
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Ministry_of_Health_Egypt_logo.png" class="splash-logo">
+
+        <h1>منظومة إدارة القوافل الطبية العلاجية</h1>
+
+        <h3>محافظة البحيرة</h3>
+
+        <div class="loading-bar">
+            <div class="loading-fill"></div>
+        </div>
+
+        <p style="margin-top:25px">
+            تصميم وتطوير النظام<br>
+            <b>أحمد عادل الشريف</b><br>
+            أخصائي تسجيل طبي وإحصاء<br>
+            مدير مركز معلومات القوافل العلاجية بالبحيرة
+        </p>
+
+    </div>
+</div>
 <!-- LOGIN -->
 <div class="login-ov" id="loginOv">
   <div class="login-box">
