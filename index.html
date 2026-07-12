@@ -7,86 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  /* ===== Splash Screen ===== */
-
-#splashScreen{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:#f4f9ff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:999999;
-  transition: opacity .5s ease;
-opacity:1;
-}
-
-.splash-box{
-    text-align:center;
-    animation:fadeIn .8s;
-    padding:20px;
-}
-
-.splash-logo{
-    width:110px;
-    height:auto;
-    margin-bottom:20px;
-}
-
-.splash-box h1{
-    color:#0F4C81;
-    margin:10px 0;
-    font-size:30px;
-    font-weight:bold;
-}
-
-.splash-box h3{
-    color:#2E7D32;
-    margin-bottom:25px;
-}
-
-.loading-bar{
-    width:260px;
-    height:10px;
-    background:#ddd;
-    border-radius:30px;
-    margin:auto;
-    overflow:hidden;
-}
-
-.loading-fill{
-    width:0%;
-    height:100%;
-    background:#0F4C81;
-    animation:loading 2s forwards;
-}
-
-.developer-info{
-    margin-top:25px;
-    line-height:1.9;
-    color:#444;
-    font-size:16px;
-}
-
-@keyframes loading{
-    to{
-        width:100%;
-    }
-}
-
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:scale(.95);
-    }
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
-}
 <style>
 :root{--pr:#1a4a6b;--pr2:#2a6496;--pr3:#0f2d45;--ac:#c8860a;--ac2:#f0a832;--ok:#1a7a4a;--no:#b83232;--bg:#eef2f7;--card:#fff;--bdr:#cdd8e8;--tx:#1a2535;--mu:#5a7080;--rbg:#fff0f0;--gbg:#f0fff4;--ybg:#fffbe8;--blood:#c8350a;--para:#1a7a4a;--xray:#1a4a9b;--screen:#7a1a7a;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -261,44 +181,36 @@ td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid
 @media(max-width:640px){.fg.c3,.fg.c4,.fg.c5,.fg.c6{grid-template-columns:1fr 1fr;}.dept-grid{grid-template-columns:1fr 1fr;}.stgrid{grid-template-columns:1fr 1fr;}.tab-item{max-width:120px;font-size:11px;padding:3px 7px;}}
 </style>
 </head>
-  <script>
-window.addEventListener("load", function () {
-
-    setTimeout(function () {
-
-        document.getElementById("splashScreen").style.opacity = "0";
-
-        setTimeout(function () {
-            document.getElementById("splashScreen").style.display = "none";
-        }, 500);
-
-    }, 2200);
-
-});
-  </script>
 <body>
-<div id="splashScreen">
-    <div class="splash-box">
 
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Ministry_of_Health_Egypt_logo.png" class="splash-logo">
-
-        <h1>منظومة إدارة القوافل الطبية العلاجية</h1>
-
-        <h3>محافظة البحيرة</h3>
-
-        <div class="loading-bar">
-            <div class="loading-fill"></div>
-        </div>
-
-        <p style="margin-top:25px">
-            تصميم وتطوير النظام<br>
-            <b>أحمد عادل الشريف</b><br>
-            أخصائي تسجيل طبي وإحصاء<br>
-            مدير مركز معلومات القوافل العلاجية بالبحيرة
-        </p>
-
-    </div>
+<!-- ═══════════════════ SPLASH SCREEN ═══════════════════ -->
+<div id="splash" style="position:fixed;inset:0;background:linear-gradient(135deg,#0d2d45,#1a4a6b,#1a6b4a);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .6s ease">
+  <div style="position:relative">
+    <div style="width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.1);border:3px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:42px;animation:splashPulse 1.5s ease-in-out infinite">🏥</div>
+    <div style="position:absolute;inset:-6px;border-radius:50%;border:3px solid transparent;border-top-color:#f0a832;animation:splashSpin 1s linear infinite"></div>
+  </div>
+  <div style="text-align:center;color:#fff">
+    <div style="font-size:18px;font-weight:900;margin-bottom:4px;letter-spacing:.5px">منظومة القوافل الطبية العلاجية</div>
+    <div style="font-size:12px;opacity:.8;margin-bottom:2px">مديرية الشؤون الصحية بمحافظة البحيرة</div>
+    <div style="font-size:11px;opacity:.6">وزارة الصحة والسكان</div>
+  </div>
+  <div style="display:flex;gap:6px;margin-top:8px">
+    <div style="width:8px;height:8px;border-radius:50%;background:#f0a832;animation:splashDot 1.2s .0s ease-in-out infinite alternate"></div>
+    <div style="width:8px;height:8px;border-radius:50%;background:#f0a832;animation:splashDot 1.2s .2s ease-in-out infinite alternate"></div>
+    <div style="width:8px;height:8px;border-radius:50%;background:#f0a832;animation:splashDot 1.2s .4s ease-in-out infinite alternate"></div>
+  </div>
+  <div style="position:absolute;bottom:24px;text-align:center;color:rgba(255,255,255,.5);font-size:10px">
+    <div>Developed by Ahmed Adel ElSherif</div>
+    <div style="margin-top:2px">Version 1.0.0 — July 2026</div>
+  </div>
 </div>
+<style>
+@keyframes splashPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+@keyframes splashSpin{to{transform:rotate(360deg);}}
+@keyframes splashDot{from{opacity:.3;transform:translateY(0);}to{opacity:1;transform:translateY(-5px);}}
+</style>
+
+
 <!-- LOGIN -->
 <div class="login-ov" id="loginOv">
   <div class="login-box">
@@ -324,6 +236,21 @@ window.addEventListener("load", function () {
     </div>
     <div class="fw" style="margin-bottom:12px"><label>كلمة السر</label><input id="l-pass" type="password"></div>
     <button class="btn pr full" onclick="doLogin()">🚀 دخول</button>
+    <div style="text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--bdr)">
+      <div style="font-size:10px;color:var(--mu);margin-bottom:4px">تصميم وتطوير وبرمجة</div>
+      <div style="font-size:12px;font-weight:900;color:var(--pr)">أحمد عادل الشريف</div>
+      <div style="font-size:10px;color:var(--mu);margin-bottom:8px">مدير مركز معلومات القوافل العلاجية بالبحيرة</div>
+      <div style="display:flex;justify-content:center;gap:8px">
+        <a href="https://wa.me/201212021490?text=السلام عليكم، أحتاج دعماً فنياً بخصوص برنامج القوافل العلاجية" target="_blank"
+          style="background:#25d366;color:#fff;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px">
+          💬 واتساب
+        </a>
+        <a href="tel:+201212021490" style="background:var(--pr);color:#fff;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px">
+          📞 اتصال
+        </a>
+      </div>
+      <div style="font-size:9px;color:#bbb;margin-top:10px">Version 1.0.0 | BMCMS © 2026</div>
+    </div>
   </div>
 </div>
 
@@ -338,6 +265,7 @@ window.addEventListener("load", function () {
     <button class="nb" onclick="gotoSc('entry')" id="nav-entry" disabled>➕ تسجيل مريض</button>
     <button class="nb" onclick="gotoSc('records')" id="nav-records" disabled>📋 السجلات</button>
     <button class="nb" onclick="gotoSc('stats')" id="nav-stats" disabled>📊 التقرير العددي</button>
+    <button class="nb" onclick="gotoSc('about')" style="opacity:.8">ℹ️ حول</button>
   </div>
 </div>
 
@@ -615,7 +543,10 @@ window.addEventListener("load", function () {
 </div>
 
 <!-- STATS -->
-<div class="sc" id="sc-stats"><div id="statsWrap"></div></div>
+<div class="sc" id="sc-stats">
+  <div class="card" id="adminDashboard" style="display:none;margin-bottom:12px"><div class="cb"></div></div>
+  <div id="statsWrap"></div>
+</div>
 
 <script>
 // ╔══════════════════════════════════════════════════════════════════╗
@@ -680,6 +611,7 @@ function onLoginUserSel(){
   document.getElementById('daySelLogin').style.display=(u&&session)?'block':'none';
   if(u&&session) setLoginDay(loginDay||1);
 }
+
 // ════════════════════════════════════════════════════════════════════
 // 3. FIREBASE — إعداد قاعدة البيانات والاتصال
 //    🔗 Database URL: https://kawafel-default-rtdb.firebaseio.com
@@ -826,6 +758,7 @@ function openNewTab(dept=null, editRec=null){
   renderTabs();
   gotoSc('entry');
 }
+
 function switchTab(tabId){
   if(activeTabId) saveTabData(activeTabId);
   activeTabId = tabId;
@@ -922,6 +855,8 @@ function hasAbnormal(r) {
 }
 
 function doFinalSave(r) {
+    logActivity(records.find(x=>String(x.id)===String(r.id))?'تعديل مريض':'إضافة مريض',
+      (r.name||'—') + ' — ' + (DNAMES[r.dept]||r.dept));
     if (r.id) {
         let idx = records.findIndex(x => x.id === r.id);
         if (idx >= 0) records[idx] = r;
@@ -930,7 +865,6 @@ function doFinalSave(r) {
         records.push(r);
     }
     localStorage.setItem('recs', JSON.stringify(records));
-    // Sync to Firebase
     if(dbRef) dbRef.child('records').child(r.id).set(r);
     if (activeTabId) closeTab(activeTabId);
     renderRec();
@@ -1260,6 +1194,7 @@ function delRec(id){
 //    ⚠️ لو أضفت فحص جديد: أضفه في دالة الإحصائيات المناسبة
 // ════════════════════════════════════════════════════════════════════
 function buildStats(){
+  buildDashboard(); // ← لوحة المدير السريعة
   let html = '<div style="display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap">';
   html += '<button class="btn ok" onclick="sendWhatsAppReport()" style="background:#25D366;color:#fff;padding:10px 24px;border-radius:10px;font-weight:700;cursor:pointer">📱 تقرير نصي (واتساب)</button>';
   html += '<button class="btn pr" onclick="exportExcel()" style="background:#1a7a4a;color:#fff;padding:10px 24px;border-radius:10px;font-weight:700;cursor:pointer">📊 تحميل Excel مفصل</button>';
@@ -1371,6 +1306,7 @@ function buildScreenStats(arr){
   html += `</div></div>`;
   return html;
 }
+
 // ════════════════════════════════════════════════════════════════════
 // 14. WHATSAPP & EXCEL — تصدير البيانات
 //    📌 sendWhatsAppReport: بيبعت تقرير على واتساب 01212021490
@@ -1485,6 +1421,82 @@ function closeMov(id){ document.getElementById(id).classList.remove('show'); }
 //    ✅ أي تغيير في Firebase يظهر فوراً على الجهاز بدون refresh
 //    ⚠️ لا تضيف هنا — فضّل الأقسام اللي فوق
 // ════════════════════════════════════════════════════════════════════
+
+// ── Activity Log UI ─────────────────────────────────────────────────
+function toggleActLog(){
+  const wrap=document.getElementById('actLogWrap');
+  const btn=document.getElementById('actLogBtn');
+  if(!wrap)return;
+  if(wrap.style.display==='none'){
+    wrap.style.display='block';
+    btn.textContent='📜 إخفاء سجل النشاط';
+    const list=document.getElementById('actLogList');
+    if(!activityLog.length){
+      list.innerHTML='<p style="color:var(--mu);text-align:center;padding:12px">لا يوجد نشاط مسجّل بعد</p>';
+      return;
+    }
+    list.innerHTML=activityLog.map(e=>`
+      <div style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--bdr)">
+        <div style="background:var(--pr);color:#fff;padding:3px 7px;border-radius:20px;font-size:9px;white-space:nowrap;font-weight:700">${e.action}</div>
+        <div style="flex:1">
+          <div style="font-weight:700;font-size:11px">${e.detail||''}</div>
+          <div style="color:var(--mu);font-size:10px">👤 ${e.user} — ${e.date} ${e.time}</div>
+        </div>
+      </div>`).join('');
+  }else{
+    wrap.style.display='none';
+    btn.textContent='📜 عرض سجل النشاط';
+  }
+}
+
+// ── Admin Dashboard Quick Stats (shown at top of stats screen) ──────
+function buildDashboard(){
+  const el=document.getElementById('adminDashboard');
+  if(!el||curUser?.role!=='admin')return;
+  const today=new Date().toLocaleDateString('ar-EG');
+  const todayRecs=records.filter(r=>r.savedAt&&new Date(r.savedAt).toLocaleDateString('ar-EG')===today);
+  const abnormal=records.filter(r=>Object.keys(r).some(k=>k.endsWith('R')&&r[k]==='غير طبيعي'));
+  const cards=[
+    {icon:'👥',label:'إجمالي المرضى',val:records.length,color:'#1a4a6b'},
+    {icon:'📅',label:'مرضى اليوم',val:todayRecs.length,color:'#1a6b4a'},
+    {icon:'🩸',label:'معمل الدم',val:records.filter(r=>r.dept==='blood').length,color:'#8b1a1a'},
+    {icon:'🔬',label:'الطفيليات',val:records.filter(r=>r.dept==='para').length,color:'#6b4a1a'},
+    {icon:'📡',label:'الأشعة',val:records.filter(r=>r.dept==='xray').length,color:'#1a4a6b'},
+    {icon:'💊',label:'افحص واطمن',val:records.filter(r=>r.dept==='screen').length,color:'#4a1a6b'},
+    {icon:'⚠️',label:'حالات غير طبيعية',val:abnormal.length,color:'#8b4a00'},
+    {icon:'👤',label:'موظفون نشطون',val:staff.length,color:'#1a5a4a'},
+  ];
+  el.innerHTML=`
+    <div style="font-size:13px;font-weight:900;color:var(--pr);margin-bottom:10px">📊 لوحة المدير — نظرة سريعة</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
+      ${cards.map(c=>`
+        <div style="background:${c.color};color:#fff;border-radius:10px;padding:12px 10px;text-align:center">
+          <div style="font-size:22px;margin-bottom:4px">${c.icon}</div>
+          <div style="font-size:22px;font-weight:900;line-height:1">${c.val}</div>
+          <div style="font-size:10px;opacity:.85;margin-top:3px">${c.label}</div>
+        </div>`).join('')}
+    </div>`;
+  el.style.display='block';
+}
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    const s = document.getElementById('splash');
+    if(s){ s.style.opacity='0'; setTimeout(()=>s.remove(), 600); }
+  }, 2200);
+});
+
+// ── Activity Log ────────────────────────────────────────────────────
+let activityLog = JSON.parse(localStorage.getItem('qs_log')||'[]');
+function logActivity(action, detail){
+  const entry = {
+    user: curUser?.name||'—', action, detail,
+    time: new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}),
+    date: new Date().toLocaleDateString('ar-EG')
+  };
+  activityLog.unshift(entry);
+  if(activityLog.length > 100) activityLog.pop();
+  localStorage.setItem('qs_log', JSON.stringify(activityLog));
+}
 populateLoginUsers();
 updateLockUI();
 
@@ -1523,5 +1535,81 @@ if(dbRef){
   });
 }
 </script>
+
+<!-- ═══════════════════ ABOUT SCREEN ═══════════════════ -->
+<div class="sc" id="sc-about">
+  <div style="max-width:600px;margin:0 auto">
+    <div class="card" style="overflow:hidden">
+      <div style="background:linear-gradient(135deg,#0d2d45,#1a4a6b,#1a6b4a);padding:36px 24px;text-align:center;color:#fff">
+        <div style="font-size:56px;margin-bottom:12px">🏥</div>
+        <div style="font-size:20px;font-weight:900;margin-bottom:6px">منظومة القوافل الطبية العلاجية</div>
+        <div style="font-size:13px;opacity:.85;margin-bottom:4px">Beheira Medical Convoys Management System</div>
+        <div style="font-size:11px;opacity:.65">BMCMS</div>
+        <div style="margin-top:14px;display:inline-block;background:rgba(240,168,50,.2);border:1px solid rgba(240,168,50,.4);padding:4px 16px;border-radius:20px;font-size:12px;color:#f0a832;font-weight:700">
+          Version 1.0.0 — يوليو 2026
+        </div>
+      </div>
+      <div class="cb">
+
+        <div style="background:#f8faff;border:1px solid var(--bdr);border-radius:12px;padding:20px;margin-bottom:14px;text-align:center">
+          <div style="font-size:11px;color:var(--mu);margin-bottom:6px">تصميم وتطوير وبرمجة</div>
+          <div style="font-size:20px;font-weight:900;color:var(--pr);margin-bottom:4px">أحمد عادل الشريف</div>
+          <div style="font-size:12px;color:var(--mu);margin-bottom:14px">مدير مركز معلومات القوافل العلاجية بمحافظة البحيرة</div>
+          <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+            <a href="https://wa.me/201212021490?text=السلام عليكم، أحتاج دعماً فنياً بخصوص برنامج القوافل العلاجية" target="_blank"
+              class="btn" style="background:#25d366;color:#fff;text-decoration:none">💬 واتساب</a>
+            <a href="tel:+201212021490" class="btn" style="background:var(--pr);color:#fff;text-decoration:none">📞 01212021490</a>
+            <a href="https://wa.me/201212021490?text=اقتراح بخصوص برنامج القوافل: " target="_blank"
+              class="btn out" style="text-decoration:none">💡 إرسال اقتراح</a>
+          </div>
+        </div>
+
+        <div style="background:#fffbe8;border:1px solid #f0c860;border-radius:10px;padding:14px;margin-bottom:14px">
+          <div style="font-size:12px;font-weight:900;color:#7a5000;margin-bottom:10px">📋 سجل التحديثات</div>
+          <div style="font-size:11px;color:#5a4000;line-height:2.2">
+            <div style="display:flex;align-items:flex-start;gap:8px;padding-bottom:8px;border-bottom:1px dashed #e0c060;margin-bottom:8px">
+              <span style="background:#f0a832;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;white-space:nowrap;font-weight:700">v 1.0.0</span>
+              <div>
+                ✅ نظام تسجيل دخول متعدد المستخدمين<br>
+                ✅ مزامنة فورية مع Firebase<br>
+                ✅ نماذج التحاليل والأشعة وافحص واطمن<br>
+                ✅ تصدير Excel بأوراق متعددة<br>
+                ✅ إرسال تقارير واتساب<br>
+                ✅ قفل وفتح القافلة<br>
+                ✅ إحصائيات تفصيلية<br>
+                ✅ Auto-detect للنتائج الغير طبيعية
+              </div>
+            </div>
+            <div style="color:#aaa;font-size:10px;text-align:center">المزيد من التحديثات قادمة...</div>
+          </div>
+        </div>
+
+        <div style="background:#f0f6ff;border:1px solid #c0d8f0;border-radius:10px;padding:14px;margin-bottom:14px">
+          <div style="font-size:12px;font-weight:900;color:var(--pr);margin-bottom:8px">🏛️ تحت إشراف</div>
+          <div style="font-size:12px;color:var(--tx);line-height:2">
+            وزارة الصحة والسكان<br>
+            مديرية الشؤون الصحية بمحافظة البحيرة<br>
+            مركز معلومات القوافل العلاجية
+          </div>
+        </div>
+
+        <div style="text-align:center;color:#bbb;font-size:10px;padding-top:10px;border-top:1px solid var(--bdr)">
+          © 2026 — جميع الحقوق محفوظة<br>
+          Beheira Medical Convoys Management System (BMCMS)<br>
+          Developed by Ahmed Adel ElSherif
+        </div>
+
+        <!-- Activity Log -->
+        <div id="actLogWrap" style="display:none;margin-top:14px">
+          <div style="font-size:12px;font-weight:900;color:var(--pr);margin-bottom:10px">📜 سجل النشاط</div>
+          <div id="actLogList" style="max-height:300px;overflow-y:auto;font-size:11px"></div>
+        </div>
+        <button class="btn out sm" onclick="toggleActLog()" id="actLogBtn" style="margin-top:10px;width:100%">📜 عرض سجل النشاط</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
-</html>
+  </html>
