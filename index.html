@@ -8,7 +8,9 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <style>
-:root{--pr:#1a4a6b;--pr2:#2a6496;--pr3:#0f2d45;--ac:#c8860a;--ac2:#f0a832;--ok:#1a7a4a;--no:#b83232;--bg:#eef2f7;--card:#fff;--bdr:#cdd8e8;--tx:#1a2535;--mu:#5a7080;--rbg:#fff0f0;--gbg:#f0fff4;--ybg:#fffbe8;--blood:#c8350a;--para:#1a7a4a;--xray:#1a4a9b;--screen:#7a1a7a;}
+:root{
+  --z-splash: 99999;
+  --z-modal: 9999;--pr:#1a4a6b;--pr2:#2a6496;--pr3:#0f2d45;--ac:#c8860a;--ac2:#f0a832;--ok:#1a7a4a;--no:#b83232;--bg:#eef2f7;--card:#fff;--bdr:#cdd8e8;--tx:#1a2535;--mu:#5a7080;--rbg:#fff0f0;--gbg:#f0fff4;--ybg:#fffbe8;--blood:#c8350a;--para:#1a7a4a;--xray:#1a4a9b;--screen:#7a1a7a;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;}
 .hdr{background:linear-gradient(135deg,var(--pr3),var(--pr),var(--pr2));color:#fff;box-shadow:0 4px 20px rgba(26,74,107,.35);position:sticky;top:0;z-index:300;}
@@ -126,7 +128,7 @@ td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid
 .rpt-tbl td{padding:6px;text-align:center;border:1px solid #ddd;}
 .rpt-tbl tr:nth-child(even) td{background:#f5f8ff;}
 .rpt-tbl .tr td{background:#e8f0ff;font-weight:700;}
-.login-ov{position:fixed;inset:0;background:linear-gradient(135deg,var(--pr3),var(--pr));z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;}
+.login-ov{position:fixed;inset:0;background:linear-gradient(135deg,var(--pr3),var(--pr));z-index:var(--z-modal, 9999);display:flex;align-items:center;justify-content:center;padding:20px;}
 .login-box{background:#fff;border-radius:18px;padding:32px 28px;max-width:440px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,.25);}
 .lerr{background:var(--rbg);border:1px solid #f5c6c6;border-radius:7px;padding:8px 12px;font-size:12px;color:var(--no);margin-bottom:12px;display:none;}
 .mov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:center;justify-content:center;}
@@ -179,13 +181,18 @@ td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid
 #newTabBtn:hover{opacity:.9;}
 @media print{.hdr,.no-print,.edit-ban,.sess-ban,.tabs-container{display:none!important;}.sc{display:block!important;padding:0;}body{background:#fff;}.prnt-hdr{display:block!important;text-align:center;padding:8px 0 12px;border-bottom:2px solid #333;margin-bottom:10px;}}
 @media(max-width:640px){.fg.c3,.fg.c4,.fg.c5,.fg.c6{grid-template-columns:1fr 1fr;}.dept-grid{grid-template-columns:1fr 1fr;}.stgrid{grid-template-columns:1fr 1fr;}.tab-item{max-width:120px;font-size:11px;padding:3px 7px;}}
+
+table thead tr th{background:#1a4a6b !important;color:#fff !important;padding:8px 10px;text-align:right;font-weight:700;white-space:nowrap;}
+table tbody td{padding:6px 8px;border-bottom:1px solid #e8edf2;}
+table tbody tr:nth-child(even){background:#f9faff;}
+table tbody tr:hover{background:#e8f0ff;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
 <!-- ═══════════════════ SPLASH SCREEN ═══════════════════ -->
-<div id="splash" style="position:fixed;inset:0;background:linear-gradient(135deg,#0d2d45,#1a4a6b,#1a6b4a);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .6s ease">
+<div id="splash" style="position:fixed;inset:0;background:linear-gradient(135deg,#0d2d45,#1a4a6b,#1a6b4a);z-index:var(--z-splash, 99999);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .6s ease">
   <div style="position:relative">
     <div style="width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.1);border:3px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:42px;animation:splashPulse 1.5s ease-in-out infinite">🏥</div>
     <div style="position:absolute;inset:-6px;border-radius:50%;border:3px solid transparent;border-top-color:#f0a832;animation:splashSpin 1s linear infinite"></div>
@@ -488,7 +495,7 @@ td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid
     </div></div>
     <div class="esec"><div class="esec-h xray">📡 بيانات الفحص الإشعاعي</div><div class="esec-b">
       <div class="fg c3">
-        <div class="fw"><label>كود الفحص</label><input id="xr-code"></div>
+        <div class="fw"><label>كود الفحص</label><input id="xr-code" oninput="lookupExamCode()" placeholder="اكتب الكود"></div>
         <div class="fw s2"><label>اسم الفحص</label><input id="xr-ename"></div>
         <div class="fw"><label>نتيجة الفحص</label><select id="xr-result" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">غير طبيعي</option></select></div>
         <div class="fw s2"><label>ملاحظات / سبب الإعادة</label><input id="xr-remark"></div>
@@ -530,7 +537,7 @@ td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid
           <div style="display:flex;gap:5px"><input type="number" id="sc-bp-sys" placeholder="انقباضي" oninput="autoBpResult()" style="width:50%"><input type="number" id="sc-bp-dia" placeholder="انبساطي" oninput="autoBpResult()" style="width:50%"></div>
           <select id="sc-bp-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">مرتفع</option></select>
         </div>
-        <div class="fw"><label>سكر عشوائي mg/dL <span class="hint">(70-140)</span></label><input type="number" id="sc-rbs" oninput="autoRbsResult('sc')"><select id="sc-rbs-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">مرتفع</option></select></div>
+        <div class="fw"><label>سكر عشوائي mg/dL <span class="hint">(70-140)</span></label><input type="number" id="sc-rbs" oninput="autoRbsResult('sc')"><select id="sc-rbs-r" class="rsel" onchange="sR(this)" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">مرتفع</option></select></div>
         <div class="fw"><label>سكر تراكمي HbA1c % <span class="hint">(&lt;5.7 طبيعي)</span><span class="hint-warn">5.7-6.4 ما قبل السكر</span><span class="hint-ab">&gt;6.5 سكري</span></label><input type="number" step="0.1" id="sc-hba1c"><select id="sc-hba1c-r" class="rsel" onchange="sR(this)"><option value="">--</option><option value="طبيعي">طبيعي</option><option value="غير طبيعي">مرتفع</option></select></div>
       </div>
     </div></div>
@@ -568,6 +575,45 @@ td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid
 </div>
 
 <script>
+
+// ════════════════════════════════════════════════════════════════════
+// APP CONSTANTS — أرقام وثوابت التطبيق (لا تكتب الأرقام مباشرة في الكود)
+// ════════════════════════════════════════════════════════════════════
+const APP = Object.freeze({
+  VERSION:        '1.0.0',
+  DEVELOPER:      'أحمد عادل الشريف',
+  WHATSAPP:       '201212021490',
+  SPLASH_MS:      2200,   // مدة splash screen بالمللي ثانية
+  SPLASH_FADE_MS: 600,    // مدة الـ fade out
+  Z_SPLASH:       99999,  // z-index الـ splash
+  Z_MODAL:        9999,   // z-index النوافذ المنبثقة
+  LOG_MAX:        100,    // أقصى عدد لسجل النشاط
+  SYNC_MS:        5000,   // فترة المزامنة بالمللي ثانية
+  BP_LOW_SYS:     100,    // حد ضغط الدم المنخفض (انقباضي)
+  BP_LOW_DIA:     70,     // حد ضغط الدم المنخفض (انبساطي)
+  BP_HIGH_SYS:    140,    // حد ضغط الدم المرتفع (انقباضي)
+  BP_HIGH_DIA:    90,     // حد ضغط الدم المرتفع (انبساطي)
+  RBS_LOW:        70,     // حد السكر المنخفض
+  RBS_HIGH:       200,    // حد السكر المرتفع
+});
+
+// ── مفاتيح localStorage المركزية ─────────────────────────────────────
+const STORAGE = Object.freeze({
+  SESSION:   STORAGE.SESSION,
+  RECORDS:   STORAGE.RECORDS,
+  STAFF:     STORAGE.STAFF,
+  PASS:      STORAGE.PASS,
+  LOCKED:    STORAGE.LOCKED,
+  LOG:       'qs_log',
+  FB_URL:    STORAGE.FB_URL,
+});
+
+// ── خريطة الأقسام إلى البادئات (بدل تكرارها 5 مرات) ──────────────────
+const DEPT_PX = Object.freeze({blood:'bl', para:'pa', xray:'xr', screen:'sc'});
+
+// ── القيم الغير طبيعية ───────────────────────────────────────────────
+const ABNORMAL_VALS = new Set(['غير طبيعي','مرتفع','منخفض','موجب','موجبة','positive','ايجابي']);
+
 // ╔══════════════════════════════════════════════════════════════════╗
 // ║          القوافل العلاجية بمحافظة البحيرة — فهرس الكود          ║
 // ╠══════════════════════════════════════════════════════════════════╣
@@ -597,6 +643,36 @@ td{padding:7px 6px;text-align:center;vertical-align:middle;border-left:1px solid
 //    - لو حاجة اتكسرت: ارجع للنسخة السابقة في Git
 //    - كل قسم مستقل — التعديل فيه مش بيأثر على غيره
 //
+
+// ════════════════════════════════════════════════════════════════════
+// EXAM CODES — أكواد التحاليل والأشعة
+// ════════════════════════════════════════════════════════════════════
+const EXAM_CODES={1:'تحليل عد دم كامل',2:'تحليل عد دم أبيض كلي ونوعي',3:'تحليل عد دم أبيض',4:'تحليل عد دم أحمر',5:'تحليل صفائح دموية',6:'تحليل هيماتوكريت',7:'تحليل فصائل الدم',8:'تحليل معامل ريساس',9:'تحليل نسبة هيموجلوبين',10:'تحليل سرعة نزف',11:'تحليل سرعة تجلط',12:'تحليل سرعة ترسيب',13:'تحليل بروثرومبين',14:'تحليل سكر في الدم',15:'تحليل بولينا في الدم',16:'تحليل كرياتينين',17:'تحليل حمض بوليك',18:'تحليل بيليروبين في الدم',19:'تحليل SGOT',20:'تحليل SGPT',21:'تحليل رسم بياني للسكر بالدم',22:'تحليل كوليستيرول',23:'تحليل دهون ثلاثية',24:'تحليل LDL-C',25:'تحليل HDL-C',26:'مزرعة وحساسية',27:'إختبار فيدال',28:'فحص البراز',29:'فحص البول الكامل',30:'بول للأسيتون',31:'بول للسكر والزلال',32:'بول للبيليروبين',33:'إختبار السائل المنوي',34:'إختبار حمل بالبول',35:'إختبار حمل بالدم',36:'إختبار روماتويد',37:'إختبار CRP',38:'إختبار ASOT',39:'إختبار RPR',40:'أشعة على اليد',41:'أشعة على الرسغ',42:'أشعة على الساعد',43:'أشعة على الكوع',44:'أشعة على العضد',45:'أشعة على الكتف',46:'أشعة على القدم',47:'أشعة على الكاحل',48:'أشعة على الكعب',49:'أشعة على الساق',50:'أشعة على الركبة',51:'أشعة على الفخذ',52:'أشعة على الحوض',53:'أشعة على مفصل الفخذ',54:'أشعة على الصدر وضع واحد',55:'أشعة على الصدر وضعين',56:'أشعة على الفقرات العنقية',57:'أشعة على الفقرات الصدرية',58:'أشعة على الفقرات القطنية والعجزية',59:'أشعة على الجمجمة',60:'أشعة على الجيوب الأنفية',61:'أشعة على عظام الأنف',62:'أشعة على البلعوم الأنفي',63:'أشعة على النتوء الحلمي',64:'أشعة على البطن',65:'أشعة على المرارة بدون صبغة',66:'أشعة مسالك بولية',67:'أشعة على الأسنان',68:'أشعة بالصبغة على المرارة',69:'أشعة بالصبغة على المريء والمعدة',70:'أشعة بالصبغة على المريء',71:'أشعة بالصبغة على المعدة',72:'أشعة بالصبغة على القولون',73:'أشعة بالصبغة على الرحم',74:'أشعة بالصبغة على المسالك البولية',75:'موجات فوق الصوتية على البطن',76:'موجات فوق الصوتية لمتابعة الحمل',77:'موجات فوق الصوتية لمتابعة التبويض',78:'رسم قلب',79:'فحص بصاق',80:'ألبيومين',81:'البروتين الكلي',82:'HBsAg',83:'HCV (AB)',84:'موجات فوق صوتية على القلب'};
+
+function lookupExamCode(){
+  const code=document.getElementById('xr-code')?.value?.trim();
+  const nameEl=document.getElementById('xr-ename');
+  if(!code||!nameEl)return;
+  const name=EXAM_CODES[parseInt(code)];
+  if(name){nameEl.value=name;nameEl.style.background='#e8f5e9';}
+  else{nameEl.style.background='';}
+}
+
+
+// ── Firebase safe write helper (كل الكتابات تمر من هنا) ──────────────
+function fbWrite(path, data){
+  if(!dbRef) return Promise.resolve();
+  return dbRef.child(path).set(data).catch(err=>{
+    console.warn('[Firebase write error]', path, err.message);
+  });
+}
+function fbRemove(path){
+  if(!dbRef) return Promise.resolve();
+  return dbRef.child(path).remove().catch(err=>{
+    console.warn('[Firebase remove error]', path, err.message);
+  });
+}
+
 // ════════════════════════════════════════════════════════════════════
 // 1. CONSTANTS — أسماء وأيقونات الأقسام الأربعة
 //    ⚠️ لو أضفت قسم جديد: أضفه هنا + في DEPS + في Firebase
@@ -609,11 +685,11 @@ const DEPS=['blood','para','xray','screen'];
 // 2. STATE — المتغيرات الرئيسية (localStorage كـ backup)
 //    ⚠️ لو أضفت متغير: احفظه في localStorage وفي Firebase
 // ════════════════════════════════════════════════════════════════════
-let session=JSON.parse(localStorage.getItem('sess')||'null');
-let records=JSON.parse(localStorage.getItem('recs')||'[]');
-let staff=JSON.parse(localStorage.getItem('staff')||'[]');
-let adminPass=localStorage.getItem('apass')||'1234';
-let locked=localStorage.getItem('locked')==='1';
+let session=JSON.parse(localStorage.getItem(STORAGE.SESSION)||'null');
+let records=JSON.parse(localStorage.getItem(STORAGE.RECORDS)||'[]');
+let staff=JSON.parse(localStorage.getItem(STORAGE.STAFF)||'[]');
+let adminPass=localStorage.getItem(STORAGE.PASS)||'1234';
+let locked=localStorage.getItem(STORAGE.LOCKED)==='1';
 let curUser=null, curDay=1, loginDay=1;
 
 function setLoginDay(d){
@@ -656,7 +732,7 @@ let tabCounter = 0;
 let pendingPhone = null;
 
 function getFormIds(dept){
-  let px={blood:'bl',para:'pa',xray:'xr',screen:'sc'}[dept];
+  let px=DEPT_PX[dept];
   let ids = [px+'-ticket', px+'-name', px+'-age', px+'-gender', px+'-phone', px+'-nid'];
   if(dept==='blood'){
     ids = ids.concat(['bl-clinic','bl-hp','bl-hp-r','bl-rbc','bl-rbc-r','bl-hct','bl-hct-r','bl-wbc','bl-wbc-r','bl-plt','bl-plt-r',
@@ -687,7 +763,7 @@ function saveTabData(tabId){
     if(el) data[id] = el.value;
   });
   tab.data = data;
-  let px={blood:'bl',para:'pa',xray:'xr',screen:'sc'}[tab.dept];
+  let px=DEPT_PX[tab.dept];
   let name = data[px+'-name'] || '';
   tab.label = (name && name.length>0) ? name : (tab.editId ? 'تعديل' : 'جديد');
   renderTabs();
@@ -742,7 +818,7 @@ function renderTabs(){
 
 // دالة تحويل بيانات السجل لحقول الفورم (تحل مشكلة التذكرة المكررة)
 function recToFormData(dept, rec){
-  let px={blood:'bl',para:'pa',xray:'xr',screen:'sc'}[dept];
+  let px=DEPT_PX[dept];
   let d={};
   d[px+'-name']=rec.name||''; d[px+'-age']=rec.age||''; d[px+'-gender']=rec.gender||'';
   d[px+'-ticket']=rec.ticket||''; d[px+'-phone']=rec.phone||''; d[px+'-nid']=rec.nid||'';
@@ -864,7 +940,7 @@ function pmSavePhone() {
     let phone = document.getElementById('phoneModalInput').value.trim();
     ps.r.phone = phone;
     // حدّث حقل التليفون في الفورم
-    let px={blood:'bl',para:'pa',xray:'xr',screen:'sc'}[ps.dept];
+    let px=DEPT_PX[ps.dept];
     let el=document.getElementById(px+'-phone');
     if(el) el.value=phone;
     doFinalSave(ps.r);
@@ -883,11 +959,6 @@ function pmSkipPhone() {
 //    📌 التسلسل: saveCurrentTab ← hasAbnormal ← doFinalSave ← Firebase
 //    ⚠️ لو أضفت حقل جديد: أضفه في saveCurrentTab بتاع القسم المناسب
 // ════════════════════════════════════════════════════════════════════
-function hasAbnormal(r) {
-    let keys = Object.keys(r).filter(k => k.endsWith('R') || k === 'result');
-    return keys.some(k => r[k] === 'غير طبيعي');
-}
-
 function doFinalSave(r) {
     logActivity(records.find(x=>String(x.id)===String(r.id))?'تعديل مريض':'إضافة مريض',
       (r.name||'—') + ' — ' + (DNAMES[r.dept]||r.dept));
@@ -898,8 +969,8 @@ function doFinalSave(r) {
     } else {
         records.push(r);
     }
-    localStorage.setItem('recs', JSON.stringify(records));
-    if(dbRef) dbRef.child('records').child(r.id).set(r);
+    localStorage.setItem(STORAGE.RECORDS, JSON.stringify(records));
+    fbWrite('records/'+r.id, r);
     if (activeTabId) closeTab(activeTabId);
     renderRec();
     buildStats();
@@ -912,7 +983,7 @@ function saveCurrentTab(dept) {
     let data = tab.data;
     let editId = tab.editId;
     
-    let px = {blood:'bl',para:'pa',xray:'xr',screen:'sc'}[dept];
+    let px = DEPT_PX[dept];
     let name = data[px+'-name'] || '';
     let age = data[px+'-age'] || '';
     let gender = data[px+'-gender'] || '';
@@ -935,8 +1006,13 @@ function saveCurrentTab(dept) {
         r[key] = data[fid] || '';
     });
     
-    // Phone required for abnormal cases in ALL depts
-    if (hasAbnormal(r) && !phone) {
+    // Phone warning: screen dept only for BP/sugar abnormal
+    const screenAbnormal = dept==='screen' && (
+      ['مرتفع','منخفض'].includes(r.bpR||'') ||
+      ['مرتفع','منخفض'].includes(r.rbsR||'') ||
+      r.hba1cR==='غير طبيعي'
+    );
+    if (screenAbnormal && !phone) {
         pendingPhone = { r: r, dept: dept };
         document.getElementById('phoneModalInput').value = '';
         document.getElementById('phoneMov').classList.add('show');
@@ -1000,9 +1076,9 @@ function addStaff(){
   if(!n||!d||!p){ showToast('⚠️ املأ الكل',false); return; }
   if(staff.find(s=>s.name===n)){ showToast('⚠️ موجود',false); return; }
   staff.push({name:n, dept:d, pass:p, staffRole:r});
-  localStorage.setItem('staff', JSON.stringify(staff));
+  localStorage.setItem(STORAGE.STAFF, JSON.stringify(staff));
   renderStaffList(); populateLoginUsers();
-  if(dbRef) dbRef.child('staff').set(staff);
+  if(dbRef) dbRef.child(STORAGE.STAFF).set(staff);
   logActivity('إضافة موظف', n+' — '+(r==='supervisor'?'مشرف':'موظف إدخال'));
   showToast('✅ تم إضافة '+n);
 }
@@ -1010,9 +1086,9 @@ function removeStaff(i){
   if(!confirm('حذف؟')) return;
   logActivity('حذف موظف', staff[i]?.name||'');
   staff.splice(i,1);
-  localStorage.setItem('staff', JSON.stringify(staff));
+  localStorage.setItem(STORAGE.STAFF, JSON.stringify(staff));
   renderStaffList(); populateLoginUsers();
-  if(dbRef) dbRef.child('staff').set(staff);
+  if(dbRef) dbRef.child(STORAGE.STAFF).set(staff);
 }
 function renderStaffList(){
   let c=document.getElementById('staffList');
@@ -1040,8 +1116,8 @@ function saveSetup(){
   let d1=document.getElementById('s-d1').value;
   if(!c||!v||!d1){ showToast('⚠️ املأ الحقول',false); return; }
   session={center:c, village:v, day1:d1, day2:document.getElementById('s-d2').value};
-  localStorage.setItem('sess', JSON.stringify(session));
-  if(dbRef) dbRef.child('config').set({session});
+  localStorage.setItem(STORAGE.SESSION, JSON.stringify(session));
+  if(dbRef) fbWrite('config', {session});
   applySessUI(); showToast('✅ حفظ');
 }
 function populateLoginUsers(){
@@ -1118,8 +1194,8 @@ function gotoSc(id){
 //    📌 unlockCaravan: يسمح بالدخول تاني
 //    ✅ القفل يظهر فوراً على كل الأجهزة عبر Firebase
 // ════════════════════════════════════════════════════════════════════
-function lockCaravan(){ locked=true; localStorage.setItem('locked','1'); updateLockUI(); if(dbRef) dbRef.child('config').update({locked:true}); showToast('🔒 مغلقة'); }
-function unlockCaravan(){ locked=false; localStorage.setItem('locked','0'); updateLockUI(); if(dbRef) dbRef.child('config').update({locked:false}); showToast('🔓 مفتوحة'); }
+function lockCaravan(){ locked=true; localStorage.setItem(STORAGE.LOCKED,'1'); updateLockUI(); if(dbRef) dbRef.child('config').update({locked:true}); showToast('🔒 مغلقة'); }
+function unlockCaravan(){ locked=false; localStorage.setItem(STORAGE.LOCKED,'0'); updateLockUI(); if(dbRef) dbRef.child('config').update({locked:false}); showToast('🔓 مفتوحة'); }
 function updateLockUI(){
   let l=document.getElementById('lockBtn'), u=document.getElementById('unlockBtn'), b=document.getElementById('lockBannerWrap');
   if(locked){ l.style.display='none'; u.style.display='block'; b.innerHTML='<div style="background:#fff0f0;padding:8px;color:#7a1a1a;text-align:center">🔒 مغلقة</div>'; }
@@ -1128,8 +1204,8 @@ function updateLockUI(){
 function clearAllRecords(){
   if(!confirm('⚠️ هل أنت متأكد من مسح كل البيانات؟')) return;
   records=[]; staff=[];
-  localStorage.setItem('recs','[]'); localStorage.setItem('staff','[]');
-  if(dbRef){ dbRef.child('records').set({}); dbRef.child('staff').set({}); }
+  localStorage.setItem(STORAGE.RECORDS,'[]'); localStorage.setItem(STORAGE.STAFF,'[]');
+  if(dbRef){ fbWrite('records', {}); dbRef.child(STORAGE.STAFF).set({}); }
   renderRec(); buildStats(); renderStaffList(); populateLoginUsers();
   showToast('🗑️ تم مسح كل البيانات');
 }
@@ -1144,7 +1220,12 @@ let recFilter = 'all'; // all / blood / para / xray / screen / abnormal
 function setRecFilter(f){ recFilter=f; renderRec(); }
 
 function hasAbnormal(r){
-  return Object.keys(r).some(k=>(k.endsWith('R')||k==='result')&&r[k]==='غير طبيعي');
+  return Object.keys(r).some(k=>{
+    if(k.endsWith('R')||k==='result'||k==='bpR'||k==='rbsR'||k==='hba1cR'){
+      return ABNORMAL_VALS.has(String(r[k]).trim());
+    }
+    return false;
+  });
 }
 
 function canEdit(r){
@@ -1185,16 +1266,30 @@ function renderRec(){
     : [recFilter==='abnormal'?filtered[0]?.dept:recFilter];
 
   const DEPT_HEADERS = {
-    blood:['#','الاسم','السن','الجنس','التذكرة','التليفون','التاريخ','الوقت','اليوم','الموظف','العيادة','Hb','ن','سكر','ن','فصيلة','HP','ن','RBC','ن','HCT','ن','WBC','ن','PLT','ن','يوريك','ن','بولينا','ن','كرياتنين','ن','SGOT','ن','SGPT','ن','LDL','ن','HDL','ن','كوليسترول','ن','H.Pylori','HCV','HBsAg','ESR','ن','إجراءات'],
+    blood:['#','الاسم','السن','الجنس','الرقم القومي','التذكرة','التليفون','التاريخ','الوقت','اليوم','الموظف','العيادة',
+      'Hb','ن Hb','RBS','ن RBS','HbA1c','ن HbA1c','فصيلة','Rh',
+      'HP','ن HP','RBC','ن RBC','HCT','ن HCT','WBC','ن WBC','PLT','ن PLT',
+      'يوريك','ن','بولينا','ن','كرياتنين','ن',
+      'TP','ن TP','ألبيومين','ن','بيليروبين','ن','SGOT','ن','SGPT','ن',
+      'LDL','ن','HDL','ن','TG','ن','كوليسترول','ن',
+      'H.Pylori','حمل','ASOT','RF','CRP','HCV','HBsAg','HAV',
+      'BT','ن BT','CT','ن CT','ESR','ن ESR','إجراءات'],
     para:['#','الاسم','السن','الجنس','التذكرة','التليفون','التاريخ','الوقت','اليوم','الموظف','H.Pylori','بلهارسيا','تريكومونس','أميبا','جيارديا','Urates','Phosphate','Oxalates','إجراءات'],
     xray:['#','الاسم','السن','الجنس','التذكرة','التليفون','التاريخ','الوقت','اليوم','الموظف','العيادة','الكود','الفحص','النتيجة','ملاحظات','إجراءات'],
-    screen:['#','الاسم','السن','الجنس','التذكرة','التليفون','التاريخ','الوقت','اليوم','الموظف','تدخين','ضغط','ن الضغط','سكر','ن السكر','HbA1c','ن HbA1c','الإجراء','إجراءات'],
+    screen:['#','الاسم','السن','الجنس','الرقم القومي','التذكرة','التليفون','التاريخ','الوقت','اليوم','الموظف','تدخين','تاريخ سكر','تاريخ ضغط','انقباضي','انبساطي','نتيجة الضغط','سكر RBS','نتيجة السكر','HbA1c','نتيجة HbA1c','الإجراء','تحويل','إجراءات'],
   };
   const DEPT_ROW = {
-    blood: r=>[r.clinic||'',r.hb||'',r.hbR||'',r.rbs||'',r.rbsR||'',r.blood||'',r.hp||'',r.hpR||'',r.rbc||'',r.rbcR||'',r.hct||'',r.hctR||'',r.wbc||'',r.wbcR||'',r.plt||'',r.pltR||'',r.uric||'',r.uricR||'',r.urea||'',r.ureaR||'',r.creat||'',r.creatR||'',r.sgot||'',r.sgotR||'',r.sgpt||'',r.sgptR||'',r.ldl||'',r.ldlR||'',r.hdl||'',r.hdlR||'',r.chol||'',r.cholR||'',r.hpylori||'',r.hcv||'',r.hbsag||'',r.esr||'',r.esrR||''],
+    blood: r=>[r.clinic||'',
+      r.hb||'',r.hbR||'',r.rbs||'',r.rbsR||'',r.hba1c||'',r.hba1cR||'',r.blood||'',r.rh||'',
+      r.hp||'',r.hpR||'',r.rbc||'',r.rbcR||'',r.hct||'',r.hctR||'',r.wbc||'',r.wbcR||'',r.plt||'',r.pltR||'',
+      r.uric||'',r.uricR||'',r.urea||'',r.ureaR||'',r.creat||'',r.creatR||'',
+      r.tp||'',r.tpR||'',r.alb||'',r.albR||'',r.bili||'',r.biliR||'',r.sgot||'',r.sgotR||'',r.sgpt||'',r.sgptR||'',
+      r.ldl||'',r.ldlR||'',r.hdl||'',r.hdlR||'',r.tg||'',r.tgR||'',r.chol||'',r.cholR||'',
+      r.hpylori||'',r.preg||'',r.asot||'',r.rf||'',r.crp||'',r.hcv||'',r.hbsag||'',r.hav||'',
+      r.bt||'',r.btR||'',r.ct||'',r.ctR||'',r.esr||'',r.esrR||''],
     para: r=>[r.hpylori||'',r.bilharzia||'',r.trichomonas||'',r.ameba||'',r.giardia||'',r.urates||'',r.phosphate||'',r.oxalates||''],
     xray: r=>[r.clinic||'',r.code||'',r.examname||'',r.result||'',r.remark||''],
-    screen: r=>[r.smoke||'',r['bp-sys']||r.bpSys||'',r.bpR||'',r.rbs||'',r.rbsR||'',r.hba1c||'',r.hba1cR||'',r.action||''],
+    screen: r=>[r.smoke||'',r.hxSugar||'',r.hxBp||'',r['bp-sys']||r.bpSys||'',r['bp-dia']||r.bpDia||'',r.bpR||'',r.rbs||'',r.rbsR||'',r.hba1c||'',r.hba1cR||'',r.action||'',r.refer||''],
   };
   const DEPT_COLORS = {blood:'#8b1a1a',para:'#6b4a1a',xray:'#1a4a6b',screen:'#4a1a6b'};
 
@@ -1207,9 +1302,10 @@ function renderRec(){
     let hdrs = DEPT_HEADERS[dept]||[];
     let rowFn = DEPT_ROW[dept]||(()=>[]);
     html+=`<div style="margin-bottom:20px">
-      <div style="background:${DEPT_COLORS[dept]};color:#fff;padding:8px 14px;border-radius:8px 8px 0 0;font-weight:900;font-size:13px">
-        ${DICONS[dept]} ${DNAMES[dept]} (${items.length} حالة)
-        ${recFilter==='abnormal'?`<span style="background:rgba(255,255,255,.2);padding:2px 8px;border-radius:10px;font-size:11px;margin-right:8px">⚠️ غير طبيعي فقط</span>`:''}
+      <div style="background:${DEPT_COLORS[dept]};color:#fff;padding:8px 14px;border-radius:8px 8px 0 0;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:space-between">
+        <span>${DICONS[dept]} ${DNAMES[dept]} (${items.length} حالة)
+        ${recFilter==='abnormal'?`<span style="background:rgba(255,255,255,.2);padding:2px 8px;border-radius:10px;font-size:11px;margin-right:8px">⚠️ غير طبيعي فقط</span>`:''}</span>
+        <button onclick="exportDeptExcel('${dept}')" style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:4px 12px;border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px;cursor:pointer;font-weight:700">📊 Excel</button>
       </div>
       <div style="overflow-x:auto">
       <table><thead><tr>`;
@@ -1219,7 +1315,7 @@ function renderRec(){
       let dt = r.savedAt ? new Date(r.savedAt) : null;
       let dateStr = dt ? dt.toLocaleDateString('ar-EG') : '';
       let timeStr = dt ? dt.toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}) : '';
-      let base=[i+1,r.name,r.age,r.gender,r.ticket,r.phone||'',dateStr,timeStr,r.day===1?'أول':'ثاني',r.emp||''];
+      let base=[i+1,r.name,r.age,r.gender,r.nid||'',r.ticket,r.phone||'',dateStr,timeStr,r.day===1?'أول':'ثاني',r.emp||''];
       let extras=rowFn(r);
       let isAb=hasAbnormal(r);
       let rowStyle = isAb ? 'background:#fff8f8;' : '';
@@ -1256,8 +1352,8 @@ function delRec(id){
   if(!confirm('حذف سجل "'+r.name+'"؟')) return;
   logActivity('حذف مريض', r.name+' — '+DNAMES[r.dept]);
   records=records.filter(x=>String(x.id)!==String(id));
-  localStorage.setItem('recs',JSON.stringify(records));
-  if(dbRef) dbRef.child('records').child(id).remove();
+  localStorage.setItem(STORAGE.RECORDS,JSON.stringify(records));
+  fbRemove('records/'+id);
   renderRec();
   showToast('🗑️ تم الحذف');
 }
@@ -1366,34 +1462,58 @@ function buildStats(){
 }
 
 function buildBloodStats(arr){
-  let d1 = arr.filter(r=>r.day===1), d2 = arr.filter(r=>r.day===2);
-  let fields = [
-    {l:'Hb', v:'hb', r:'hbR'}, {l:'RBS', v:'rbs', r:'rbsR'}, {l:'HP', v:'hp', r:'hpR'},
-    {l:'RBC', v:'rbc', r:'rbcR'}, {l:'HCT', v:'hct', r:'hctR'}, {l:'WBC', v:'wbc', r:'wbcR'},
-    {l:'PLT', v:'plt', r:'pltR'}, {l:'يوريك', v:'uric', r:'uricR'}, {l:'بولينا', v:'urea', r:'ureaR'},
-    {l:'كرياتنين', v:'creat', r:'creatR'}, {l:'TP', v:'tp', r:'tpR'}, {l:'ألبيومين', v:'alb', r:'albR'},
-    {l:'بيليروبين', v:'bili', r:'biliR'}, {l:'SGOT', v:'sgot', r:'sgotR'}, {l:'SGPT', v:'sgpt', r:'sgptR'},
-    {l:'LDL', v:'ldl', r:'ldlR'}, {l:'HDL', v:'hdl', r:'hdlR'}, {l:'TG', v:'tg', r:'tgR'},
-    {l:'كوليسترول', v:'chol', r:'cholR'}
-  ];
-  let rows = '';
-  fields.forEach(f => {
-    let n1 = d1.filter(r=>r[f.r]==='طبيعي').length;
-    let p1 = d1.filter(r=>r[f.r]==='غير طبيعي').length;
-    let n2 = d2.filter(r=>r[f.r]==='طبيعي').length;
-    let p2 = d2.filter(r=>r[f.r]==='غير طبيعي').length;
-    if(!n1&&!p1&&!n2&&!p2) return;
-    rows += `<tr><td style="text-align:right">${f.l}</td>
-      <td>${n1||'—'}</td><td style="color:var(--no)">${p1||'—'}</td>
-      <td>${n2||'—'}</td><td style="color:var(--no)">${p2||'—'}</td>
-      <td>${n1+n2||'—'}</td><td style="color:var(--no)">${p1+p2||'—'}</td></tr>`;
+  let d1=arr.filter(r=>r.day==1), d2=arr.filter(r=>r.day==2);
+  const stat=(a,key)=>({
+    total:a.length,
+    done:a.filter(r=>r[key]).length,
+    norm:a.filter(r=>r[key+'R']==='طبيعي').length,
+    ab:a.filter(r=>['غير طبيعي','مرتفع','منخفض'].includes(r[key+'R']||'')).length
   });
-  return `<div class="card"><div class="ch blood">🩸 معمل الدم</div><div class="cb">
-    <table class="rpt-tbl"><thead><tr><th>التحليل</th><th colspan="2">اليوم الأول</th><th colspan="2">اليوم الثاني</th><th colspan="2">الإجمالي</th></tr>
-    <tr><th></th><th>طبيعي</th><th>غير طبيعي</th><th>طبيعي</th><th>غير طبيعي</th><th>طبيعي</th><th>غير طبيعي</th></tr></thead>
-    <tbody>${rows}</tbody></table></div></div>`;
+  const tests=[
+    {key:'hb',label:'Hb هيموجلوبين'},{key:'rbs',label:'RBS سكر عشوائي'},{key:'hba1c',label:'HbA1c سكر تراكمي'},
+    {key:'hp',label:'HP صفائح دموية'},{key:'rbc',label:'RBC كريات حمراء'},{key:'hct',label:'HCT هيماتوكريت'},
+    {key:'wbc',label:'WBC كريات بيضاء'},{key:'plt',label:'PLT صفائح'},
+    {key:'uric',label:'يوريك أسيد'},{key:'urea',label:'بولينا'},{key:'creat',label:'كرياتينين'},
+    {key:'tp',label:'TP بروتين كلي'},{key:'alb',label:'ألبيومين'},{key:'bili',label:'بيليروبين'},
+    {key:'sgot',label:'SGOT'},{key:'sgpt',label:'SGPT'},
+    {key:'ldl',label:'LDL'},{key:'hdl',label:'HDL'},{key:'tg',label:'TG دهون'},{key:'chol',label:'كوليسترول'},
+    {key:'bt',label:'BT وقت نزف'},{key:'ct',label:'CT وقت تجلط'},{key:'esr',label:'ESR ترسيب'}
+  ];
+  let html=`<div class="card" style="margin-bottom:12px">
+    <div class="ch" style="background:#8b1a1a;color:#fff">🩸 إحصائيات معمل الدم (${arr.length} حالة)</div>
+    <div class="cb" style="overflow-x:auto">
+    <table style="min-width:700px">
+    <thead><tr style="background:#8b1a1a;color:#fff">
+      <th style="padding:8px;text-align:right">التحليل</th>
+      <th colspan="3" style="padding:8px;text-align:center;border-left:2px solid rgba(255,255,255,.3)">اليوم الأول (${d1.length})</th>
+      <th colspan="3" style="padding:8px;text-align:center;border-left:2px solid rgba(255,255,255,.3)">اليوم الثاني (${d2.length})</th>
+      <th colspan="3" style="padding:8px;text-align:center;background:#5a0000">الإجمالي (${arr.length})</th>
+    </tr>
+    <tr style="background:#a52020;color:#fff;font-size:10px">
+      <th></th>
+      <th>العدد</th><th style="color:#90ee90">طبيعي</th><th style="color:#ffaaaa">غير طبيعي</th>
+      <th style="border-left:2px solid rgba(255,255,255,.2)">العدد</th><th style="color:#90ee90">طبيعي</th><th style="color:#ffaaaa">غير طبيعي</th>
+      <th style="border-left:2px solid rgba(255,255,255,.2)">العدد</th><th style="color:#90ee90">طبيعي</th><th style="color:#ffaaaa">غير طبيعي</th>
+    </tr></thead><tbody>`;
+  tests.forEach((t,i)=>{
+    let s1=stat(d1,t.key), s2=stat(d2,t.key), sT=stat(arr,t.key);
+    if(!sT.done)return; // skip tests not done
+    html+=`<tr style="background:${i%2?'#fff8f8':'#fff'}">
+      <td style="font-weight:700;padding:6px 10px">${t.label}</td>
+      <td style="text-align:center">${s1.done||'—'}</td>
+      <td style="text-align:center;color:#1a7a4a;font-weight:700">${s1.norm||'—'}</td>
+      <td style="text-align:center;color:#c0392b;font-weight:700">${s1.ab||'—'}</td>
+      <td style="text-align:center;border-left:2px solid #e0e0e0">${s2.done||'—'}</td>
+      <td style="text-align:center;color:#1a7a4a;font-weight:700">${s2.norm||'—'}</td>
+      <td style="text-align:center;color:#c0392b;font-weight:700">${s2.ab||'—'}</td>
+      <td style="text-align:center;border-left:2px solid #e0e0e0;background:#fff0f0">${sT.done}</td>
+      <td style="text-align:center;color:#1a7a4a;font-weight:900;background:#f0fff4">${sT.norm}</td>
+      <td style="text-align:center;color:#c0392b;font-weight:900;background:#fff0f0">${sT.ab}</td>
+    </tr>`;
+  });
+  html+=`</tbody></table></div></div>`;
+  return html;
 }
-
 function buildParaStats(arr){
   let d1 = arr.filter(r=>r.day===1), d2 = arr.filter(r=>r.day===2);
   let fields = [
@@ -1429,19 +1549,92 @@ function buildXrayStats(arr){
 }
 
 function buildScreenStats(arr){
-  let d1 = arr.filter(r=>r.day===1), d2 = arr.filter(r=>r.day===2);
-  let abn = arr.filter(r=>r.bpR==='غير طبيعي'||r.rbsR==='غير طبيعي');
-  let html = `<div class="card"><div class="ch screen">💊 افحص واطمن</div><div class="cb">
-    <table class="rpt-tbl"><thead><tr><th>اليوم</th><th>ضغط طبيعي</th><th>ضغط مرتفع</th><th>سكر طبيعي</th><th>سكر مرتفع</th><th>الإجمالي</th></tr></thead>
-    <tbody><tr><td>الأول</td><td>${d1.filter(r=>r.bpR==='طبيعي').length}</td><td style="color:var(--no)">${d1.filter(r=>r.bpR==='غير طبيعي').length}</td>
-      <td>${d1.filter(r=>r.rbsR==='طبيعي').length}</td><td style="color:var(--no)">${d1.filter(r=>r.rbsR==='غير طبيعي').length}</td><td>${d1.length}</td></tr>
-    <tr><td>الثاني</td><td>${d2.filter(r=>r.bpR==='طبيعي').length}</td><td style="color:var(--no)">${d2.filter(r=>r.bpR==='غير طبيعي').length}</td>
-      <td>${d2.filter(r=>r.rbsR==='طبيعي').length}</td><td style="color:var(--no)">${d2.filter(r=>r.rbsR==='غير طبيعي').length}</td><td>${d2.length}</td></tr>
-    <tr style="font-weight:700;background:#e8f0ff"><td>الإجمالي</td><td>${arr.filter(r=>r.bpR==='طبيعي').length}</td><td style="color:var(--no)">${arr.filter(r=>r.bpR==='غير طبيعي').length}</td>
-      <td>${arr.filter(r=>r.rbsR==='طبيعي').length}</td><td style="color:var(--no)">${arr.filter(r=>r.rbsR==='غير طبيعي').length}</td><td>${arr.length}</td></tr>
-    </tbody></table>`;
-  if(abn.length) html += `<p style="color:var(--no);font-weight:700;margin-top:10px">⚠️ حالات غير طبيعية: ${abn.length}</p>`;
-  html += `</div></div>`;
+  let d1=arr.filter(r=>r.day==1), d2=arr.filter(r=>r.day==2);
+  const m=arr.filter(r=>r.gender==='ذكر'), f=arr.filter(r=>r.gender==='أنثى');
+  const smk=arr.filter(r=>r.smoke==='مدخن');
+  // BP ranges
+  function bpRange(r){
+    let sys=parseInt(r['bp-sys']||r.bpSys||0), dia=parseInt(r['bp-dia']||r.bpDia||0);
+    if(!sys) return null;
+    if(sys<100||dia<70) return 'منخفض (<100/70)';
+    if(sys<=120&&dia<=80) return 'طبيعي (≤120/80)';
+    if(sys<=139&&dia<=89) return 'حدودي (121-139/81-89)';
+    if(sys<=159&&dia<=99) return 'مرتفع درجة 1 (140-159/90-99)';
+    return 'مرتفع درجة 2 (≥160/100)';
+  }
+  function rbsRange(r){
+    let v=parseInt(r.rbs||0);
+    if(!v) return null;
+    if(v<70) return 'منخفض (<70)';
+    if(v<=140) return 'طبيعي (70-140)';
+    if(v<=200) return 'حدودي (141-200)';
+    return 'مرتفع (>200)';
+  }
+  const BP_RANGES=['منخفض (<100/70)','طبيعي (≤120/80)','حدودي (121-139/81-89)','مرتفع درجة 1 (140-159/90-99)','مرتفع درجة 2 (≥160/100)'];
+  const RBS_RANGES=['منخفض (<70)','طبيعي (70-140)','حدودي (141-200)','مرتفع (>200)'];
+
+  let html=`<div class="card" style="margin-bottom:12px">
+    <div class="ch" style="background:#4a1a6b;color:#fff">💊 إحصائيات افحص واطمن (${arr.length} حالة)</div>
+    <div class="cb">`;
+
+  // Overview table
+  html+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
+    <div style="background:#4a1a6b;color:#fff;border-radius:8px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:900">${arr.length}</div><div style="font-size:11px">الإجمالي</div></div>
+    <div style="background:#1a4a6b;color:#fff;border-radius:8px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:900">${m.length}</div><div style="font-size:11px">ذكور</div></div>
+    <div style="background:#6b1a4a;color:#fff;border-radius:8px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:900">${f.length}</div><div style="font-size:11px">إناث</div></div>
+    <div style="background:#1a6b4a;color:#fff;border-radius:8px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:900">${d1.length}</div><div style="font-size:11px">اليوم الأول</div></div>
+    <div style="background:#1a6b4a;color:#fff;border-radius:8px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:900">${d2.length}</div><div style="font-size:11px">اليوم الثاني</div></div>
+    <div style="background:#7a5000;color:#fff;border-radius:8px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:900">${smk.length}</div><div style="font-size:11px">مدخنون</div></div>
+  </div>`;
+
+  // BP Table
+  html+=`<div style="font-weight:900;color:#4a1a6b;margin-bottom:8px;font-size:13px">📊 ضغط الدم</div>
+  <table style="width:100%;margin-bottom:14px"><thead><tr style="background:#4a1a6b;color:#fff">
+    <th style="padding:8px">النطاق</th>
+    <th style="padding:8px;text-align:center">اليوم الأول</th><th style="padding:8px;text-align:center">ذكور</th><th style="padding:8px;text-align:center">إناث</th>
+    <th style="padding:8px;text-align:center;border-left:2px solid rgba(255,255,255,.3)">اليوم الثاني</th><th style="padding:8px;text-align:center">ذكور</th><th style="padding:8px;text-align:center">إناث</th>
+    <th style="padding:8px;text-align:center;border-left:2px solid rgba(255,255,255,.3);background:#2d0d45">الإجمالي</th>
+  </tr></thead><tbody>`;
+  BP_RANGES.forEach((range,i)=>{
+    let all=arr.filter(r=>bpRange(r)===range);
+    let _d1=d1.filter(r=>bpRange(r)===range), _d2=d2.filter(r=>bpRange(r)===range);
+    if(!all.length)return;
+    let d1m=_d1.filter(r=>r.gender==='ذكر'),d1f=_d1.filter(r=>r.gender==='أنثى');
+    let d2m=_d2.filter(r=>r.gender==='ذكر'),d2f=_d2.filter(r=>r.gender==='أنثى');
+    let isAb=range.includes('مرتفع')||range.includes('منخفض');
+    html+=`<tr style="background:${isAb?'#fff0f0':i%2?'#f8f4ff':'#fff'}">
+      <td style="padding:7px;font-weight:700;color:${isAb?'#c0392b':range.includes('حدودي')?'#f0a832':'#1a7a4a'}">${range}</td>
+      <td style="text-align:center">${_d1.length}</td><td style="text-align:center">${d1m.length}</td><td style="text-align:center">${d1f.length}</td>
+      <td style="text-align:center;border-left:2px solid #e0e0e0">${_d2.length}</td><td style="text-align:center">${d2m.length}</td><td style="text-align:center">${d2f.length}</td>
+      <td style="text-align:center;font-weight:900;border-left:2px solid #e0e0e0;background:${isAb?'#ffe8e8':'#f0f8f0'}">${all.length}</td>
+    </tr>`;
+  });
+  html+=`</tbody></table>`;
+
+  // Sugar Table
+  html+=`<div style="font-weight:900;color:#4a1a6b;margin-bottom:8px;font-size:13px">📊 السكر العشوائي (RBS)</div>
+  <table style="width:100%;margin-bottom:14px"><thead><tr style="background:#4a1a6b;color:#fff">
+    <th style="padding:8px">النطاق</th>
+    <th style="padding:8px;text-align:center">اليوم الأول</th><th style="padding:8px;text-align:center">ذكور</th><th style="padding:8px;text-align:center">إناث</th>
+    <th style="padding:8px;text-align:center;border-left:2px solid rgba(255,255,255,.3)">اليوم الثاني</th><th style="padding:8px;text-align:center">ذكور</th><th style="padding:8px;text-align:center">إناث</th>
+    <th style="padding:8px;text-align:center;border-left:2px solid rgba(255,255,255,.3);background:#2d0d45">الإجمالي</th>
+  </tr></thead><tbody>`;
+  RBS_RANGES.forEach((range,i)=>{
+    let all=arr.filter(r=>rbsRange(r)===range);
+    let _d1=d1.filter(r=>rbsRange(r)===range), _d2=d2.filter(r=>rbsRange(r)===range);
+    if(!all.length)return;
+    let d1m=_d1.filter(r=>r.gender==='ذكر'),d1f=_d1.filter(r=>r.gender==='أنثى');
+    let d2m=_d2.filter(r=>r.gender==='ذكر'),d2f=_d2.filter(r=>r.gender==='أنثى');
+    let isAb=range.includes('مرتفع')||range.includes('منخفض');
+    html+=`<tr style="background:${isAb?'#fff0f0':i%2?'#f8f4ff':'#fff'}">
+      <td style="padding:7px;font-weight:700;color:${isAb?'#c0392b':range.includes('حدودي')?'#f0a832':'#1a7a4a'}">${range}</td>
+      <td style="text-align:center">${_d1.length}</td><td style="text-align:center">${d1m.length}</td><td style="text-align:center">${d1f.length}</td>
+      <td style="text-align:center;border-left:2px solid #e0e0e0">${_d2.length}</td><td style="text-align:center">${d2m.length}</td><td style="text-align:center">${d2f.length}</td>
+      <td style="text-align:center;font-weight:900;border-left:2px solid #e0e0e0;background:${isAb?'#ffe8e8':'#f0f8f0'}">${all.length}</td>
+    </tr>`;
+  });
+  html+=`</tbody></table>`;
+  html+=`</div></div>`;
   return html;
 }
 
@@ -1539,6 +1732,100 @@ function exportExcel(){
   showToast('📥 تم تحميل ملف Excel');
 }
 
+
+// ── Export single dept to Excel ──────────────────────────────────
+function exportDeptExcel(dept){
+  if(typeof XLSX==='undefined'){showToast('⚠️ مكتبة Excel غير محملة',false);return;}
+  let items=records.filter(r=>r.dept===dept);
+  if(recFilter==='abnormal') items=items.filter(r=>hasAbnormal(r));
+  if(!items.length){showToast('⚠️ لا توجد بيانات',false);return;}
+  const wb=XLSX.utils.book_new();
+  const baseHdr=['#','الاسم','السن','الجنس','الرقم القومي','التذكرة','التليفون','التاريخ','الوقت','اليوم','الموظف'];
+  const baseRow=(r,i)=>[i+1,r.name,r.age,r.gender,r.nid||'',r.ticket,r.phone||'',
+    r.savedAt?new Date(r.savedAt).toLocaleDateString('ar-EG'):'',
+    r.savedAt?new Date(r.savedAt).toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}):'',
+    r.day===1?'اليوم الأول':'اليوم الثاني',r.emp||''];
+
+  const deptConfig={
+    blood:{hdr:[...baseHdr,'العيادة','Hb','ن Hb','RBS','ن RBS','HbA1c','ن HbA1c','فصيلة','Rh','HP','ن HP','RBC','ن RBC','HCT','ن HCT','WBC','ن WBC','PLT','ن PLT','يوريك','ن','بولينا','ن','كرياتنين','ن','TP','ن','ألبيومين','ن','بيليروبين','ن','SGOT','ن','SGPT','ن','LDL','ن','HDL','ن','TG','ن','كوليسترول','ن','H.Pylori','حمل','ASOT','RF','CRP','HCV','HBsAg','HAV','BT','ن BT','CT','ن CT','ESR','ن ESR'],
+      row:r=>[r.clinic||'',r.hb||'',r.hbR||'',r.rbs||'',r.rbsR||'',r.hba1c||'',r.hba1cR||'',r.blood||'',r.rh||'',r.hp||'',r.hpR||'',r.rbc||'',r.rbcR||'',r.hct||'',r.hctR||'',r.wbc||'',r.wbcR||'',r.plt||'',r.pltR||'',r.uric||'',r.uricR||'',r.urea||'',r.ureaR||'',r.creat||'',r.creatR||'',r.tp||'',r.tpR||'',r.alb||'',r.albR||'',r.bili||'',r.biliR||'',r.sgot||'',r.sgotR||'',r.sgpt||'',r.sgptR||'',r.ldl||'',r.ldlR||'',r.hdl||'',r.hdlR||'',r.tg||'',r.tgR||'',r.chol||'',r.cholR||'',r.hpylori||'',r.preg||'',r.asot||'',r.rf||'',r.crp||'',r.hcv||'',r.hbsag||'',r.hav||'',r.bt||'',r.btR||'',r.ct||'',r.ctR||'',r.esr||'',r.esrR||'']},
+    para:{hdr:[...baseHdr,'Urates','Phosphate','Oxalates','حمل بول','سكر بول','ألبيومين بول','بيليروبين بول','أسيتون','H.Pylori','بلهارسيا','تريكومونس','أميبا','جيارديا','H.nana','أكسيورس','أسكارس'],
+      row:r=>[r.urates||'',r.phosphate||'',r.oxalates||'',r.preg||'',r.sugar||'',r.palb||'',r.pbili||'',r.acetone||'',r.hpylori||'',r.bilharzia||'',r.trichomonas||'',r.ameba||'',r.giardia||'',r.hnana||'',r.oxyuris||'',r.ascaris||'']},
+    xray:{hdr:[...baseHdr,'العيادة','كود الفحص','اسم الفحص','النتيجة','ملاحظات'],
+      row:r=>[r.clinic||'',r.code||'',r.examname||'',r.result||'',r.remark||'']},
+    screen:{hdr:[...baseHdr,'تدخين','تاريخ سكر','تاريخ ضغط','انقباضي','انبساطي','نتيجة الضغط','سكر RBS','نتيجة السكر','HbA1c','نتيجة HbA1c','الإجراء','تحويل'],
+      row:r=>[r.smoke||'',r.hxSugar||'',r.hxBp||'',r['bp-sys']||r.bpSys||'',r['bp-dia']||r.bpDia||'',r.bpR||'',r.rbs||'',r.rbsR||'',r.hba1c||'',r.hba1cR||'',r.action||'',r.refer||'']}
+  };
+  const cfg=deptConfig[dept];
+  const data=[cfg.hdr,...items.map((r,i)=>[...baseRow(r,i),...cfg.row(r)])];
+  const ws=XLSX.utils.aoa_to_sheet(data);
+  ws['!cols']=cfg.hdr.map(()=>({wch:14}));
+  XLSX.utils.book_append_sheet(wb,ws,DNAMES[dept]||dept);
+  const vil=session?.village||'القافلة';
+  XLSX.writeFile(wb,`${vil}_${DNAMES[dept]}_${new Date().toLocaleDateString('ar-EG').replace(/\//g,'-')}.xlsx`);
+  showToast(`📊 تم تصدير ${DNAMES[dept]}`);
+}
+
+
+// ── Extracted Method: buildAbnormalReport (كان داخل buildStats) ───────
+function buildAbnormalReport(filtered){
+  const abnCases = filtered.filter(r=>hasAbnormal(r));
+  if(!abnCases.length) return '';
+  const FIELD_LABELS={hbR:'Hb',rbsR:'سكر RBS',hba1cR:'HbA1c',hpR:'HP',rbcR:'RBC',hctR:'HCT',
+    wbcR:'WBC',pltR:'PLT',uricR:'يوريك',ureaR:'بولينا',creatR:'كرياتنين',
+    tpR:'TP',albR:'ألبيومين',biliR:'بيليروبين',sgotR:'SGOT',sgptR:'SGPT',
+    ldlR:'LDL',hdlR:'HDL',tgR:'TG',cholR:'كوليسترول',btR:'BT',ctR:'CT',esrR:'ESR',
+    bpR:'ضغط الدم',rbsR:'سكر',hba1cR:'HbA1c',result:'نتيجة الأشعة'};
+  const DEPT_COLORS_MAP={blood:'#8b1a1a',para:'#6b4a1a',xray:'#1a4a6b',screen:'#4a1a6b'};
+
+  let html=`<div class="card" style="margin-top:14px">
+    <div class="ch" style="background:#c0392b;color:#fff;display:flex;justify-content:space-between;align-items:center">
+      <span>⚠️ بيان تفصيلي بالحالات الغير طبيعية (${abnCases.length} حالة)</span>
+      <button onclick="exportAbnormalExcel()" style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:4px 12px;border-radius:6px;font-family:'Cairo',sans-serif;font-size:11px;cursor:pointer">📊 Excel</button>
+    </div>
+    <div class="cb" style="overflow-x:auto">
+    <table><thead><tr>
+      <th>#</th><th>الاسم</th><th>التذكرة</th><th>القسم</th>
+      <th>اليوم</th><th>التليفون</th><th>النتائج الغير طبيعية</th>
+    </tr></thead><tbody>`;
+  abnCases.forEach((r,i)=>{
+    const abnFields=Object.keys(r)
+      .filter(k=>ABNORMAL_VALS.has(String(r[k]).trim()))
+      .map(k=>FIELD_LABELS[k]||null).filter(Boolean);
+    const deptColor=DEPT_COLORS_MAP[r.dept]||'#555';
+    html+=`<tr style="background:${i%2?'#fff8f8':'#fff'}">
+      <td style="text-align:center">${i+1}</td>
+      <td style="font-weight:700">${r.name||'—'}</td>
+      <td>${r.ticket||'—'}</td>
+      <td><span style="background:${deptColor};color:#fff;padding:2px 8px;border-radius:8px;font-size:10px">${DNAMES[r.dept]||r.dept}</span></td>
+      <td style="text-align:center">${r.day==1?'أول':'ثاني'}</td>
+      <td style="direction:ltr">${r.phone||'—'}</td>
+      <td style="color:#c0392b;font-weight:700">${abnFields.join(' — ')||'—'}</td>
+    </tr>`;
+  });
+  html+=`</tbody></table></div></div>`;
+  return html;
+}
+
+function exportAbnormalExcel(){
+  if(typeof XLSX==='undefined'){showToast('⚠️ مكتبة Excel غير محملة',false);return;}
+  const filtered=records.filter(r=>curUser?.role==='admin'||r.dept===curUser?.role);
+  const abn=filtered.filter(r=>hasAbnormal(r));
+  if(!abn.length){showToast('⚠️ لا توجد حالات غير طبيعية',false);return;}
+  const wb=XLSX.utils.book_new();
+  const hdr=['#','الاسم','السن','الجنس','الرقم القومي','التذكرة','التليفون','اليوم','القسم','الموظف','النتائج الغير طبيعية'];
+  const data=[hdr,...abn.map((r,i)=>{
+    const FIELD_LABELS={hbR:'Hb',rbsR:'سكر',hba1cR:'HbA1c',bpR:'ضغط',wbcR:'WBC',rbcR:'RBC',hctR:'HCT',pltR:'PLT',result:'أشعة'};
+    const aFields=Object.keys(r).filter(k=>ABNORMAL_VALS.has(String(r[k]).trim())).map(k=>FIELD_LABELS[k]||k).filter(Boolean);
+    return [i+1,r.name,r.age,r.gender,r.nid||'',r.ticket,r.phone||'',r.day===1?'اليوم الأول':'اليوم الثاني',DNAMES[r.dept]||r.dept,r.emp||'',aFields.join(' - ')];
+  })];
+  const ws=XLSX.utils.aoa_to_sheet(data);
+  ws['!cols']=hdr.map(()=>({wch:16}));
+  XLSX.utils.book_append_sheet(wb,ws,'الحالات الغير طبيعية');
+  XLSX.writeFile(wb,`بيان_غير_طبيعي_${(session?.village||'القافلة')}_${new Date().toLocaleDateString('ar-EG').replace(/\//g,'-')}.xlsx`);
+  showToast('📊 تم تصدير بيان الحالات الغير طبيعية');
+}
+
 // ════════════════════════════════════════════════════════════════════
 // 15. TOAST & MODAL — الرسائل والنوافذ المنبثقة
 //    📌 showToast(msg, ok): رسالة مؤقتة (خضراء=ok، حمراء=false)
@@ -1619,12 +1906,12 @@ function buildDashboard(){
 window.addEventListener('load', function(){
   setTimeout(function(){
     const s = document.getElementById('splash');
-    if(s){ s.style.opacity='0'; setTimeout(()=>s.remove(), 600); }
-  }, 2200);
+    if(s){ s.style.opacity='0'; setTimeout(()=>s.remove(), APP.SPLASH_FADE_MS); }
+  }, APP.SPLASH_MS);
 });
 
 // ── Activity Log ────────────────────────────────────────────────────
-let activityLog = JSON.parse(localStorage.getItem('qs_log')||'[]');
+let activityLog = JSON.parse(localStorage.getItem(STORAGE.LOG)||'[]');
 function logActivity(action, detail){
   const entry = {
     user: curUser?.name||'—', action, detail,
@@ -1632,8 +1919,8 @@ function logActivity(action, detail){
     date: new Date().toLocaleDateString('ar-EG')
   };
   activityLog.unshift(entry);
-  if(activityLog.length > 100) activityLog.pop();
-  localStorage.setItem('qs_log', JSON.stringify(activityLog));
+  if(activityLog.length > APP.LOG_MAX) activityLog.pop();
+  localStorage.setItem(STORAGE.LOG, JSON.stringify(activityLog));
 }
 populateLoginUsers();
 updateLockUI();
@@ -1644,16 +1931,16 @@ if(dbRef){
     let data = snap.val();
     if(data){
       records = Object.values(data);
-      localStorage.setItem('recs', JSON.stringify(records));
+      localStorage.setItem(STORAGE.RECORDS, JSON.stringify(records));
       renderRec();
       buildStats();
     }
   });
-  dbRef.child('staff').on('value', snap => {
+  dbRef.child(STORAGE.STAFF).on('value', snap => {
     let data = snap.val();
     if(data){
       staff = Object.values(data);
-      localStorage.setItem('staff', JSON.stringify(staff));
+      localStorage.setItem(STORAGE.STAFF, JSON.stringify(staff));
       renderStaffList();
       populateLoginUsers();
     }
@@ -1662,12 +1949,12 @@ if(dbRef){
     let data = snap.val();
     if(data && data.session){
       session = data.session;
-      localStorage.setItem('sess', JSON.stringify(session));
+      localStorage.setItem(STORAGE.SESSION, JSON.stringify(session));
       applySessUI();
     }
     if(data && data.locked !== undefined){
       locked = data.locked;
-      localStorage.setItem('locked', locked ? '1' : '0');
+      localStorage.setItem(STORAGE.LOCKED, locked ? '1' : '0');
       updateLockUI();
     }
   });
